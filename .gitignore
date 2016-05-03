@@ -6,5 +6,6 @@ public/bower/
 Homestead.yaml
 Homestead.json
 .env
+_ide_helper.php
 .idea/
 
