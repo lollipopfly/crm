@@ -8,4 +8,5 @@ Homestead.json
 .env
 _ide_helper.php
 .idea/
+npm-debug.log
 

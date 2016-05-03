@@ -1,4 +1,4 @@
 @extends('layouts.layout')
 @section('content')
-    home page
+    <a href="">Home</a>
 @stop

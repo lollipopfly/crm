@@ -1,0 +1,167 @@
+/**
+* ----------------------------------------------------------------------------------------------------
+* MIXINS
+* ----------------------------------------------------------------------------------------------------
+*/
+
+@custom-selector :--hoverous :hover, :active, :focus;
+
+
+/**
+* ----------------------------------------------------------------------------------------------------
+* MAIN STYLES
+* ----------------------------------------------------------------------------------------------------
+*/
+
+@mixin clearfix {
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+// Stcky Footer
+html, body {
+    height: 100%;
+}
+
+.wrap {
+    min-height: 100%;
+    margin-bottom: -142px;
+}
+
+.wrap:after {
+    content: "";
+    display: block;
+}
+
+.footer, .wrap:after {
+    height: 142px;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+a {
+    color:red;
+    outline: none !important; // for firefox
+
+    &:--hoverous {
+    color: $black;
+}
+}
+
+h2 {
+    color:red;
+}
+
+h3 {
+    color:red;
+}
+
+input[type=text],
+input[type=email],
+input[type=tel],
+textarea {
+    border: #e3e3e3;
+    outline: none;
+    height: 40px;
+    padding-left: 10px;
+    box-sizing: border-box;
+}
+
+textarea {
+    height: auto;
+}
+
+
+/**
+* ----------------------------------------------------------------------------------------------------
+* Helpers
+* ----------------------------------------------------------------------------------------------------
+*/
+
+.btn {
+    display: inline-block;
+    padding: 9px 20px;
+    color: $black;
+    border: 1px solid $black;
+    text-transform: uppercase;
+
+    &:--hoverous {
+    text-decoration: none;
+    background: $gray;
+    color: $white;
+    transition: .4s color;
+    transition: .3s background;
+}
+}
+
+
+/**
+* ----------------------------------------------------------------------------------------------------
+* COMPONENTS
+* ----------------------------------------------------------------------------------------------------
+*/
+
+.burger {
+    display: none;
+    background: none;
+    padding: 0;
+    outline: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover .burger__row {
+        background: red;
+    }
+}
+
+.burger__row {
+    display: block;
+    width: 32px;
+    height: 5px;
+    background: blue;
+    margin-bottom: 4px;
+    transition: background .4s;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+nav {
+    display: none;
+}
+
+/* Slick carousel */
+.slick-loading .slick-list {
+    background: none !important;
+}
+
+/**
+* ----------------------------------------------------------------------------------------------------
+* @MEDIA
+* ----------------------------------------------------------------------------------------------------
+*/
+@media screen and (min-width:767px) {
+    nav {
+        display: block !important;
+    }
+}
+
+@media screen and (max-width:767px) {
+    .burger {
+        display: block;
+    }
+}
+
+@media screen and (max-width:320px) {
+    body {
+        width: 320px;
+    }
+}

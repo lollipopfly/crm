@@ -1,12 +1,34 @@
 {
-  "private": true,
-  "scripts": {
-    "prod": "gulp --production",
-    "dev": "gulp watch"
+  "name": "gulp",
+  "version": "1.0.0",
+  "description": "",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "*",
+    "gulp-postcss": "*",
+    "autoprefixer": "*",
+    "gulp.spritesmith": "*",
+    "gulp-sass": "*",
+    "merge-stream": "*"
   },
   "devDependencies": {
-    "gulp": "^3.9.1",
-    "laravel-elixir": "^5.0.0",
-    "bootstrap-sass": "^3.0.0"
-  }
+    "gulp-coffee": "^2.3.2",
+    "gulp-concat": "*",
+    "gulp-notify": "*",
+    "gulp-plumber": "*",
+    "gulp-uglify": "*",
+    "laravel-elixir": "^4.2.1",
+    "laravel-elixir-livereload": "^1.1.4",
+    "postcss-color-function": "^2.0.1",
+    "postcss-custom-selectors": "*",
+    "postcss-pxtorem": "*",
+    "postcss-sass-extend": "0.0.1",
+    "postcss-size": "*",
+    "remove": "*"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "lollipop.fly",
+  "license": "ISC"
 }
