@@ -17,3 +17,39 @@
         content: "\f0e6";
     }
 }
+
+@mixin icon-location {
+    &:before {
+        content: "\f041";
+    }
+}
+
+@mixin icon-settings {
+    &:before {
+        content: "\f013";
+    }
+}
+
+@mixin icon-home {
+    &:before {
+        content: "\f015";
+    }
+}
+
+@mixin icon-bag {
+    &:before {
+        content: "\f0b1";
+    }
+}
+
+@mixin icon-contact {
+    &:before {
+        content: "\f02d";
+    }
+}
+
+@mixin icon-task {
+    &:before {
+        content: "\f0ae";
+    }
+}

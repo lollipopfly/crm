@@ -1,3 +1,5 @@
+</div><!-- end main -->
+
     <script src="{!! asset('build/js/global.min.js') !!}"></script>
 
     {{-- Elixir livereload --}}

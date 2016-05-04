@@ -6,7 +6,7 @@
 .header-left {
     min-width: 250px;
     float: left;
-    padding: 13px 20px;
+    padding: 13px 20px 13px 0;
 }
 
 .logo {
@@ -46,7 +46,6 @@
     &:hover {
         background: rgba(0, 0, 0, .1);
     }
-
 }
 
 .header__users {

@@ -6,6 +6,15 @@
 
 @custom-selector :--hoverous :hover, :active, :focus;
 
+@mixin clearfix {
+    &:before,
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
 
 /**
 * ----------------------------------------------------------------------------------------------------
@@ -30,6 +39,11 @@ html, body {
 body {
     font-family: $main_font;
     font-size: 13px;
+    background: #F5F5F5;
+}
+
+.main {
+    float: left;
 }
 
 img {
@@ -43,14 +57,6 @@ a {
 
     &:--hoverous {
     }
-}
-
-h2 {
-    color:red;
-}
-
-h3 {
-    color:red;
 }
 
 input[type=text],
