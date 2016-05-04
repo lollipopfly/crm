@@ -1,0 +1,19 @@
+/* FONT-AWESOME */
+@mixin icon {
+    &:before,
+    &:after {
+        font-family: 'Awesome';
+    }
+}
+
+@mixin icon-group {
+    &:before {
+        content: "\f0c0";
+    }
+}
+
+@mixin icon-comments {
+    &:before {
+        content: "\f0e6";
+    }
+}

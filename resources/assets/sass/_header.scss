@@ -1,0 +1,74 @@
+.header {
+    background: $header_bg;
+    padding: 0 20px;
+}
+
+.header-left {
+    min-width: 250px;
+    float: left;
+    padding: 13px 20px;
+}
+
+.logo {
+    color: $white;
+    display: inline-block;
+}
+
+.user-status {
+    display: inline-block;
+    padding: 13px 20px;
+}
+
+.user-status__text__online {
+    display: inline-block;
+    padding: 2px 5px 1px;
+    color: $white;
+    background: $green;
+    text-transform: uppercase;
+    border-radius: 2px;
+    font-size: 12px;
+}
+
+.header-right {
+    display: inline-block;
+    float: right;
+}
+
+.header__block {
+    display: table;
+}
+
+.header__block__item {
+    display: table-cell;
+    vertical-align: middle;
+    cursor: pointer;
+
+    &:hover {
+        background: rgba(0, 0, 0, .1);
+    }
+
+}
+
+.header__users {
+    display: inline-block;
+    padding: 12px 20px;
+    color: $white;
+    @include icon;
+    @include icon-group;
+    font-size: 18px;
+}
+
+.header__messages {
+    display: inline-block;
+    padding: 12px 20px;
+    color: $white;
+    font-size: 18px;
+    @include icon;
+    @include icon-comments;
+}
+
+.header__user {
+    display: inline-block;
+    padding: 12px 20px;
+    color: $white;
+}
