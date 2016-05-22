@@ -34,9 +34,9 @@ gulp.task('sass', function() {
         postcssExtend,
         size,
         colorFunction,
-        pxtorem({
-            replace: true
-        })
+        //pxtorem({
+        //    replace: true
+        //})
     ];
 
     return gulp.src([
@@ -44,7 +44,11 @@ gulp.task('sass', function() {
         ])
         .pipe(concat('style.css'))
         .pipe(sass().on('error', error))
-        .pipe(sass({outputStyle: 'compressed'}))
+        .pipe(sass(
+			{
+                //outputStyle: 'compressed'
+			}
+        ))
         .pipe(postcss(processors))
         .pipe(gulp.dest('public/build/css/'));
 });
@@ -60,7 +64,7 @@ gulp.task('compress', function() {
         .pipe(plumber())
         .pipe(coffee({bare: true}))
         .pipe(concat('global.min.js'))
-        .pipe(uglify())
+        //.pipe(uglify())
         .pipe(gulp.dest('public/build/js/'));
 });
 

@@ -3,6 +3,10 @@ aside.aside {
     height: 100%;
     float: left;
     background: $sidebar_bg;
+
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
 }
 
 .aside__user {
@@ -33,7 +37,7 @@ aside.aside {
 
 .aside__user__info__location__icon {
     @include icon;
-    @include icon-location;
+    //@include icon-location;
     float: left;
     margin-right: 8px;
     color: rgba(255, 255, 255, .8);
@@ -47,7 +51,7 @@ aside.aside {
 
 .aside__user__settings__icon {
     @include icon;
-    @include icon-settings;
+    //@include icon-settings;
     float: right;
     cursor: pointer;
     font-size: 18px;
@@ -76,14 +80,14 @@ aside.aside {
     font-weight: 500;
     display: block;
     color: rgba(255, 255, 255, .75);
-    font-size: 16px;
+    font-size: 14px;
     line-height: 22px;
 }
 
 .aside__nav__item__icon {
     @include icon;
     color: rgba(255, 255, 255, .75);
-    font-size: 21px;
+    font-size: 18px;
     float: left;
     margin-right: 10px;
 }
@@ -93,14 +97,14 @@ aside.aside {
 }
 
 .aside__nav__item__icon__accounts {
-    @include icon-bag;
+    @include icon-user;
 }
 
 .aside__nav__item__icon__contacts {
-    @include icon-contact;
+    @include icon-address-book;
 }
 
 .aside__nav__item__icon__tasks {
-    @include icon-task;
+    @include icon-tasks;
 }
 

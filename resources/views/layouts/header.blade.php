@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Crm</title>
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-hQpvDQiCJaD2H465dQfA717v7lu5qHWtDbWNPvaTJ0ID5xnPUlVXnKzq7b8YUkbN" crossorigin="anonymous">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,500,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="{!! asset('build/css/style.css') !!}">
 </head>
@@ -27,6 +26,9 @@
             </div>
             <div class="header__block__item">
                 <div class="header__user">User</div>
+            </div>
+            <div class="header__block__item">
+                <div class="header__burger__button"></div>
             </div>
         </div>
     </div>

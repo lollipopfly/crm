@@ -1,6 +1,8 @@
 .header {
     background: $header_bg;
     padding: 0 20px;
+
+    @include clearfix;
 }
 
 .header-left {
@@ -17,7 +19,12 @@
 .user-status {
     display: inline-block;
     padding: 13px 20px;
+
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
 }
+
 
 .user-status__text__online {
     display: inline-block;
@@ -63,11 +70,28 @@
     color: $white;
     font-size: 18px;
     @include icon;
-    @include icon-comments;
+    @include icon-bubbles4;
 }
 
 .header__user {
     display: inline-block;
     padding: 12px 20px;
     color: $white;
+
+    @media screen and (max-width: 767px) {
+        display: none;
+    }
+}
+
+.header__burger__button {
+    @include icon;
+    //@include icon-bars;
+    padding: 12px 20px;
+    color: $white;
+    font-size: 18px;
+    display: none;
+
+    @media screen and (max-width: 767px) {
+        display: inline-block;
+    }
 }
