@@ -5,14 +5,6 @@
     <title>Html version | Angulr</title>
     <meta name="description" content="Crm system" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    {{--<link rel="stylesheet" href="../libs/assets/animate.css/animate.css" type="text/css" />--}}
-    {{--<link rel="stylesheet" href="../libs/assets/font-awesome/css/font-awesome.min.css" type="text/css" />--}}
-    {{--<link rel="stylesheet" href="../libs/assets/simple-line-icons/css/simple-line-icons.css" type="text/css" />--}}
-    {{--<link rel="stylesheet" href="../libs/jquery/bootstrap/dist/css/bootstrap.css" type="text/css" />--}}
-
-    {{--<link rel="stylesheet" href="css/font.css" type="text/css" />--}}
-    {{--<link rel="stylesheet" href="css/app.css" type="text/css" />--}}
-
     <link rel="stylesheet" href="{!! asset('build/css/style.css') !!}">
 
 </head>
