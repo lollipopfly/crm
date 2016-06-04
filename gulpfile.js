@@ -12,16 +12,17 @@ var gulp          = require('gulp'),
     selectors     = require('postcss-custom-selectors'),
     plumber       = require('gulp-plumber'),
     notify        = require("gulp-notify"),
+    changed       = require('gulp-changed'),
+    debug         = require('gulp-debug'),
     elixir        = require('laravel-elixir');
-
 
 /*------------------------------------*\
  TASKS
  \*------------------------------------*/
-require('laravel-elixir-livereload');
-elixir(function(mix) {
-    mix.livereload();
-});
+//require('laravel-elixir-livereload');
+//elixir(function(mix) {
+//    mix.livereload();
+//});
 
 /*------------------------------------*\
  Sass
@@ -40,6 +41,12 @@ gulp.task('sass', function() {
     ];
 
     return gulp.src([
+            'public/theme/libs/assets/animate.css/animate.css',
+            'public/theme/libs/assets/font-awesome/css/font-awesome.min.css',
+            'public/theme/libs/assets/simple-line-icons/css/simple-line-icons.css',
+            'public/theme/libs/jquery/bootstrap/dist/css/bootstrap.css',
+            'public/theme/css/font.css',
+            'public/theme/css/app.css',
             'resources/assets/sass/app.scss'
         ])
         .pipe(concat('style.css'))
@@ -50,6 +57,7 @@ gulp.task('sass', function() {
 			}
         ))
         .pipe(postcss(processors))
+        .pipe(debug({title: 'sass:'}))
         .pipe(gulp.dest('public/build/css/'));
 });
 
@@ -59,21 +67,53 @@ gulp.task('sass', function() {
 
 gulp.task('compress', function() {
     return gulp.src([
-            'resources/assets/js/common.js'
+        "public/theme/libs/jquery/jquery/dist/jquery.js",
+        "public/theme/libs/jquery/bootstrap/dist/js/bootstrap.js",
+        "public/theme/js/ui-load.js",
+        "public/theme/js/ui-jp.config.js",
+        "public/theme/js/ui-jp.js",
+        "public/theme/js/ui-nav.js",
+        "public/theme/js/ui-toggle.js",
+        "public/theme/js/ui-client.js",
+
+        'resources/assets/js/common.js'
         ])
         .pipe(plumber())
-        .pipe(coffee({bare: true}))
+        //.pipe(coffee({bare: true}))
         .pipe(concat('global.min.js'))
         //.pipe(uglify())
+        .pipe(debug({title: 'compress-js:'}))
         .pipe(gulp.dest('public/build/js/'));
 });
 
 gulp.task('coffee', function() {
     gulp.src('./src/*.coffee')
         .pipe(coffee({bare: true}).on('error', gutil.log))
+        .pipe(debug({title: 'coffee:'}))
         .pipe(gulp.dest('./public/'));
 });
 
+gulp.task('copy-theme-libs', function() {
+    return gulp
+        .src([
+            'public/theme/libs/**/*',
+        ])
+        .pipe(changed('public/libs'))
+        .pipe(debug({title: 'copy-theme-libs:'}))
+        .pipe(gulp.dest('public/libs'));
+});
+
+gulp.task('copy-theme-fonts', function() {
+    return gulp
+        .src([
+            'public/theme/fonts/**/*',
+            'public/theme/libs/assets/font-awesome/fonts/**/*',
+            'public/theme/libs/assets/simple-line-icons/fonts/**/*',
+        ])
+        .pipe(changed('public/build/fonts'))
+        .pipe(debug({title: 'copy-theme-fonts:'}))
+        .pipe(gulp.dest('public/build/fonts'));
+});
 /*------------------------------------*\
  Watch
  \*------------------------------------*/
@@ -98,7 +138,14 @@ gulp.task('notify', function(a) {
  Run default gulp tasks
  \*------------------------------------*/
 
-gulp.task('default', ['sass', 'compress', 'watch']);
+gulp.task('default', [
+    'sass',
+
+    'copy-theme-libs',
+    'copy-theme-fonts',
+    'compress',
+    'watch'
+]);
 
 
 /**

@@ -66,11 +66,28 @@
 
 .header__messages {
     display: inline-block;
+    position: relative;
     padding: 12px 20px;
     color: $white;
     font-size: 18px;
     @include icon;
     @include icon-bubbles4;
+}
+
+.header__messages__count {
+    size: 18px;
+    position: absolute;
+    top: 2px;
+    right: 5px;
+    line-height: 18px;
+    background: $orange;
+    color: #fff;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    font-size: 12px;
+    font-family: $main_font;
+    font-weight: bold;
+    text-align: center;
 }
 
 .header__user {
@@ -85,10 +102,10 @@
 
 .header__burger__button {
     @include icon;
-    //@include icon-bars;
+    @include icon-menu;
     padding: 12px 20px;
     color: $white;
-    font-size: 18px;
+    font-size: 25px;
     display: none;
 
     @media screen and (max-width: 767px) {

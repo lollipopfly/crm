@@ -49,3 +49,9 @@
         content: "\e904";
     }
 }
+@mixin icon-menu {
+    &:before {
+        content: "\e906";
+    }
+}
+
