@@ -7,7 +7,7 @@
                 <div class="dropdown wrapper">
                     <a href="app.page.profile">
                 <span class="thumb-lg w-auto-folded avatar m-t-sm">
-                  <img src="img/a0.jpg" class="img-full" alt="...">
+                  <img src="http://image.xboxlive.com/global/t.413607d3/tile/0/20421" class="img-full" alt="...">
                 </span>
                     </a>
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle hidden-folded">

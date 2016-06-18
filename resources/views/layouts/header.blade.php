@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="">
+<html lang="en" ng-app="app">
 <head>
     <meta charset="utf-8" />
     <title>Html version | Angulr</title>
@@ -23,12 +23,12 @@
             <!-- brand -->
             <a href="#/" class="navbar-brand text-lt">
                 <i class="fa fa-btc"></i>
-                <img src="img/logo.png" alt="." class="hide">
                 <span class="hidden-folded m-l-xs">Angulr</span>
             </a>
             <!-- / brand -->
         </div>
         <!-- / navbar header -->
+
 
         <!-- navbar collapse -->
         <div class="collapse pos-rlt navbar-collapse box-shadow bg-white-only">
@@ -176,10 +176,10 @@
             <!-- / link and dropdown -->
 
             <!-- search form -->
-            <form class="navbar-form navbar-form-sm navbar-left shift" ui-shift="prependTo" data-target=".navbar-collapse" role="search" ng-controller="TypeaheadDemoCtrl">
+            <form class="navbar-form navbar-form-sm navbar-left shift" ui-shift="prependTo" data-target=".navbar-collapse" role="search">
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="text" ng-model="selected" typeahead="state for state in states | filter:$viewValue | limitTo:8" class="form-control input-sm bg-light no-border rounded padder" placeholder="Search projects...">
+                        <input type="text" class="form-control input-sm bg-light no-border rounded padder" placeholder="Search projects...">
               <span class="input-group-btn">
                 <button type="submit" class="btn btn-sm bg-light rounded"><i class="fa fa-search"></i></button>
               </span>
@@ -205,7 +205,6 @@
                             <div class="list-group">
                                 <a href class="list-group-item">
                     <span class="pull-left m-r thumb-sm">
-                      <img src="img/a0.jpg" alt="..." class="img-circle">
                     </span>
                     <span class="clear block m-b-none">
                       Use awesome animate.css<br>
@@ -230,7 +229,7 @@
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle clear" data-toggle="dropdown">
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-                <img src="img/a0.jpg" alt="...">
+                <img src="http://image.xboxlive.com/global/t.413607d3/tile/0/20421" alt="...">
                 <i class="on md b-white bottom"></i>
               </span>
                         <span class="hidden-sm hidden-md">John.Smith</span> <b class="caret"></b>

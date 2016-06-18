@@ -4,11 +4,13 @@
   "description": "",
   "main": "gulpfile.js",
   "dependencies": {
+    "angular": "^1.5.7",
+    "autoprefixer": "*",
     "gulp": "*",
     "gulp-postcss": "*",
-    "autoprefixer": "*",
-    "gulp.spritesmith": "*",
     "gulp-sass": "*",
+    "gulp.spritesmith": "*",
+    "gutil": "^1.6.4",
     "merge-stream": "*"
   },
   "devDependencies": {

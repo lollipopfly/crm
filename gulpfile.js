@@ -14,6 +14,7 @@ var gulp          = require('gulp'),
     notify        = require("gulp-notify"),
     changed       = require('gulp-changed'),
     debug         = require('gulp-debug'),
+    gutil         = require('gulp-util'),
     elixir        = require('laravel-elixir');
 
 /*------------------------------------*\
@@ -63,34 +64,35 @@ gulp.task('sass', function() {
 
 /*------------------------------------*\
  Uglify
- \*------------------------------------*/
+\*------------------------------------*/
 
 gulp.task('compress', function() {
     return gulp.src([
-        "public/theme/libs/jquery/jquery/dist/jquery.js",
-        "public/theme/libs/jquery/bootstrap/dist/js/bootstrap.js",
-        "public/theme/js/ui-load.js",
-        "public/theme/js/ui-jp.config.js",
-        "public/theme/js/ui-jp.js",
-        "public/theme/js/ui-nav.js",
-        "public/theme/js/ui-toggle.js",
-        "public/theme/js/ui-client.js",
+        'public/theme/libs/jquery/jquery/dist/jquery.js',
+        'public/theme/libs/jquery/bootstrap/dist/js/bootstrap.js',
+        'public/theme/js/ui-load.js',
+        'public/theme/js/ui-jp.config.js',
+        'public/theme/js/ui-jp.js',
+        'public/theme/js/ui-nav.js',
+        'public/theme/js/ui-toggle.js',
+        'public/theme/js/ui-client.js',
 
-        'resources/assets/js/common.js'
+        '../node_modules/angular/angular.js',
         ])
         .pipe(plumber())
-        //.pipe(coffee({bare: true}))
         .pipe(concat('global.min.js'))
         //.pipe(uglify())
         .pipe(debug({title: 'compress-js:'}))
         .pipe(gulp.dest('public/build/js/'));
 });
 
-gulp.task('coffee', function() {
-    gulp.src('./src/*.coffee')
+gulp.task('compile-coffee', function() {
+    gulp.src('resources/assets/js/**/*.coffee')
         .pipe(coffee({bare: true}).on('error', gutil.log))
-        .pipe(debug({title: 'coffee:'}))
-        .pipe(gulp.dest('./public/'));
+        .pipe(plumber())
+        .pipe(concat('app.js'))
+        .pipe(debug({title: 'compile-coffee:'}))
+        .pipe(gulp.dest('public/build/js'));
 });
 
 gulp.task('copy-theme-libs', function() {
@@ -114,19 +116,19 @@ gulp.task('copy-theme-fonts', function() {
         .pipe(debug({title: 'copy-theme-fonts:'}))
         .pipe(gulp.dest('public/build/fonts'));
 });
+
 /*------------------------------------*\
  Watch
- \*------------------------------------*/
+\*------------------------------------*/
 
 gulp.task('watch', function() {
     gulp.watch('resources/assets/sass/**/*.scss', { interval: 500 }, ['sass', 'notify']);
-    gulp.watch('resources/assets/js/common.js', { interval: 500 }, ['compress', 'notify']);
-    // gulp.watch('public/images/main/*.png', { interval: 500 }, ['sprite']);
+    gulp.watch('resources/assets/js/**/*.coffee', ['compile-coffee', 'notify']);
 });
 
 /*------------------------------------*\
  Notify
- \*------------------------------------*/
+\*------------------------------------*/
 
 gulp.task('notify', function(a) {
     var date = new Date();
@@ -139,11 +141,11 @@ gulp.task('notify', function(a) {
  \*------------------------------------*/
 
 gulp.task('default', [
-    'sass',
-
     'copy-theme-libs',
     'copy-theme-fonts',
+    'sass',
     'compress',
+    'compile-coffee',
     'watch'
 ]);
 

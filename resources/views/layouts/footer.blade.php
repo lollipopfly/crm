@@ -11,6 +11,8 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
 <script src="{!! asset('build/js/global.min.js') !!}"></script>
+<script src="{!! asset('build/js/app.js') !!}"></script>
+
 {{-- Elixir livereload --}}
 {{--@if ( Config::get('app.debug') )--}}
     {{--<script type="text/javascript">--}}
