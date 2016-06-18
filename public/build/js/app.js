@@ -1,3 +1,5 @@
-var app;
+var app, dependencies;
 
-app = angular.module('app', []);
+dependencies = [];
+
+app = angular.module('app', dependencies);
