@@ -6,7 +6,6 @@
     <meta name="description" content="Crm system" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="stylesheet" href="{!! asset('build/css/style.css') !!}">
-
 </head>
 <body>
 <div class="app app-header-fixed ">
@@ -28,7 +27,6 @@
             <!-- / brand -->
         </div>
         <!-- / navbar header -->
-
 
         <!-- navbar collapse -->
         <div class="collapse pos-rlt navbar-collapse box-shadow bg-white-only">
@@ -232,18 +230,10 @@
                 <img src="http://image.xboxlive.com/global/t.413607d3/tile/0/20421" alt="...">
                 <i class="on md b-white bottom"></i>
               </span>
-                        <span class="hidden-sm hidden-md">John.Smith</span> <b class="caret"></b>
+                        <span class="hidden-sm hidden-md">{{ Auth::user()->name }}</span> <b class="caret"></b>
                     </a>
                     <!-- dropdown -->
                     <ul class="dropdown-menu animated fadeInRight w">
-                        <li class="wrapper b-b m-b-sm bg-light m-t-n-xs">
-                            <div>
-                                <p>300mb of 500mb used</p>
-                            </div>
-                            <div class="progress progress-xs m-b-none dker">
-                                <div class="progress-bar progress-bar-info" data-toggle="tooltip" data-original-title="50%" style="width: 50%"></div>
-                            </div>
-                        </li>
                         <li>
                             <a href>
                                 <span class="badge bg-danger pull-right">30%</span>
@@ -252,12 +242,6 @@
                         </li>
                         <li>
                             <a ui-sref="app.page.profile">Profile</a>
-                        </li>
-                        <li>
-                            <a ui-sref="app.docs">
-                                <span class="label bg-info pull-right">new</span>
-                                Help
-                            </a>
                         </li>
                         <li class="divider"></li>
                         <li>
