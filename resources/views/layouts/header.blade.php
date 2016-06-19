@@ -2,7 +2,7 @@
 <html lang="en" ng-app="app">
 <head>
     <meta charset="utf-8" />
-    <title>Html version | Angulr</title>
+    <title>Laravel & Angular CRM</title>
     <meta name="description" content="Crm system" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="stylesheet" href="{!! asset('build/css/style.css') !!}">
@@ -261,7 +261,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a ui-sref="access.signin">Logout</a>
+                            <a href="logout/">Logout</a>
                         </li>
                     </ul>
                     <!-- / dropdown -->
