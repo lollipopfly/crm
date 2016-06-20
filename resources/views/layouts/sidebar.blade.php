@@ -321,47 +321,9 @@
                     </li>
 
                     <li class="line dk hidden-folded"></li>
-
-                    <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-                        <span>Your Stuff</span>
-                    </li>
-                    <li>
-                        <a href="page_profile.html">
-                            <i class="icon-user icon text-success-lter"></i>
-                            <b class="badge bg-success pull-right">30%</b>
-                            <span>Profile</span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href>
-                            <i class="icon-question icon"></i>
-                            <span>Documents</span>
-                        </a>
-                    </li>
                 </ul>
             </nav>
             <!-- nav -->
-
-            <!-- aside footer -->
-            <div class="wrapper m-t">
-                <div class="text-center-folded">
-                    <span class="pull-right pull-none-folded">60%</span>
-                    <span class="hidden-folded">Milestone</span>
-                </div>
-                <div class="progress progress-xxs m-t-sm dk">
-                    <div class="progress-bar progress-bar-info" style="width: 60%;">
-                    </div>
-                </div>
-                <div class="text-center-folded">
-                    <span class="pull-right pull-none-folded">35%</span>
-                    <span class="hidden-folded">Release</span>
-                </div>
-                <div class="progress progress-xxs m-t-sm dk">
-                    <div class="progress-bar progress-bar-primary" style="width: 35%;">
-                    </div>
-                </div>
-            </div>
-            <!-- / aside footer -->
         </div>
     </div>
 </aside>

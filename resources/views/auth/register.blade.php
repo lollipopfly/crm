@@ -75,7 +75,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <a href="login/" class="auth-layout__link">Login</a>
+                                <p class="text-center"><small>Already have an account?</small></p>
+                                <a href="login/" class="btn btn-lg btn-default btn-block">Sign in</a>
                             </div>
                         </div>
                     </form>

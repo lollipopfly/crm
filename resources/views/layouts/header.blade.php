@@ -20,9 +20,9 @@
                 <i class="glyphicon glyphicon-align-justify"></i>
             </button>
             <!-- brand -->
-            <a href="#/" class="navbar-brand text-lt">
+            <a href="/" class="navbar-brand text-lt">
                 <i class="fa fa-btc"></i>
-                <span class="hidden-folded m-l-xs">Angulr</span>
+                <span class="hidden-folded m-l-xs">CRM</span>
             </a>
             <!-- / brand -->
         </div>
@@ -57,7 +57,7 @@
                                     <div class="col-xs-6">
                                         <ul class="list-unstyled l-h-2x">
                                             <li>
-                                                <a href><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Profile</a>
+                                                <a href=><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Profile</a>
                                             </li>
                                             <li>
                                                 <a href><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Post</a>
@@ -241,7 +241,7 @@
                             </a>
                         </li>
                         <li>
-                            <a ui-sref="app.page.profile">Profile</a>
+                            <a href="profile/">Profile</a>
                         </li>
                         <li class="divider"></li>
                         <li>

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{!! asset('build/css/style.css') !!}">
 
 </head>
-<body class="auth-layout">
+<body>
     @yield('content')
 </body>
 </html>

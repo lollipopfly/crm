@@ -9,4 +9,7 @@ Route::auth();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('/',  'HomeController@index');
+
+    // PROFILE
+    Route::get('profile',  'ProfileController@index');
 });

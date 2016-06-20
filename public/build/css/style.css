@@ -14926,8 +14926,5 @@ a.text-#000000:hover {
   99.9% {
     background-color: #7266ba; } }
 
-.auth-layout {
-  padding-top: 60px; }
-
-.auth-layout__link {
-  text-decoration: underline; }
+.margin-top-50 {
+  margin-top: 50px; }

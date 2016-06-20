@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
-<div class="container">
+<div class="container margin-top-50">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -59,7 +59,8 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <a href="register/" class="auth-layout__link">Registration</a>
+                                <p class="text-center"><small>Do not have an account?</small></p>
+                                <a href="register/" class="btn btn-lg btn-default btn-block">Create an account</a>
                             </div>
                         </div>
                     </form>
