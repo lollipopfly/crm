@@ -6,6 +6,8 @@ public/bower/
 Homestead.yaml
 Homestead.json
 .env
+config/mail.php
+
 _ide_helper.php
 .idea/
 npm-debug.log
