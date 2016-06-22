@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\ProfileUpdateRequest;
 use app\User;
 use App\Http\Requests;
 use Auth;
@@ -15,21 +16,36 @@ class ProfileController extends Controller
 
     public $upload_path = 'uploads/avatars/';
 
+
+    /**
+     * @return view
+     */
     public function index() {
         $user = Auth::user();
         return view('profile.index')->with('user', $user);
     }
 
+
+    /**
+     * @return view
+     */
     public function edit()
     {
         $user = Auth::user();
         return view('profile.edit')->with('user', $user);
     }
 
-    public function update(Request $request, $id) {
+
+    /**
+     * @param  Request
+     * @param  int
+     * @return view
+     */
+    public function update(ProfileUpdateRequest $request, $id) {
         $current_user = User::findOrFail($id);
         $data = $request->all();
 
+        // Update avatar image
         if($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $filename = time() . '.' .   $avatar->getClientOriginalExtension();
@@ -43,12 +59,18 @@ class ProfileController extends Controller
         }
 
         $current_user->update($data);
-        return redirect('profile/edit');
+        session()->flash('profile_updated', 'Profile updated.');
+        return redirect('profile/');
     }
 
 
+    /**
+     * @param  string
+     * @return true
+     */
     public function deleteAvatar($current_avatar)
     {
         File::delete($this->upload_path . $current_avatar);
+        return true;
     }
 }

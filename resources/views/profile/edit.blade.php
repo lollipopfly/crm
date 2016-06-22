@@ -1,7 +1,7 @@
 @extends('layouts.layout')
 @section('content')
     <div class="bg-light lter b-b wrapper-md">
-        <h1 class="m-n font-thin h3">Update Profile</h1>
+        <h1 class="m-n font-thin h3">Edit Profile</h1>
     </div>
 
     <div class="wrapper-md">
@@ -48,13 +48,23 @@
                                 {!! Form::label('last_name', 'Last name') !!}
                                 {!! Form::text('last_name', $user->last_name, array('class' => 'form-control')); !!}
                             </div>
-                            <div class="form-group">
+                            <div class="form-group {{ $errors->has('initials') ? ' has-error' : '' }}">
                                 {!! Form::label('initials', 'Initials') !!}
                                 {!! Form::text('initials', $user->initials, array('class' => 'form-control')); !!}
+                                @if ($errors->has('initials'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('initials') }}</strong>
+                                    </span>
+                                @endif
                             </div>
-                            <div class="form-group">
+                            <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
                                 {!! Form::label('email', 'Email') !!}
                                 {!! Form::email('email', $user->email, array('class' => 'form-control')); !!}
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 {!! Form::label('phone', 'Phone') !!}
@@ -86,14 +96,5 @@
                 </div>
             {!! Form::close() !!}
         </div>
-        @if (count($errors) > 0)
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
     </div>
 @stop
