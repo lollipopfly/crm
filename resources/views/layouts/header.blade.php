@@ -227,7 +227,7 @@
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle clear" data-toggle="dropdown">
               <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-                <img src="http://image.xboxlive.com/global/t.413607d3/tile/0/20421" alt="...">
+                <img src="/uploads/avatars/{!! Auth::user()->avatar !!}">
                 <i class="on md b-white bottom"></i>
               </span>
                         <span class="hidden-sm hidden-md">{{ Auth::user()->name }}</span> <b class="caret"></b>
@@ -235,17 +235,16 @@
                     <!-- dropdown -->
                     <ul class="dropdown-menu animated fadeInRight w">
                         <li>
-                            <a href>
-                                <span class="badge bg-danger pull-right">30%</span>
-                                <span>Settings</span>
-                            </a>
+                            <a href="/profile/">Profile</a>
                         </li>
                         <li>
-                            <a href="profile/">Profile</a>
+                            <a href="/profile/edit">
+                                <span>Edit</span>
+                            </a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="logout/">Logout</a>
+                            <a href="/logout/">Logout</a>
                         </li>
                     </ul>
                     <!-- / dropdown -->

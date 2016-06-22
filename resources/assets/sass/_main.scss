@@ -21,143 +21,14 @@
 * MAIN STYLES
 * ----------------------------------------------------------------------------------------------------
 */
-
-@mixin clearfix {
-    &:before,
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
+.margin-top-10 {
+    margin-top: 10px;
 }
-
-// Stcky Footer
-html, body {
-    height: 100%;
+.margin-top-50 {
+    margin-top: 50px;
 }
-
-body {
-    font-family: $main_font;
-    font-size: 13px;
-    background: #F5F5F5;
-}
-
-.main {
-    float: left;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-a {
-    outline: none !important; // for firefox
-    text-decoration: none;
-
-    &:--hoverous {
-    }
-}
-
-input[type=text],
-input[type=email],
-input[type=tel],
-textarea {
-    border: #e3e3e3;
-    outline: none;
-    height: 40px;
-    padding-left: 10px;
-    box-sizing: border-box;
-}
-
-textarea {
-    height: auto;
+.margin-right-5 {
+    margin-right: 5px;
 }
 
 
-/**
-* ----------------------------------------------------------------------------------------------------
-* Helpers
-* ----------------------------------------------------------------------------------------------------
-*/
-
-.btn {
-    display: inline-block;
-    padding: 9px 20px;
-    color: $black;
-    border: 1px solid $black;
-    text-transform: uppercase;
-
-    &:--hoverous {
-    text-decoration: none;
-    background: $gray;
-    color: $white;
-    transition: .4s color;
-    transition: .3s background;
-}
-}
-
-
-/**
-* ----------------------------------------------------------------------------------------------------
-* COMPONENTS
-* ----------------------------------------------------------------------------------------------------
-*/
-
-.burger {
-    display: none;
-    background: none;
-    padding: 0;
-    outline: none;
-    border: none;
-    cursor: pointer;
-
-    &:hover .burger__row {
-        background: red;
-    }
-}
-
-.burger__row {
-    display: block;
-    width: 32px;
-    height: 5px;
-    background: blue;
-    margin-bottom: 4px;
-    transition: background .4s;
-
-    &:last-child {
-        margin-bottom: 0;
-    }
-}
-
-nav {
-    display: none;
-}
-
-/* Slick carousel */
-.slick-loading .slick-list {
-    background: none !important;
-}
-
-/**
-* ----------------------------------------------------------------------------------------------------
-* @MEDIA
-* ----------------------------------------------------------------------------------------------------
-*/
-@media screen and (min-width:767px) {
-    nav {
-        display: block !important;
-    }
-}
-
-@media screen and (max-width:767px) {
-    .burger {
-        display: block;
-    }
-}
-
-@media screen and (max-width:320px) {
-    body {
-        width: 320px;
-    }
-}

@@ -7,16 +7,24 @@
                 <div class="dropdown wrapper">
                     <a href="app.page.profile">
                 <span class="thumb-lg w-auto-folded avatar m-t-sm">
-                  <img src="http://image.xboxlive.com/global/t.413607d3/tile/0/20421" class="img-full" alt="...">
+                  <img src="/uploads/avatars/{!! Auth::user()->avatar !!}" class="img-full">
                 </span>
+
+
+
+
                     </a>
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle hidden-folded">
                 <span class="clear">
                   <span class="block m-t-sm">
-                    <strong class="font-bold text-lt">John.Smith</strong>
+                      @if(Auth::user()->name)
+                        <strong class="font-bold text-lt">{!! Auth::user()->name !!}.{!! Auth::user()->last_name !!}</strong>
+                      @endif
                     <b class="caret"></b>
                   </span>
-                  <span class="text-muted text-xs block">Art Director</span>
+                    @if(Auth::user()->job_titile)
+                        <span class="text-muted text-xs block">{!! Auth::user()->job_title !!}</span>
+                    @endif
                 </span>
                     </a>
                     <!-- dropdown -->

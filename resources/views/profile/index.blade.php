@@ -7,17 +7,54 @@
                     <div class="row m-t">
                         <div class="col-sm-7">
                             <a href="" class="thumb-lg pull-left m-r">
-                                <img src="{!! asset('images/avatar.jpg') !!}" class="img-circle">
+                                <img src="/uploads/avatars/{!! $user->avatar !!}" class="img-circle">
                             </a>
                             <div class="clear m-b">
                                 <div class="m-b m-t-sm">
-                                    <span class="h3 text-black">{{ $user->name }}</span>
-                                    <small class="m-l">London, UK</small>
+                                    <span class="h3 text-black">{{ $user->initials }}</span>
+                                    <small class="m-l">{{ $user->city }}, {{ $user->country }}</small>
                                 </div>
-                                <a href="" class="btn btn-sm btn-success btn-rounded">Follow</a>
+                                <a href="profile/edit" class="btn btn-sm btn-success btn-rounded">Edit</a>
                             </div>
                         </div>
                     </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrapper-md">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <table class="table table-striped m-b-none">
+                        <tr>
+                            <td><strong>Name</strong></td>
+                            <td>{{ $user->name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Last name</strong></td>
+                            <td>{{ $user->last_name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Email</strong></td>
+                            <td>{{ $user->email }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Phone</strong></td>
+                            <td>{{ $user->phone }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="panel panel-default">
+                    <table class="table table-striped m-b-none">
+                        <tr>
+                            <td><strong>Job title</strong></td>
+                            <td>{{ $user->job_title }}</td>
+                        </tr>
+                    </table>
                 </div>
             </div>
         </div>
