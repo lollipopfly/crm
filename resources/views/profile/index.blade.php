@@ -24,6 +24,16 @@
     </div>
 
     <div class="wrapper-md">
+        @if(Session::has('profile_updated'))
+            <div class="row">
+                <div class="col-xs-12">
+                    <p class="alert alert-success">
+                        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
+                        <strong>{!! Session::get('profile_updated') !!}</strong>
+                    </p>
+                </div>
+            </div>
+        @endif
         <div class="row">
             <div class="col-sm-6">
                 <div class="panel panel-default">
@@ -58,16 +68,5 @@
                 </div>
             </div>
         </div>
-
-        @if(Session::has('profile_updated'))
-            <div class="row">
-                <div class="col-xs-12">
-                    <p class="alert alert-success">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
-                        <strong>{!! Session::get('profile_updated') !!}</strong>
-                    </p>
-                </div>
-            </div>
-        @endif
     </div>
 @stop
