@@ -6,7 +6,7 @@
 
     <div class="wrapper-md">
         <div class="row">
-            {!! Form::open(array('action' => ['ProfileController@update', $user->id], 'method' => 'POST', 'files'=> true)) !!}
+            {!! Form::open(array('action' => ['Profile\ProfileController@update', $user->id], 'method' => 'POST', 'files'=> true)) !!}
                 <div class="col-sm-6">
                     <div class="panel panel-default">
                         <div class="panel-body">

@@ -1,7 +1,7 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\Profile;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use app\User;
@@ -12,6 +12,9 @@ use File;
 
 class ProfileController extends Controller
 {
+
+    public $upload_path = 'uploads/avatars/';
+
     public function index() {
         $user = Auth::user();
         return view('profile.index')->with('user', $user);
@@ -24,28 +27,28 @@ class ProfileController extends Controller
     }
 
     public function update(Request $request, $id) {
-        $user = User::findOrFail($id);
+        $current_user = User::findOrFail($id);
         $data = $request->all();
 
         if($request->hasFile('avatar')) {
             $avatar = $request->file('avatar');
             $filename = time() . '.' .   $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize('125', '125')->save(public_path('uploads/avatars/' . $filename));
+            Image::make($avatar)->resize('125', '125')->save(public_path($this->upload_path . $filename));
             $data['avatar'] = $filename;
 
-            // delete old file if exist
-            if($user->avatar !== 'default.jpg' && File::exists('uploads/avatars/'.$user->avatar)) {
-                File::delete('uploads/avatars/'.$user->avatar);
+            // Delete old file if exist
+            if($current_user->avatar !== 'default.jpg' && File::exists($this->upload_path . $current_user->avatar)) {
+                $this->deleteAvatar($current_user->avatar);
             }
         }
 
-        $user->update($data);
-
+        $current_user->update($data);
         return redirect('profile/edit');
     }
 
-    public function deleteFile()
-    {
 
+    public function deleteAvatar($current_avatar)
+    {
+        File::delete($this->upload_path . $current_avatar);
     }
 }
