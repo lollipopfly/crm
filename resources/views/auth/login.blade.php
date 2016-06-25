@@ -40,11 +40,7 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label class="i-checks">
-                                        <input type="checkbox" name="remember"><i></i> Remember me
-                                    </label>
-                                </div>
+                                <div checkbox-field label="'Remember me'" attr-name="'remember'"></div>
                             </div>
                         </div>
 

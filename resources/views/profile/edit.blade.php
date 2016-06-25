@@ -14,23 +14,11 @@
                                 <div class="col-xs-8 col-sm-6 col-md-8">
                                     <div class="form-group">
                                         {!! Form::label('avatar', 'Avatar') !!}
-                                        <div>
-                                            {!! Form::file('avatar', array(
-                                                'style' => 'position: absolute; clip: rect(0px 0px 0px 0px);',
-                                                'data-icon' => 'false',
-                                                'id' => 'filestyle-avatar'
-                                                ));
-                                            !!}
-                                            <div class="bootstrap-filestyle input-group">
-                                                <input type="text" class="form-control " disabled="">
-                                        <span class="group-span-filestyle input-group-btn" tabindex="0">
-                                            <label for="filestyle-avatar" class="btn btn-default ">
-                                                <span class="glyphicon glyphicon-folder-open margin-right-5"></span>
-                                                Choose file
-                                            </label>
-                                        </span>
-                                            </div>
-                                        </div>
+                                        <div
+                                            file-field
+                                            attr-name="'avatar'"
+                                            attr-id="'filestyle-avatar'"
+                                        ></div>
                                     </div>
                                 </div>
                                 <div class="col-xs-4 col-sm-6 col-md-4">

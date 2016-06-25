@@ -77,8 +77,7 @@ gulp.task('compress', function() {
         'public/theme/js/ui-toggle.js',
         'public/theme/js/ui-client.js',
 
-        'node_modules/angular/angular.js'
-
+        // 'node_modules/angular/angular.js'
         ])
         .pipe(plumber())
         .pipe(concat('global.min.js'))

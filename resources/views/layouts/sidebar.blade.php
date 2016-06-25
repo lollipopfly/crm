@@ -6,13 +6,9 @@
             <div class="clearfix hidden-xs text-center hide" id="aside-user">
                 <div class="dropdown wrapper">
                     <a href="app.page.profile">
-                <span class="thumb-lg w-auto-folded avatar m-t-sm">
-                  <img src="/uploads/avatars/{!! Auth::user()->avatar !!}" class="img-full">
-                </span>
-
-
-
-
+                        <span class="thumb-lg w-auto-folded avatar m-t-sm">
+                            <img src="/uploads/avatars/{!! Auth::user()->avatar !!}" class="img-full">
+                        </span>
                     </a>
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle hidden-folded">
                 <span class="clear">
