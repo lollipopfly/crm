@@ -25,20 +25,11 @@
                     </a>
                     <!-- dropdown -->
                     <ul class="dropdown-menu animated fadeInRight w hidden-folded">
-                        <li class="wrapper b-b m-b-sm bg-info m-t-n-xs">
-                            <span class="arrow top hidden-folded arrow-info"></span>
-                            <div>
-                                <p>300mb of 500mb used</p>
-                            </div>
-                            <div class="progress progress-xs m-b-none dker">
-                                <div class="progress-bar bg-white" data-toggle="tooltip" data-original-title="50%" style="width: 50%"></div>
-                            </div>
+                        <li>
+                            <a href="/profile/">Profile</a>
                         </li>
                         <li>
-                            <a href>Settings</a>
-                        </li>
-                        <li>
-                            <a href="page_profile.html">Profile</a>
+                            <a href="/profile/edit">Edit</a>
                         </li>
                         <li>
                             <a href>
@@ -48,7 +39,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="page_signin.html">Logout</a>
+                            <a href="/logout/">Logout</a>
                         </li>
                     </ul>
                     <!-- / dropdown -->
@@ -101,7 +92,7 @@
                     <li class="line dk"></li>
 
                     <li class="hidden-folded padder m-t m-b-sm text-muted text-xs">
-                        <span>Components</span>
+                        <span>Navigation</span>
                     </li>
                     <li>
                         <a href class="auto">
