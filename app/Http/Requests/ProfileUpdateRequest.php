@@ -24,6 +24,7 @@ class ProfileUpdateRequest extends Request
     public function rules()
     {
         return [
+            'name' => 'required',
             'initials' => 'required|unique:users,initials,' . \Auth::user()->id,
             'email' => 'required|email|unique:users,email,'. \Auth::user()->id,
             'phone' => 'unique:users,phone,' . \Auth::user()->id,

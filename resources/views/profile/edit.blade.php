@@ -1,7 +1,8 @@
 @extends('layouts.layout')
 @section('content')
     <div class="bg-light lter b-b wrapper-md">
-        <h1 class="m-n font-thin h3">Edit Profile</h1>
+        <h1 class="m-b-sm font-thin h3">Edit {{ $user->name }}'s Profile</h1>
+        <a href="/profile/" class="btn btn-default"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back</a>
     </div>
 
     <div class="wrapper-md">
@@ -28,9 +29,14 @@
                                 </div>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                                 {!! Form::label('name', 'Name') !!}
                                 {!! Form::text('name', $user->name, array('class' => 'form-control')); !!}
+                                @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                             <div class="form-group">
                                 {!! Form::label('last_name', 'Last name') !!}
