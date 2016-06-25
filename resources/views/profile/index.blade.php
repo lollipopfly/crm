@@ -5,7 +5,7 @@
             <div style="background:url({!! asset('images/profile-image.jpg') !!}) center center; background-size:cover">
                 <div class="wrapper-lg bg-white-opacity">
                     <div class="row m-t">
-                        <div class="col-sm-7">
+                        <div class="col-xs-6">
                             <a href="" class="thumb-lg pull-left m-r">
                                 <img src="/uploads/avatars/{!! $user->avatar !!}" class="img-circle">
                             </a>
@@ -15,6 +15,9 @@
                                     <small class="m-l">{{ $user->city }}, {{ $user->country }}</small>
                                 </div>
                                 <a href="profile/edit" class="btn btn-sm btn-success btn-rounded">Edit</a>
+                                @if($user->user_group === 'admin')
+                                    <a href="users/create" class="btn btn-sm btn-primary btn-rounded">Add new user</a>
+                                @endif
                             </div>
                         </div>
                     </div>

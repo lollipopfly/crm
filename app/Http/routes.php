@@ -9,6 +9,8 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('profile/',  'Profile\ProfileController@index');
     Route::get('profile/edit',  'Profile\ProfileController@edit');
     Route::post('profile/update/{id}',  'Profile\ProfileController@update');
+
+    Route::resource('users', 'Users\UsersController');
 });
 
 //Route::get('register', function() {
