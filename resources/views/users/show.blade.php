@@ -11,6 +11,10 @@
             <div class="col-lg-8">
                 <div class="panel panel-default">
                     <div class="panel-body">
+                        <label tooltip="Редактировать" class="i-switch bg-success pull-right" ng-init="showSpline=false">
+                            <input type="checkbox" ng-model="showSpline" class="ng-valid ng-dirty ng-valid-parse ng-touched">
+                            <i></i>
+                        </label>
                         <div class="clearfix text-center m-t">
                             <div class="inline">
                                 <div
