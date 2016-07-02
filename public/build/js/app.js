@@ -33,6 +33,22 @@ app.directive('datetimepicker', function() {
   };
 });
 
+app.directive('deleteAvatar', function() {
+  return {
+    restrict: 'AE',
+    templateUrl: '/views/directives/delete_avatar.html',
+    scope: {
+      imgName: '=imgName'
+    },
+    link: function(scope, element, attrs) {
+      return scope.remove = function() {
+        scope.imgName = 'default.jpg';
+        return element[0].querySelector('input').setAttribute('value', 'removed');
+      };
+    }
+  };
+});
+
 app.directive('fileField', function() {
   return {
     restrict: 'AE',

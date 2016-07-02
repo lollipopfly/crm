@@ -15,6 +15,7 @@ class ProfileController extends Controller
 {
 
     public $upload_path = 'uploads/avatars/';
+    public $default_avatar = 'default.jpg';
 
 
     /**
@@ -53,9 +54,15 @@ class ProfileController extends Controller
             $data['avatar'] = $filename;
 
             // Delete old file if exist
-            if($current_user->avatar !== 'default.jpg' && File::exists($this->upload_path . $current_user->avatar)) {
-                $this->deleteAvatar($current_user->avatar);
-            }
+            $this->deleteAvatarIfExist($current_user->avatar);
+        }
+
+        // Remove avatar if it was removed by directive
+        if($data['remove_avatar']) {
+            $data['avatar'] = $this->default_avatar;
+
+            // Delete old file if exist
+            $this->deleteAvatarIfExist($current_user->avatar);
         }
 
         $current_user->update($data);
@@ -68,9 +75,12 @@ class ProfileController extends Controller
      * @param  string
      * @return true
      */
-    public function deleteAvatar($current_avatar)
+    public function deleteAvatarIfExist($current_avatar)
     {
-        File::delete($this->upload_path . $current_avatar);
+        if($current_avatar !== $this->default_avatar && File::exists($this->upload_path . $current_avatar)) {
+            File::delete($this->upload_path . $current_avatar);
+        }
+
         return true;
     }
 }

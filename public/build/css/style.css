@@ -14950,3 +14950,12 @@ button i {
 
 .margin-right-5 {
   margin-right: 5px; }
+
+.c-p {
+  cursor: pointer; }
+
+.avatar-remove {
+  color: #f05050;
+  position: absolute;
+  top: 0;
+  right: -9px; }

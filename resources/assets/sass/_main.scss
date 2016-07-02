@@ -38,4 +38,16 @@ button i {
     margin-right: 5px;
 }
 
+.c-p {
+    cursor: pointer;
+}
+
+// Avatar remove directive
+.avatar-remove {
+    color: $red;
+    position: absolute;
+    top: 0;
+    right: -9px;
+}
+
 

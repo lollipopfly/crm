@@ -11,10 +11,6 @@
             <div class="col-lg-8">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        <label tooltip="Редактировать" class="i-switch bg-success pull-right" ng-init="showSpline=false">
-                            <input type="checkbox" ng-model="showSpline" class="ng-valid ng-dirty ng-valid-parse ng-touched">
-                            <i></i>
-                        </label>
                         <div class="clearfix text-center m-t">
                             <div class="inline">
                                 <div
@@ -38,7 +34,9 @@
                                     </div>
                                 </div>
                                 <div class="h4 m-t m-b-xs">{{ $user->name }} @if($user->last_name) {{ $user->last_name }} @endif</div>
-                                <small class="text-muted m-b">24.02.1983</small>
+                                @if ($user->bday)
+                                    <small class="text-muted m-b">24.02.1983</small>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -46,27 +44,12 @@
                         <div class="row">
                             <div class="col-md-1"></div>
                             <div class="col-md-3">
-                                <span class="text"><i class="fa icon-user text"></i> Name:</span>
+                                <span class="text"><i class="fa icon-user text"></i> Initials:</span>
                             </div>
                             <div class="col-md-7">
                                 <span class="text">
-                                    @if ($user->name)
-                                        {{ $user->name }}
-                                    @endif
-                                </span>
-                            </div>
-                        </div>
-                        <div class="line line-dashed b-b line-lg pull-in"></div>
-
-                        <div class="row">
-                            <div class="col-md-1"></div>
-                            <div class="col-md-3">
-                                <span class="text"><i class="fa icon-users text"></i> Last name:</span>
-                            </div>
-                            <div class="col-md-7">
-                                <span class="text">
-                                    @if ($user->last_name)
-                                        {{ $user->last_name }}
+                                    @if ($user->initials)
+                                        {{ $user->initials }}
                                     @endif
                                 </span>
                             </div>

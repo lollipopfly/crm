@@ -23,9 +23,9 @@
                                     </div>
                                 </div>
                                 <div class="col-xs-4 col-sm-6 col-md-4">
-                                    <div class="thumb-md pull-right margin-top-10">
-                                        <img src="/uploads/avatars/{!! $user->avatar !!}" class="img-circle">
-                                    </div>
+                                    <delete_avatar
+                                        img-name="'{!! $user->avatar !!}'">
+                                    </delete_avatar>
                                 </div>
                             </div>
 
