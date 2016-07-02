@@ -53,11 +53,13 @@
                                 @endif
                             </div>
 
-                            <datetimepicker
-                                label="'Birthday'"
-                                attr-value="'{{ $user->bday }}'"
-                                attr-name="'bday'">
-                            </datetimepicker>
+                            <div class="form-group">
+                                <datetimepicker
+                                    label="'Birthday'"
+                                    attr-value="'{{ $user->bday }}'"
+                                    attr-name="'bday'">
+                                </datetimepicker>
+                            </div>
 
                             <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
                                 {!! Form::label('email', 'Email') !!}

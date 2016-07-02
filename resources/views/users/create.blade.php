@@ -36,8 +36,13 @@
                                 <div class="col-md-3 m-t-xs">
                                     <span class="text"><i class="fa icon-user text"></i> Name:</span>
                                 </div>
-                                <div class="col-md-7">
+                                <div class="col-md-7 {{ $errors->has('name') ? 'has-error' : '' }}">
                                     {!! Form::text('name', old('name'), array('class' => 'form-control'));!!}
+                                    @if ($errors->has('name'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('name') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
 
@@ -58,8 +63,26 @@
                                 <div class="col-md-3 m-t-xs">
                                     <span class="text"><i class="fa icon-heart text"></i> Initials:</span>
                                 </div>
-                                <div class="col-md-7">
+                                <div class="col-md-7 {{ $errors->has('initials') ? 'has-error' : '' }}">
                                     {!! Form::text('initials', old('initials'), array('class' => 'form-control'));!!}
+                                    @if ($errors->has('initials'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('initials') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-3 m-t-xs">
+                                    <span class="text"><i class="fa icon-calendar text"></i> Birthday:</span>
+                                </div>
+                                <div class="col-md-7">
+                                    <datetimepicker
+                                        attr-name="'bday'">
+                                    </datetimepicker>
                                 </div>
                             </div>
 
@@ -102,8 +125,13 @@
                                 <div class="col-md-3 m-t-xs">
                                     <span class="text"><i class="fa icon-screen-smartphone text"></i> Phone:</span>
                                 </div>
-                                <div class="col-md-7">
+                                <div class="col-md-7 {{ $errors->has('phone') ? 'has-error' : '' }}">
                                     {!! Form::text('phone', old('phone'), array('class' => 'form-control'));!!}
+                                    @if ($errors->has('phone'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('phone') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
                             <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -113,14 +141,20 @@
                                 <div class="col-md-3 m-t-xs">
                                     <span class="text"><i class="fa icon-envelope-letter text"></i> Email:</span>
                                 </div>
-                                <div class="col-md-7">
+                                <div class="col-md-7 {{ $errors->has('email') ? 'has-error' : '' }}">
                                     {!! Form::text('email', old('email'), array('class' => 'form-control'));!!}
+                                    @if ($errors->has('email'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('email') }}</strong>
+                                        </span>
+                                    @endif
                                 </div>
                             </div>
 
                             <div class="line line-dashed b-b line-lg pull-in"></div>
                             <div class="row">
-                                <div class="col-xs-12 text-center">
+                            <div class="col-md-4"></div>
+                                <div class="col-xs-7 text-right">
                                     {!! Form::submit('create', ['class' => 'btn btn-primary text-u-c']) !!}
                                 </div>
                             </div>

@@ -8,9 +8,14 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use app\User;
+use Image;
 
 class UsersController extends Controller
 {
+
+    public $upload_path = 'uploads/avatars/';
+
+
     /**
      * Display a listing of the resource.
      *
@@ -40,12 +45,27 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $users = new User;
+        // Validation
+        $this->validate($request, [
+            'name' => 'required',
+            'initials' => 'required|unique:users',
+            'email' => 'required|email|unique:users'
+        ]);
+
+        $user = new User;
         $data = $request->all();
 
+        // Upload avatar image
+        if($request->hasFile('avatar')) {
+            $avatar = $request->file('avatar');
+            $filename = time() . '.' .   $avatar->getClientOriginalExtension();
+            Image::make($avatar)->resize('125', '125')->save(public_path($this->upload_path . $filename));
+            $data['avatar'] = $filename;
+        }
 
-        // dd($data);
-        $users->save($data);
+        $user->create($data);
+        session()->flash('user_added', 'New user has been added.');
+        return redirect('users/');
     }
 
     /**

@@ -4,7 +4,7 @@ app.directive 'datetimepicker', () ->
   scope:
     label: "=?label"
     attrName: "=attrName"
-    attrValue: "=attrValue"
+    attrValue: "=?attrValue"
 
   link: (scope, element, attrs) ->
     scope.open = () ->
