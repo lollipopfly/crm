@@ -19,7 +19,6 @@ class UsersController extends Controller
     public function index()
     {
         $users = User::latest('created_at')->paginate(15);
-        // dd($users);
         return view('users.index')->with('users', $users);
     }
 
@@ -30,7 +29,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        dd('create');
+        return view('users.create');;
     }
 
     /**
@@ -41,7 +40,12 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $users = new User;
+        $data = $request->all();
+
+
+        // dd($data);
+        $users->save($data);
     }
 
     /**

@@ -11,8 +11,18 @@
                             </a>
                             <div class="clear m-b">
                                 <div class="m-b m-t-sm">
-                                    <span class="h3 text-black">{{ $user->initials }}</span>
-                                    <small class="m-l">{{ $user->city }}, {{ $user->country }}</small>
+                                    @if ($user->initials)
+                                        <span class="h3 text-black">{{ $user->initials }}</span>
+                                    @endif
+                                        <small class="m-l">
+                                            @if ($user->city)
+                                                    {{ $user->city }},
+                                            @endif
+                                            @if ($user->country)
+                                                {{ $user->country }}
+                                            @endif
+                                        </small>
+
                                 </div>
                                 <a href="profile/edit" class="btn btn-sm btn-success btn-rounded">Edit</a>
                                 @if($user->user_group === 'admin')
@@ -48,6 +58,10 @@
                         <tr>
                             <td><strong>Last name</strong></td>
                             <td>{{ $user->last_name }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Birthday</strong></td>
+                            <td>{{ $user->bday }}</td>
                         </tr>
                         <tr>
                             <td><strong>Email</strong></td>

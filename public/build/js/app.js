@@ -1,6 +1,6 @@
 var app, dependencies;
 
-dependencies = [];
+dependencies = ["ui.bootstrap"];
 
 app = angular.module('app', dependencies);
 
@@ -16,15 +16,35 @@ app.directive('checkboxField', function() {
   };
 });
 
+app.directive('datetimepicker', function() {
+  return {
+    restrict: 'AE',
+    templateUrl: '/views/directives/datetimepicker.html',
+    scope: {
+      label: "=?label",
+      attrName: "=attrName",
+      attrValue: "=attrValue"
+    },
+    link: function(scope, element, attrs) {
+      return scope.open = function() {
+        return scope.date_opened = true;
+      };
+    }
+  };
+});
+
 app.directive('fileField', function() {
   return {
     restrict: 'AE',
     templateUrl: '/views/directives/file_field.html',
     scope: {
-      attrId: '=attrId',
+      attrId: '=?attrId',
       attrName: '=attrName'
     },
     link: function(scope, element, attrs) {
+      if (scope.attrId === void 0) {
+        scope.attrId = 'default-file-id';
+      }
       return element.bind('change', function(changeEvent) {
         var fileName, files;
         scope.element = element;

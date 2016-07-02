@@ -42,6 +42,7 @@
                                 {!! Form::label('last_name', 'Last name') !!}
                                 {!! Form::text('last_name', $user->last_name, array('class' => 'form-control')); !!}
                             </div>
+
                             <div class="form-group {{ $errors->has('initials') ? ' has-error' : '' }}">
                                 {!! Form::label('initials', 'Initials') !!}
                                 {!! Form::text('initials', $user->initials, array('class' => 'form-control')); !!}
@@ -51,6 +52,13 @@
                                     </span>
                                 @endif
                             </div>
+
+                            <datetimepicker
+                                label="'Birthday'"
+                                attr-value="'{{ $user->bday }}'"
+                                attr-name="'bday'">
+                            </datetimepicker>
+
                             <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
                                 {!! Form::label('email', 'Email') !!}
                                 {!! Form::email('email', $user->email, array('class' => 'form-control')); !!}

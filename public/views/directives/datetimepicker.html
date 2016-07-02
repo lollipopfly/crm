@@ -1,0 +1,18 @@
+ <div class="form-group">
+    <label ng-if="label">{{ label }}</label>
+    <div class="input-group">
+        <input
+            type="text"
+            ng-model="model"
+            class="form-control"
+            is-open="date_opened"
+            uib-datepicker-popup="dd.MM.yyyy"
+            name="{{ attrName }}"
+            ng-value="attrValue"
+            close-text="Close"
+        />
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-default" ng-click="open()"><span class="glyphicon glyphicon-calendar"></span></button>
+        </span>
+    </div>
+</div>

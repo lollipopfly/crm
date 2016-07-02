@@ -13,6 +13,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::resource('users', 'Users\UsersController');
 });
 
-//Route::get('register', function() {
-//    return redirect('login');
-//});
+// Route::get('register', function() {
+//    // return redirect('login');
+//    return view('auth.register');
+// });
