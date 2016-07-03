@@ -128,11 +128,17 @@
                         </ul>
                     </li>
                     <li>
+                        <a href="/users/create" class="auto">
+                            <i class="glyphicon glyphicon-user icon"></i>
+                            <span>Users</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href class="auto">
-                  <span class="pull-right text-muted">
-                    <i class="fa fa-fw fa-angle-right text"></i>
-                    <i class="fa fa-fw fa-angle-down text-active"></i>
-                  </span>
+                          <span class="pull-right text-muted">
+                            <i class="fa fa-fw fa-angle-right text"></i>
+                            <i class="fa fa-fw fa-angle-down text-active"></i>
+                          </span>
                             <i class="glyphicon glyphicon-briefcase icon"></i>
                             <span>UI Kits</span>
                         </a>
