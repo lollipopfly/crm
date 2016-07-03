@@ -4,5 +4,6 @@ app.directive 'checkboxField', () ->
   scope:
     label: '=label'
     attrName: '=attrName'
+    attrValue: "=?attrValue"
 
   link: (scope, element, attrs) ->

@@ -10,7 +10,8 @@ app.directive('checkboxField', function() {
     templateUrl: '/views/directives/checkbox_field.html',
     scope: {
       label: '=label',
-      attrName: '=attrName'
+      attrName: '=attrName',
+      attrValue: "=?attrValue"
     },
     link: function(scope, element, attrs) {}
   };
