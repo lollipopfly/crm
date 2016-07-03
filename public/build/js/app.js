@@ -72,24 +72,35 @@ app.directive('fileField', function() {
   };
 });
 
+app.directive('radioField', function() {
+  return {
+    restrict: 'AE',
+    templateUrl: '/views/directives/radio_field.html',
+    scope: {
+      label: '=label',
+      attrName: '=attrName',
+      attrValue: '=attrValue',
+      checked: '=?cheked'
+    },
+    link: function(scope, element, attrs) {}
+  };
+});
+
 app.controller('createUserCtrl', [
   "$scope", "lodash", function($scope, lodash) {
     $scope.passInput = document.querySelector('.password-input');
     $scope.chars = 'abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+ <>ABCDEFGHIJKLMNOP1234567890';
-    $scope.randomPass = function() {
-      var i, pass, passLength, x;
-      pass = '';
+    return $scope.generatePass = function() {
+      var i, passLength, x;
+      $scope.pass = '';
       passLength = lodash.random(6, 15);
       x = 0;
       while (x < passLength) {
         i = Math.floor(Math.random() * $scope.chars.length);
-        pass += $scope.chars.charAt(i);
+        $scope.pass += $scope.chars.charAt(i);
         x++;
       }
-      return pass;
-    };
-    return $scope.generatePass = function() {
-      return $scope.passInput.setAttribute('value', $scope.randomPass());
+      return $scope.pass;
     };
   }
 ]);

@@ -10,8 +10,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('profile/edit',  'Profile\ProfileController@edit');
     Route::post('profile/update/{id}',  'Profile\ProfileController@update');
 
+    // USERS
     Route::resource('users', 'Users\UsersController');
 });
+
 
 // Route::get('register', function() {
 //    // return redirect('login');

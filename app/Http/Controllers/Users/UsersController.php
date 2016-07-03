@@ -18,6 +18,16 @@ class UsersController extends Controller
 
 
     /**
+     * Role Middleware
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function __construct() {
+        $this->middleware('role', ['only' => 'create']);
+    }
+
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
@@ -28,6 +38,7 @@ class UsersController extends Controller
         return view('users.index')->with('users', $users);
     }
 
+
     /**
      * Show the form for creating a new resource.
      *
@@ -37,6 +48,7 @@ class UsersController extends Controller
     {
         return view('users.create');;
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -74,6 +86,7 @@ class UsersController extends Controller
         return redirect('users/');
     }
 
+
     /**
      * Display the specified resource.
      *
@@ -87,6 +100,7 @@ class UsersController extends Controller
         return view('users.show')->with('user', $user);
     }
 
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -97,6 +111,7 @@ class UsersController extends Controller
     {
         //
     }
+
 
     /**
      * Update the specified resource in storage.
@@ -109,6 +124,7 @@ class UsersController extends Controller
     {
         //
     }
+
 
     /**
      * Remove the specified resource from storage.

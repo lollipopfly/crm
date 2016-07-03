@@ -101,6 +101,27 @@
                             <div class="row">
                                 <div class="col-md-1"></div>
                                 <div class="col-md-3 m-t-xs">
+                                    <span class="text"><i class="fa icon-user-following text"></i> User group:</span>
+                                </div>
+                                <div class="col-md-7">
+                                    <radio-field
+                                        label="'Admin'"
+                                        attr-name="'user_group'"
+                                        attr-value="'admin'"
+                                    ></radio-field>
+                                    <radio-field
+                                        label="'User'"
+                                        attr-name="'user_group'"
+                                        attr-value="'user'"
+                                        checked="true"
+                                    ></radio-field>
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-3 m-t-xs">
                                     <span class="text"><i class="fa icon-map text"></i> Country:</span>
                                 </div>
                                 <div class="col-md-7">
@@ -160,7 +181,7 @@
                                 <div class="col-md-7 {{ $errors->has('password') ? 'has-error' : '' }}">
                                     <div class="row">
                                         <div class="col-md-8">
-                                            {!! Form::text('password', old('password'), array('class' => 'form-control password-input'));!!}
+                                            {!! Form::text('password', old('password'), array('class' => 'form-control password-input', 'ng-model' => 'pass'));!!}
                                             @if ($errors->has('password'))
                                                 <span class="help-block">
                                                     <strong>{{ $errors->first('password') }}</strong>

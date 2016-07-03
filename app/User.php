@@ -19,6 +19,7 @@ class User extends Authenticatable
         'password',
         'initials',
         'job_title',
+        'user_group',
         'country',
         'city',
         'phone',
