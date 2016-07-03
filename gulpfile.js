@@ -78,7 +78,8 @@ gulp.task('compress', function() {
         'public/theme/js/ui-client.js',
 
         'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
-        'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js'
+        'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
+        'node_modules/ng-lodash/build/ng-lodash.js'
     ])
         .pipe(plumber())
         .pipe(concat('global.min.js'))

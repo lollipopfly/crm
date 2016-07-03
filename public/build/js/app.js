@@ -1,6 +1,6 @@
 var app, dependencies;
 
-dependencies = ["ui.bootstrap"];
+dependencies = ["ui.bootstrap", "ngLodash"];
 
 app = angular.module('app', dependencies);
 
@@ -23,7 +23,7 @@ app.directive('datetimepicker', function() {
     scope: {
       label: "=?label",
       attrName: "=attrName",
-      attrValue: "=attrValue"
+      attrValue: "=?attrValue"
     },
     link: function(scope, element, attrs) {
       return scope.open = function() {
@@ -71,3 +71,25 @@ app.directive('fileField', function() {
     }
   };
 });
+
+app.controller('createUserCtrl', [
+  "$scope", "lodash", function($scope, lodash) {
+    $scope.passInput = document.querySelector('.password-input');
+    $scope.chars = 'abcdefghijklmnopqrstuvwxyz!@#$%^&*()-+ <>ABCDEFGHIJKLMNOP1234567890';
+    $scope.randomPass = function() {
+      var i, pass, passLength, x;
+      pass = '';
+      passLength = lodash.random(6, 15);
+      x = 0;
+      while (x < passLength) {
+        i = Math.floor(Math.random() * $scope.chars.length);
+        pass += $scope.chars.charAt(i);
+        x++;
+      }
+      return pass;
+    };
+    return $scope.generatePass = function() {
+      return $scope.passInput.setAttribute('value', $scope.randomPass());
+    };
+  }
+]);

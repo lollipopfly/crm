@@ -1,5 +1,6 @@
 dependencies = [
-    "ui.bootstrap"
+    "ui.bootstrap",
+    "ngLodash"
 ]
 
 app = angular.module('app', dependencies)

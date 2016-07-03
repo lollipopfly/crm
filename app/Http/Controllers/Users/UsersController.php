@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 
 use app\User;
 use Image;
+use Hash;
 
 class UsersController extends Controller
 {
@@ -49,7 +50,8 @@ class UsersController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'initials' => 'required|unique:users',
-            'email' => 'required|email|unique:users'
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:6'
         ]);
 
         $user = new User;
@@ -63,8 +65,12 @@ class UsersController extends Controller
             $data['avatar'] = $filename;
         }
 
+        // Hashing password
+        $data['password'] = Hash::make($data['password']);
+
         $user->create($data);
         session()->flash('user_added', 'New user has been added.');
+
         return redirect('users/');
     }
 

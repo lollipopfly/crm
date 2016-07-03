@@ -5,7 +5,7 @@
         <a href="/users/" class="btn btn-default"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back</a>
     </div>
 
-    <div class="wrapper-md">
+    <div class="wrapper-md" ng-controller="createUserCtrl">
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
@@ -148,6 +148,31 @@
                                             <strong>{{ $errors->first('email') }}</strong>
                                         </span>
                                     @endif
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-3 m-t-xs">
+                                    <span class="text"><i class="fa icon-lock text"></i> Password:</span>
+                                </div>
+                                <div class="col-md-7 {{ $errors->has('password') ? 'has-error' : '' }}">
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            {!! Form::text('password', old('password'), array('class' => 'form-control password-input'));!!}
+                                            @if ($errors->has('password'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('password') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                        <div class="col-md-4 pull-right text-right">
+                                            <button ng-click="generatePass()" type="button" class="btn btn-default">
+                                            <i class="fa fa-random"></i>
+                                            Generate password</button>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
