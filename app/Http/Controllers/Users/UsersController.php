@@ -23,7 +23,7 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct() {
-        $this->middleware('role', ['only' => 'create']);
+        $this->middleware('role', ['only' => 'create|destroy|store|update|edit']);
     }
 
 
@@ -34,7 +34,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::latest('created_at')->paginate(15);
+        $users = User::latest('created_at')->paginate(10);
         return view('users.index')->with('users', $users);
     }
 
@@ -134,6 +134,9 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::find($id);
+
+        $user->delete();
+        session()->flash('user_deleted', 'User has been deleted.');
     }
 }

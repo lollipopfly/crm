@@ -17,6 +17,15 @@ app.directive('checkboxField', function() {
   };
 });
 
+app.directive('confirmModal', function() {
+  return {
+    restrict: 'AE',
+    templateUrl: '/views/directives/confirm_modal.html',
+    scope: true,
+    link: function(scope, element, attrs) {}
+  };
+});
+
 app.directive('datetimepicker', function() {
   return {
     restrict: 'AE',
@@ -87,6 +96,17 @@ app.directive('radioField', function() {
   };
 });
 
+app.controller('confirmDeleteUserCtrl', function($scope, $rootScope, $uibModalInstance) {
+  $scope.modalTitle = 'Delete user';
+  $scope.modalText = 'Are you sure?';
+  $scope.ok = function() {
+    $uibModalInstance.close();
+  };
+  return $scope.cancel = function() {
+    $uibModalInstance.dismiss();
+  };
+});
+
 app.controller('createUserCtrl', [
   "$scope", "lodash", function($scope, lodash) {
     $scope.passInput = document.querySelector('.password-input');
@@ -105,3 +125,20 @@ app.controller('createUserCtrl', [
     };
   }
 ]);
+
+app.controller('indexUserCtrl', function($scope, $rootScope, $http, $uibModal) {
+  return $scope.deleteUser = function(id) {
+    $uibModal.open({
+      templateUrl: 'confirmModal.html',
+      controller: 'confirmDeleteUserCtrl',
+      size: 'md'
+    }).result.then((function() {
+      $http({
+        method: 'DELETE',
+        url: '/users/' + id
+      }).then((function(response) {
+        window.location.reload();
+      }), function(response) {});
+    }), function(res) {});
+  };
+});
