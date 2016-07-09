@@ -157,7 +157,9 @@
                                 <span translate="header.navbar.new.TASK">Task</span>
                             </a>
                         </li>
-                        <li><a href="/users/create">User</a></li>
+                        @if (Auth::user()->user_group === "admin")
+                            <li><a href="/users/create">User</a></li>
+                        @endif
                         <li class="divider"></li>
                         <li>
                             <a href>

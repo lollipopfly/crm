@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use app\User;
 use Image;
 use Hash;
+use Auth;
 
 class UsersController extends Controller
 {
@@ -34,11 +35,11 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        // if ordered table
+        // if ordered table get all except current user
         if($request->orderBy && $request->direction) {
-           $users = User::orderBy($request->orderBy, $request->direction)->paginate(10);
+           $users = User::orderBy($request->orderBy, $request->direction)->where('id', '!=', Auth::user()->id)->paginate(10);
         } else {
-            $users = User::latest('created_at')->paginate(10);
+            $users = User::latest('created_at')->where('id', '!=', Auth::user()->id)->paginate(10);
         }
 
         return view('users.index')->with('users', $users);
