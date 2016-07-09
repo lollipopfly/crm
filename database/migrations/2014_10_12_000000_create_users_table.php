@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
             $table->string('phone');
             $table->string('avatar')->default('default.jpg');
             $table->string('last_login');
-            $table->string('user_group');
+            $table->enum('user_group', ['admin', 'user'])->default('user');
             $table->boolean('live');
             $table->string('email')->unique();
             $table->string('password');
