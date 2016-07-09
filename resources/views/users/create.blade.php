@@ -104,18 +104,13 @@
                                     <span class="text"><i class="fa icon-user-following text"></i> User group:</span>
                                 </div>
                                 <div class="col-md-7">
+                                @foreach ($userGroupEnums as $enum)
                                     <radio-field
-                                        label="'Admin'"
+                                        label="'{{  ucfirst($enum) }}'"
                                         attr-name="'user_group'"
-                                        attr-value="'admin'"
+                                        attr-value="'{{ $enum }}'"
                                     ></radio-field>
-                                    <radio-field
-                                        label="'User'"
-                                        attr-name="'user_group'"
-                                        attr-value="'user'"
-                                        checked="true"
-                                    ></radio-field>
-                                </div>
+                                @endforeach
                             </div>
                             <div class="line line-dashed b-b line-lg pull-in"></div>
 

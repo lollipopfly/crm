@@ -11,6 +11,7 @@ use app\User;
 use Image;
 use Hash;
 use Auth;
+use DB;
 
 class UsersController extends Controller
 {
@@ -53,7 +54,8 @@ class UsersController extends Controller
      */
     public function create()
     {
-        return view('users.create');;
+        $userGroupEnums = $this->getPossibleEnumValues('user_group');
+        return view('users.create')->with('userGroupEnums', $userGroupEnums);
     }
 
 
@@ -145,5 +147,24 @@ class UsersController extends Controller
 
         $user->delete();
         session()->flash('user_deleted', 'User has been deleted.');
+    }
+
+
+    /**
+     * Get enum field values of table
+     *
+     * @param string $name
+     * @return array
+     */
+    public function getPossibleEnumValues($name){
+        $user = new User;
+        $type = DB::select( DB::raw('SHOW COLUMNS FROM '.$user->getTable().' WHERE Field = "'.$name.'"') )[0]->Type;
+        preg_match('/^enum\((.*)\)$/', $type, $matches);
+        $enum = array();
+        foreach(explode(',', $matches[1]) as $value){
+            $v = trim( $value, "'" );
+            $enum[] = $v;
+        }
+        return $enum;
     }
 }
