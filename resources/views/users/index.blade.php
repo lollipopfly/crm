@@ -38,15 +38,15 @@
                     <table class="table table-striped m-b-none">
                         <thead>
                             <tr>
-                                <th>Id</th>
-                                <th>Name</th>
-                                <th>Last Name</th>
-                                <th>Birthday</th>
-                                <th>Job title</th>
-                                <th>Email</th>
-                                <th>Phone</th>
-                                <th>Country</th>
-                                <th>City</th>
+                                <th class="sorting">{!! orderLink('Id', 'id', 'asc') !!}</th>
+                                <th class="sorting">{!! orderLink('Name', 'name', 'asc') !!}</th>
+                                <th class="sorting">{!! orderLink('Last Name', 'last_name', 'asc') !!}</th>
+                                <th class="sorting">{!! orderLink('Birthday', 'bday', 'asc') !!}</th>
+                                <th class="sorting">{!! orderLink('Job title', 'job_title', 'asc') !!}</th>
+                                <th class="sorting">{!! orderLink('Email', 'email', 'asc') !!}</th>
+                                <th class="sorting">{!! orderLink('Phone', 'phone', 'asc') !!}</th>
+                                <th class="sorting">{!! orderLink('Country', 'country', 'asc') !!}</th>
+                                <th class="sorting">{!! orderLink('City', 'city', 'asc') !!}</th>
                                  @if (Auth::user()->user_group === 'admin')
                                     <th></th>
                                 @endif
@@ -80,7 +80,7 @@
         </div>
 
         <div class="text-right">
-            {!! $users->render() !!}
+            {!! $users->appends(Request::input())->render() !!}
         </div>
 
         {{-- Confirm modal --}}

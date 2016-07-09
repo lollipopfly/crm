@@ -32,9 +32,15 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::latest('created_at')->paginate(10);
+        // if ordered table
+        if($request->orderBy && $request->direction) {
+           $users = User::orderBy($request->orderBy, $request->direction)->paginate(10);
+        } else {
+            $users = User::latest('created_at')->paginate(10);
+        }
+
         return view('users.index')->with('users', $users);
     }
 
