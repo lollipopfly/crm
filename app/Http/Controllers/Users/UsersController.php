@@ -36,7 +36,7 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        // if ordered table get all except current user
+        // if ordered table, get all except current user
         if($request->orderBy && $request->direction) {
            $users = User::orderBy($request->orderBy, $request->direction)->where('id', '!=', Auth::user()->id)->paginate(10);
         } else {
@@ -107,31 +107,6 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
 
         return view('users.show')->with('user', $user);
-    }
-
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
     }
 
 
