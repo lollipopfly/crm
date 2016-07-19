@@ -35,18 +35,18 @@
         <div class="row">
             <div class="col-xs-12">
                 <div class="panel panel-default">
-                    <table class="table table-striped m-b-none">
+                    <table class="table table-striped m-b-none table-layout-fixed">
                         <thead>
                             <tr>
-                                <th class="sorting">{!! orderLink('Id', 'id', 'asc') !!}</th>
-                                <th class="sorting">{!! orderLink('Name', 'name', 'asc') !!}</th>
-                                <th class="sorting">{!! orderLink('Last Name', 'last_name', 'asc') !!}</th>
-                                <th class="sorting">{!! orderLink('Birthday', 'bday', 'asc') !!}</th>
-                                <th class="sorting">{!! orderLink('Job title', 'job_title', 'asc') !!}</th>
-                                <th class="sorting">{!! orderLink('Email', 'email', 'asc') !!}</th>
-                                <th class="sorting">{!! orderLink('Phone', 'phone', 'asc') !!}</th>
-                                <th class="sorting">{!! orderLink('Country', 'country', 'asc') !!}</th>
-                                <th class="sorting">{!! orderLink('City', 'city', 'asc') !!}</th>
+                                <th class="sorting v-top">{!! orderLink('Id', 'id', 'asc') !!}</th>
+                                <th class="sorting v-top">{!! orderLink('Name', 'name', 'asc') !!}</th>
+                                <th class="sorting v-top">{!! orderLink('Last Name', 'last_name', 'asc') !!}</th>
+                                <th class="sorting v-top">{!! orderLink('Birthday', 'bday', 'asc') !!}</th>
+                                <th class="sorting v-top">{!! orderLink('Job title', 'job_title', 'asc') !!}</th>
+                                <th class="sorting v-top">{!! orderLink('Email', 'email', 'asc') !!}</th>
+                                <th class="sorting v-top">{!! orderLink('Phone', 'phone', 'asc') !!}</th>
+                                <th class="sorting v-top">{!! orderLink('Country', 'country', 'asc') !!}</th>
+                                <th class="sorting v-top">{!! orderLink('City', 'city', 'asc') !!}</th>
                                  @if (Auth::user()->user_group === 'admin')
                                     <th></th>
                                 @endif

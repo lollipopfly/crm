@@ -14936,6 +14936,9 @@ a.text-#000000:hover {
 * MAIN STYLES
 * ----------------------------------------------------------------------------------------------------
 */
+.table-layout-fixed {
+  table-layout: fixed; }
+
 button i {
   margin-right: 5px; }
 
