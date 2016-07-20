@@ -1,8 +1,8 @@
 @extends('layouts.layout')
 @section('content')
     <div class="bg-light lter b-b wrapper-md">
-        <h1 class="m-b-sm font-thin h3">Create user</h1>
-        <a href="/users/" class="btn btn-default"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back</a>
+        <h1 class="m-b-sm font-thin h3">Create new user</h1>
+        <a href="{{ url('/users/') }}" class="btn btn-default"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back</a>
     </div>
 
     <div class="wrapper-md" ng-controller="createUserCtrl">
@@ -111,6 +111,7 @@
                                         attr-value="'{{ $enum }}'"
                                     ></radio-field>
                                 @endforeach
+                                </div>
                             </div>
                             <div class="line line-dashed b-b line-lg pull-in"></div>
 
@@ -155,7 +156,7 @@
                             <div class="row">
                                 <div class="col-md-1"></div>
                                 <div class="col-md-3 m-t-xs">
-                                    <span class="text"><i class="fa icon-envelope-letter text"></i> Email:</span>
+                                    <span class="text"><i class="fa icon-envelope-open text"></i> Email:</span>
                                 </div>
                                 <div class="col-md-7 {{ $errors->has('email') ? 'has-error' : '' }}">
                                     {!! Form::text('email', old('email'), array('class' => 'form-control'));!!}

@@ -96,6 +96,17 @@ app.directive('radioField', function() {
   };
 });
 
+app.controller('confirmDeleteStoreCtrl', function($scope, $rootScope, $uibModalInstance) {
+  $scope.modalTitle = 'Delete store';
+  $scope.modalText = 'Are you sure?';
+  $scope.ok = function() {
+    $uibModalInstance.close();
+  };
+  return $scope.cancel = function() {
+    $uibModalInstance.dismiss();
+  };
+});
+
 app.controller('confirmDeleteUserCtrl', function($scope, $rootScope, $uibModalInstance) {
   $scope.modalTitle = 'Delete user';
   $scope.modalText = 'Are you sure?';
@@ -104,6 +115,23 @@ app.controller('confirmDeleteUserCtrl', function($scope, $rootScope, $uibModalIn
   };
   return $scope.cancel = function() {
     $uibModalInstance.dismiss();
+  };
+});
+
+app.controller('indexStoreCtrl', function($scope, $rootScope, $http, $uibModal) {
+  return $scope.deleteStore = function(id) {
+    $uibModal.open({
+      templateUrl: 'confirmModal.html',
+      controller: 'confirmDeleteStoreCtrl',
+      size: 'md'
+    }).result.then((function() {
+      $http({
+        method: 'DELETE',
+        url: '/stores/' + id
+      }).then((function(response) {
+        window.location.reload();
+      }), function(response) {});
+    }), function(res) {});
   };
 });
 

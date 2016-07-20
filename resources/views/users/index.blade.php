@@ -8,25 +8,13 @@
     </div>
 
     <div class="wrapper-md" ng-controller="indexUserCtrl">
-        {{-- Id updated --}}
-        @if(Session::has('user_added'))
+        {{-- Flash message --}}
+        @if(Session::has('flash_message'))
             <div class="row">
                 <div class="col-xs-12">
                     <p class="alert alert-success">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
-                        <strong>{!! Session::get('user_added') !!}</strong>
-                    </p>
-                </div>
-            </div>
-        @endif
-
-        {{-- If deleted --}}
-        @if(Session::has('user_deleted'))
-            <div class="row">
-                <div class="col-xs-12">
-                    <p class="alert alert-success">
-                        <a href="#" class="close" data-dismiss="alert" aria-label="close" title="close">×</a>
-                        <strong>{!! Session::get('user_deleted') !!}</strong>
+                        <strong>{!! Session::get('flash_message') !!}</strong>
                     </p>
                 </div>
             </div>
@@ -47,8 +35,8 @@
                                 <th class="sorting v-top">{!! orderLink('Phone', 'phone', 'asc') !!}</th>
                                 <th class="sorting v-top">{!! orderLink('Country', 'country', 'asc') !!}</th>
                                 <th class="sorting v-top">{!! orderLink('City', 'city', 'asc') !!}</th>
-                                 @if (Auth::user()->user_group === 'admin')
-                                    <th></th>
+                                @if (Auth::user()->user_group === 'admin')
+                                    <th class="text-right">Actions</th>
                                 @endif
                             </tr>
                         </thead>
@@ -64,9 +52,9 @@
                                     <td>{{ $user->phone }}</td>
                                     <td>{{ $user->country }}</td>
                                     <td>{{ $user->city }}</td>
-                                     @if (Auth::user()->user_group === 'admin')
-                                        <td>
-                                            <a href="" ng-click="deleteUser({{$user->id}})" target="_self" tooltip-placement="top" uib-tooltip="Delete user">
+                                    @if (Auth::user()->user_group === 'admin')
+                                        <td class="text-right">
+                                            <a href="" ng-click="deleteUser({{$user->id}})" target="_self" tooltip-placement="top-right" uib-tooltip="Delete user">
                                                 <i class="fa fa-close c-p f-z-20 color-red"></i>
                                             </a>
                                         </td>

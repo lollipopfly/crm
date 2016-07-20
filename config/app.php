@@ -161,7 +161,8 @@ return [
         */
 
         Collective\Html\HtmlServiceProvider::class, // laravel collective
-        Intervention\Image\ImageServiceProvider::class // For image uploads
+        Intervention\Image\ImageServiceProvider::class, // For image uploads
+        Appzcoder\CrudGenerator\CrudGeneratorServiceProvider::class
     ],
 
     /*

@@ -14954,11 +14954,17 @@ button i {
 .margin-right-5 {
   margin-right: 5px; }
 
+.f-z-15 {
+  font-size: 15px; }
+
 .f-z-20 {
   font-size: 20px; }
 
 .color-red {
   color: #f05050; }
+
+.color-green {
+  color: #4CAF50; }
 
 .c-p {
   cursor: pointer; }

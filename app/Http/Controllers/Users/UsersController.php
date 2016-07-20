@@ -90,7 +90,7 @@ class UsersController extends Controller
         $data['password'] = Hash::make($data['password']);
 
         $user->create($data);
-        session()->flash('user_added', 'New user has been added.');
+        session()->flash('flash_message', 'New user has been added.');
 
         return redirect('users/');
     }
@@ -121,7 +121,7 @@ class UsersController extends Controller
         $user = User::find($id);
 
         $user->delete();
-        session()->flash('user_deleted', 'User has been deleted.');
+        session()->flash('flash_message', 'User has been deleted.');
     }
 
 
