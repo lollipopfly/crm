@@ -1,7 +1,6 @@
 @extends('layouts.layout')
 
 @section('content')
-
     <div class="bg-light lter b-b wrapper-md">
         <h1 class="m-b-sm font-thin h3">Create new store</h1>
         <a href="{{ url('/stores/') }}" class="btn btn-default"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back</a>

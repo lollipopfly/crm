@@ -26,10 +26,10 @@
                     <!-- dropdown -->
                     <ul class="dropdown-menu animated fadeInRight w hidden-folded">
                         <li>
-                            <a href="/profile/">Profile</a>
+                            <a href="{{ url('/profile/') }}">Profile</a>
                         </li>
                         <li>
-                            <a href="/profile/edit">Edit</a>
+                            <a href="{{ url('/profile/edit/') }}">Edit</a>
                         </li>
                         <li>
                             <a href>
@@ -39,7 +39,7 @@
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="/logout/">Logout</a>
+                            <a href="{{ url('/logout/') }}">Logout</a>
                         </li>
                     </ul>
                     <!-- / dropdown -->
@@ -128,7 +128,13 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="/users/create" class="auto">
+                        <a href="{{ url('/stores/') }}" class="auto">
+                            <i class="glyphicon glyphicon-shopping-cart icon"></i>
+                            <span>Stores</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ url('/users/') }}" class="auto">
                             <i class="glyphicon glyphicon-user icon"></i>
                             <span>Users</span>
                         </a>

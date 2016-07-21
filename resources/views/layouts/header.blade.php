@@ -58,13 +58,13 @@
                                     <div class="col-xs-6">
                                         <ul class="list-unstyled l-h-2x">
                                             <li>
-                                                <a href="/profile"><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Profile</a>
+                                                <a href="{{ url('/profile/') }}"><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Profile</a>
                                             </li>
                                             <li>
-                                                <a href><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Post</a>
+                                                <a href="{{ url('/stores/') }}"><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Stores</a>
                                             </li>
                                             <li>
-                                                <a href="/users"><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Users</a>
+                                                <a href="{{ url('/users/') }}"><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Users</a>
                                             </li>
                                             <li>
                                                 <a href><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Search</a>
@@ -159,7 +159,10 @@
                             </a>
                         </li>
                         @if (Auth::user()->user_group === "admin")
-                            <li><a href="/users/create">User</a></li>
+                            <li><a href="{{ url('/stores/create') }}">Store</a></li>
+                        @endif
+                        @if (Auth::user()->user_group === "admin")
+                            <li><a href="{{ url('/users/create') }}">User</a></li>
                         @endif
                         <li class="divider"></li>
                         <li>
