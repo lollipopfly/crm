@@ -1,22 +1,11 @@
 @extends('layouts.layout')
 
 @section('content')
-    <div class="bg-light lter b-b wrapper-md">
+    <div class="bg-light lter b-b wrapper-md" ng-controller="showStoreCtrl">
         <h1 class="m-b-sm font-thin h3">{{ $store->name }}</h1>
         <a href="{{ url('/stores/') }}" class="btn btn-default"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back</a>
         <a href="{{ url('stores/' . $store->id . '/edit') }}" class="btn btn-primary">Edit</a>
-        {!! Form::open([
-            'method'=>'DELETE',
-            'url' => ['stores', $store->id],
-            'style' => 'display:inline'
-        ]) !!}
-            {!! Form::button('Delete', array(
-                    'type' => 'submit',
-                    'class' => 'btn btn-danger',
-                    'title' => 'Delete Store',
-                    'onclick'=>'return confirm("Confirm delete?")'
-            ));!!}
-        {!! Form::close() !!}
+        <a href="#" class="btn btn-danger" ng-click="deleteStore({{ $store->id }})">Delete</a>
     </div>
 
     <div class="wrapper-md">

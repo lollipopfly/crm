@@ -131,5 +131,6 @@ class StoresController extends Controller
         Store::destroy($id);
 
         Session::flash('flash_message', 'Store deleted!');
+
     }
 }

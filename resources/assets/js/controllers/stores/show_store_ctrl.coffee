@@ -1,4 +1,4 @@
-app.controller 'indexStoreCtrl', ($scope, $http) ->
+app.controller 'showStoreCtrl', ($scope, $http) ->
     $scope.deleteStore = (id) ->
         confirmation = confirm('Are you sure?')
 
@@ -6,7 +6,7 @@ app.controller 'indexStoreCtrl', ($scope, $http) ->
             $http(
                 method: 'DELETE'
                 url: '/stores/' + id).then ((response) ->
-                    window.location.reload()
+                    document.location.href = '/stores/'
                     return
             )
 

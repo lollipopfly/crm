@@ -1,4 +1,4 @@
-app.controller 'indexUserCtrl', ($scope, $rootScope, $http, $uibModal) ->
+app.controller 'indexUserCtrl', ($scope, $http) ->
     $scope.deleteUser = (id) ->
         confirmation = confirm('Are you sure?')
 

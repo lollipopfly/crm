@@ -87,6 +87,36 @@ app.directive('radioField', function() {
   };
 });
 
+app.controller('indexStoreCtrl', function($scope, $http) {
+  return $scope.deleteStore = function(id) {
+    var confirmation;
+    confirmation = confirm('Are you sure?');
+    if (confirmation) {
+      $http({
+        method: 'DELETE',
+        url: '/stores/' + id
+      }).then((function(response) {
+        window.location.reload();
+      }));
+    }
+  };
+});
+
+app.controller('showStoreCtrl', function($scope, $http) {
+  return $scope.deleteStore = function(id) {
+    var confirmation;
+    confirmation = confirm('Are you sure?');
+    if (confirmation) {
+      $http({
+        method: 'DELETE',
+        url: '/stores/' + id
+      }).then((function(response) {
+        document.location.href = '/stores/';
+      }));
+    }
+  };
+});
+
 app.controller('createUserCtrl', [
   "$scope", "lodash", function($scope, lodash) {
     $scope.passInput = document.querySelector('.password-input');
@@ -106,7 +136,7 @@ app.controller('createUserCtrl', [
   }
 ]);
 
-app.controller('indexUserCtrl', function($scope, $rootScope, $http, $uibModal) {
+app.controller('indexUserCtrl', function($scope, $http) {
   return $scope.deleteUser = function(id) {
     var confirmation;
     confirmation = confirm('Are you sure?');
@@ -114,21 +144,6 @@ app.controller('indexUserCtrl', function($scope, $rootScope, $http, $uibModal) {
       $http({
         method: 'DELETE',
         url: '/users/' + id
-      }).then((function(response) {
-        window.location.reload();
-      }));
-    }
-  };
-});
-
-app.controller('indexStoreCtrl', function($scope, $rootScope, $http, $uibModal) {
-  return $scope.deleteStore = function(id) {
-    var confirmation;
-    confirmation = confirm('Are you sure?');
-    if (confirmation) {
-      $http({
-        method: 'DELETE',
-        url: '/stores/' + id
       }).then((function(response) {
         window.location.reload();
       }));
