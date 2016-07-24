@@ -21,7 +21,6 @@ Route::group(['middleware' => 'auth'], function () {
 });
 
 
-// Route::get('register', function() {
-//    // return redirect('login');
-//    return view('auth.register');
-// });
+Route::get('register', function() {
+   return view('auth.register');
+});

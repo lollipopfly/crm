@@ -88,10 +88,10 @@ app.directive('radioField', function() {
 });
 
 app.controller('createStoreCtrl', function($scope, $http) {
-  return $scope.getLocation = function(val) {
+  return $scope.getLocation = function(address) {
     return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
       params: {
-        address: val,
+        address: address,
         language: 'en',
         components: 'country:UK|administrative_area:London'
       }

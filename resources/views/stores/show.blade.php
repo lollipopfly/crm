@@ -4,8 +4,10 @@
     <div class="bg-light lter b-b wrapper-md" ng-controller="showStoreCtrl">
         <h1 class="m-b-sm font-thin h3">{{ $store->name }}</h1>
         <a href="{{ url('/stores/') }}" class="btn btn-default"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back</a>
-        <a href="{{ url('stores/' . $store->id . '/edit') }}" class="btn btn-primary">Edit</a>
-        <a href="#" class="btn btn-danger" ng-click="deleteStore({{ $store->id }})">Delete</a>
+        @if (Auth::user()->user_group === 'admin')
+            <a href="{{ url('stores/' . $store->id . '/edit') }}" class="btn btn-primary">Edit</a>
+            <a href="#" class="btn btn-danger" ng-click="deleteStore({{ $store->id }})">Delete</a>
+        @endif
     </div>
 
     <div class="wrapper-md">
