@@ -1,6 +1,6 @@
 var app, dependencies;
 
-dependencies = ["ui.bootstrap", "ngLodash"];
+dependencies = ["ui.bootstrap", "ngLodash", "ngMask"];
 
 app = angular.module('app', dependencies);
 
@@ -84,6 +84,22 @@ app.directive('radioField', function() {
       checked: '=?cheked'
     },
     link: function(scope, element, attrs) {}
+  };
+});
+
+app.controller('createStoreCtrl', function($scope, $http) {
+  return $scope.getLocation = function(val) {
+    return $http.get('//maps.googleapis.com/maps/api/geocode/json', {
+      params: {
+        address: val,
+        language: 'en',
+        components: 'country:UK|administrative_area:London'
+      }
+    }).then(function(response) {
+      return response.data.results.map(function(item) {
+        return item.formatted_address;
+      });
+    });
   };
 });
 

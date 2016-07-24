@@ -143,7 +143,7 @@
                                     <span class="text"><i class="fa icon-screen-smartphone text"></i> Phone:</span>
                                 </div>
                                 <div class="col-md-7 {{ $errors->has('phone') ? 'has-error' : '' }}">
-                                    {!! Form::text('phone', old('phone'), array('class' => 'form-control'));!!}
+                                    {!! Form::text('phone', old('phone'), array('class' => 'form-control', 'ng-model' => 'maskModel', 'mask' => '9999-999-999'));!!}
                                     @if ($errors->has('phone'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('phone') }}</strong>
