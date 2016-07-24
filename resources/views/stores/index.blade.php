@@ -66,10 +66,6 @@
         <div class="text-right">
             {!! $stores->appends(Request::input())->render() !!}
         </div>
-
-        {{-- Confirm modal --}}
-        <confirm_modal></confirm_modal>
     </div>
-
 
 @endsection

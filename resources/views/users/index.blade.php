@@ -70,8 +70,6 @@
         <div class="text-right">
             {!! $users->appends(Request::input())->render() !!}
         </div>
-
-        {{-- Confirm modal --}}
-        <confirm_modal></confirm_modal>
     </div>
+
 @stop
