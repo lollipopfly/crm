@@ -87,6 +87,10 @@ app.directive('radioField', function() {
   };
 });
 
+app.controller('createRouteCtrl', function($scope, $http) {
+  return console.log('23');
+});
+
 app.controller('createStoreCtrl', function($scope, $http) {
   return $scope.getLocation = function(address) {
     return $http.get('//maps.googleapis.com/maps/api/geocode/json', {

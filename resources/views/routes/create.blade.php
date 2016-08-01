@@ -1,43 +1,61 @@
 @extends('layouts.layout')
 
 @section('content')
-<div class="container">
+    <div class="bg-light lter b-b wrapper-md">
+        <h1 class="m-b-sm font-thin h3">Create new route</h1>
+        <a href="{{ url('/routes/') }}" class="btn btn-default"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back</a>
+    </div>
 
-    <h1>Create New Route</h1>
-    <hr/>
+    <div class="wrapper-md" ng-controller="createRouteCtrl">
+        <div class="row">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-8">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        {!! Form::open(['url' => '/routes', 'class' => 'form-horizontal']) !!}
+                            @if ($users)
+                                <div class="row">
+                                    <div class="col-md-1"></div>
+                                    <div class="col-md-3 m-t-xs">
+                                        <span class="text"><i class="fa icon-user text"></i> User:</span>
+                                    </div>
+                                    <div class="col-md-7 {{ $errors->has('name') ? 'has-error' : '' }}">
+                                            <select name="user_id" class="form-control m-b">
+                                                <option selected="selected" value="">Select Driver</option>
+                                                @foreach ($users as $user)
+                                                    <option value="{{ $user->id }}">{{ $user->name }} {{ $user->last_name }}</option>
+                                                @endforeach
+                                            </select>
+                                        {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+                                    </div>
+                                </div>
+                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                            @endif
 
-    {!! Form::open(['url' => '/routes', 'class' => 'form-horizontal']) !!}
+                            <div class="row">
+                                <div class="col-md-1"></div>
+                                <div class="col-md-3 m-t-xs">
+                                    <span class="text"><i class="fa icon-calendar text"></i> Date:</span>
+                                </div>
+                                <div class="col-md-7 {{ $errors->has('date') ? 'has-error' : '' }}">
+                                    <datetimepicker
+                                        attr-name="'date'">
+                                    </datetimepicker>
+                                    {!! $errors->first('date', '<p class="help-block">:message</p>') !!}
+                                </div>
+                            </div>
+                            <div class="line line-dashed b-b line-lg pull-in"></div>
 
-                <div class="form-group {{ $errors->has('user_id') ? 'has-error' : ''}}">
-                {!! Form::label('user_id', 'User Id', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {!! Form::number('user_id', null, ['class' => 'form-control', 'required' => 'required']) !!}
-                    {!! $errors->first('user_id', '<p class="help-block">:message</p>') !!}
+                            <div class="row">
+                            <div class="col-md-4"></div>
+                                <div class="col-xs-7 text-right">
+                                    {!! Form::submit('create', ['class' => 'btn btn-primary text-u-c']) !!}
+                                </div>
+                            </div>
+                        {!! Form::close() !!}
+                    </div>
                 </div>
             </div>
-            <div class="form-group {{ $errors->has('date') ? 'has-error' : ''}}">
-                {!! Form::label('date', 'Date', ['class' => 'col-sm-3 control-label']) !!}
-                <div class="col-sm-6">
-                    {!! Form::text('date', null, ['class' => 'form-control', 'required' => 'required']) !!}
-                    {!! $errors->first('date', '<p class="help-block">:message</p>') !!}
-                </div>
-            </div>
-
-
-    <div class="form-group">
-        <div class="col-sm-offset-3 col-sm-3">
-            {!! Form::submit('Create', ['class' => 'btn btn-primary form-control']) !!}
         </div>
     </div>
-    {!! Form::close() !!}
-
-    @if ($errors->any())
-        <ul class="alert alert-danger">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
-
-</div>
 @endsection

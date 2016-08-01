@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="app">
 <head>
+    <base href="/">
     <meta charset="utf-8" />
     <title>Laravel & Angular CRM</title>
     <meta name="description" content="Crm system" />
@@ -151,13 +152,13 @@
                         <span translate="header.navbar.new.NEW">New</span> <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="#" translate="header.navbar.new.PROJECT">Projects</a></li>
-                        <li>
-                            <a href>
-                                <span class="badge bg-info pull-right">5</span>
-                                <span translate="header.navbar.new.TASK">Task</span>
-                            </a>
-                        </li>
+                        @if (Auth::user()->user_group === "admin")
+                            <li>
+                                <a href="{{ url('/routes/create') }}">
+                                    <span>Route</span>
+                                </a>
+                            </li>
+                        @endif
                         @if (Auth::user()->user_group === "admin")
                             <li><a href="{{ url('/stores/create') }}">Store</a></li>
                         @endif

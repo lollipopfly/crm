@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Route;
+use App\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
@@ -31,7 +32,8 @@ class RoutesController extends Controller
      */
     public function create()
     {
-        return view('routes.create');
+        $users = User::select('id', 'name', 'last_name')->get();
+        return view('routes.create')->with('users', $users);
     }
 
     /**

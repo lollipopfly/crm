@@ -10,6 +10,7 @@
     "gulp": "*",
     "gulp-postcss": "*",
     "gulp-sass": "*",
+    "gulp-sourcemaps": "^1.6.0",
     "gulp.spritesmith": "*",
     "gutil": "^1.6.4",
     "i": "^0.3.5",

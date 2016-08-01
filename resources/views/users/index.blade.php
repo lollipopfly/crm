@@ -1,5 +1,6 @@
 @extends('layouts.layout')
 @section('content')
+
     <div class="bg-light lter b-b wrapper-md">
         <h1 class="m-r-md inline media-middle font-thin h3">Users</h1>
         @if (Auth::user()->user_group === 'admin')

@@ -3,6 +3,7 @@ var gulp          = require('gulp'),
     sass          = require('gulp-sass'),
     size          = require('postcss-size'),
     coffee        = require('gulp-coffee'),
+    sourcemaps    = require('gulp-sourcemaps')
     pxtorem       = require('postcss-pxtorem'),
     colorFunction = require("postcss-color-function"),
     postcssExtend = require('postcss-sass-extend'),
@@ -20,10 +21,10 @@ var gulp          = require('gulp'),
 /*------------------------------------*\
  TASKS
  \*------------------------------------*/
-//require('laravel-elixir-livereload');
-//elixir(function(mix) {
+// require('laravel-elixir-livereload');
+// elixir(function(mix) {
 //    mix.livereload();
-//});
+// });
 
 /*------------------------------------*\
  Sass
@@ -77,6 +78,7 @@ gulp.task('compress', function() {
         'public/theme/js/ui-toggle.js',
         'public/theme/js/ui-client.js',
 
+        'node_modules/angular-route/angular-route.js',
         'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
         'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
         'node_modules/ng-lodash/build/ng-lodash.js',
