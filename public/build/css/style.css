@@ -14939,6 +14939,9 @@ a.text-#000000:hover {
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none; }
 
+textarea {
+  resize: none; }
+
 .table-layout-fixed {
   table-layout: fixed; }
 

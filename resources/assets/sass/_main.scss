@@ -25,6 +25,10 @@
     display: none;
 }
 
+textarea {
+    resize: none;
+}
+
 .table-layout-fixed {
     table-layout: fixed;
 }

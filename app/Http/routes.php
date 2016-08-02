@@ -18,6 +18,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('users/{id}', 'Users\UsersController@destroy');
 
     // STORES
+    Route::get('stores/getallstores', 'Stores\StoresController@getallstores');
     Route::resource('stores', 'Stores\StoresController');
 
     // ROUTES
