@@ -83,6 +83,7 @@ gulp.task('compress', function() {
         'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
         'node_modules/ng-lodash/build/ng-lodash.js',
         "node_modules/ng-mask/dist/ngMask.js",
+        "node_modules/moment/moment.js",
     ])
         .pipe(plumber())
         .pipe(concat('global.min.js'))
@@ -93,7 +94,9 @@ gulp.task('compress', function() {
 
 gulp.task('compile-coffee', function() {
     gulp.src('resources/assets/js/**/*.coffee')
+        .pipe(sourcemaps.init())
         .pipe(coffee({bare: true}).on('error', gutil.log))
+        .pipe(sourcemaps.write())
         .pipe(plumber())
         .pipe(concat('app.js'))
         .pipe(debug({title: 'compile-coffee:'}))

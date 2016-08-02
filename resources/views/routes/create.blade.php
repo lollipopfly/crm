@@ -20,12 +20,12 @@
                                         <span class="text"><i class="fa icon-user text"></i> User:</span>
                                     </div>
                                     <div class="col-md-7 {{ $errors->has('name') ? 'has-error' : '' }}">
-                                            <select name="user_id" class="form-control m-b">
-                                                <option selected="selected" value="">Select Driver</option>
-                                                @foreach ($users as $user)
-                                                    <option value="{{ $user->id }}">{{ $user->name }} {{ $user->last_name }}</option>
-                                                @endforeach
-                                            </select>
+                                        <select name="user_id" class="form-control m-b">
+                                            <option selected="selected" value="">Select Driver</option>
+                                            @foreach ($users as $user)
+                                                <option value="{{ $user->id }}">{{ $user->name }} {{ $user->last_name }}</option>
+                                            @endforeach
+                                        </select>
                                         {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
                                     </div>
                                 </div>
@@ -45,6 +45,34 @@
                                 </div>
                             </div>
                             <div class="line line-dashed b-b line-lg pull-in"></div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h3>Add new point</h3>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Store</label>
+                                    <select name="store_id_1" class="form-control m-b">
+                                        <option selected="selected" value="">Select Driver</option>
+                                        @foreach ($stores as $store)
+                                            <option value="{{ $store->id }}">{{ $store->name }}</option>
+                                        @endforeach
+                                    </select>
+
+                                    <timepicker
+                                        label="'Deadline'"
+                                        ng-model="time_1"
+                                        attr-name="'time_1'"
+                                    ></timepicker>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Orders</label>
+                                    {{ Form::textarea('orders_1', 'example@gmail.com', ['class' => 'form-control'])}}
+                                </div>
+                            </div>
 
                             <div class="row">
                             <div class="col-md-4"></div>

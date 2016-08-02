@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Route;
 use App\User;
+use App\Store;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
@@ -33,7 +34,9 @@ class RoutesController extends Controller
     public function create()
     {
         $users = User::select('id', 'name', 'last_name')->get();
-        return view('routes.create')->with('users', $users);
+        $stores = Store::select('id', 'name')->get();
+
+        return view('routes.create')->with(['users' => $users, 'stores' => $stores]);
     }
 
     /**

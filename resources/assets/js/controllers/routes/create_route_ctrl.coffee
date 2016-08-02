@@ -1,3 +1,4 @@
-app.controller 'createRouteCtrl', ($scope, $http) ->
-  console.log('23');
+app.controller 'createRouteCtrl', ($scope) ->
+
+
 

@@ -14936,6 +14936,9 @@ a.text-#000000:hover {
 * MAIN STYLES
 * ----------------------------------------------------------------------------------------------------
 */
+[ng\:cloak], [ng-cloak], .ng-cloak {
+  display: none; }
+
 .table-layout-fixed {
   table-layout: fixed; }
 

@@ -9,7 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <link rel="stylesheet" href="{!! asset('build/css/style.css') !!}">
 </head>
-<body>
+<body ng-cloak>
 <div class="app app-header-fixed ">
     <!-- header -->
     <header id="header" class="app-header navbar" role="menu">
