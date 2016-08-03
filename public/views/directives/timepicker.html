@@ -1,4 +1,4 @@
 <label ng-if="label">{{ label }}</label>
 <div uib-timepicker ng-model="model" hour-step="hstep" minute-step="mstep" show-meridian="ismeridian"></div>
 
-<input type="hidden" ng-if="attrName" name="attrName" value="{{ model }}">
+<input type="hidden" ng-if="attrName" name="{{ attrName }}" ng-value="model">

@@ -3,7 +3,7 @@ app.directive 'timepicker', () ->
   templateUrl: '/views/directives/timepicker.html'
   scope:
     label: "=?label"
-    attrName: "=?attrName"
+    attrName: "@"
     model: "=ngModel"
 
   link: (scope, element, attrs) ->

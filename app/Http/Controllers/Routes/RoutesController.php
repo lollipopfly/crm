@@ -15,6 +15,16 @@ use Session;
 class RoutesController extends Controller
 {
     /**
+     * Role Middleware
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function __construct() {
+        $this->middleware('role', ['only' => 'create|destroy|store|update|edit']);
+    }
+
+
+    /**
      * Display a listing of the resource.
      *
      * @return void
@@ -46,6 +56,7 @@ class RoutesController extends Controller
      */
     public function store(Request $request)
     {
+        dd($request);
         $this->validate($request, ['user_id' => 'required', 'date' => 'required', ]);
 
         Route::create($request->all());
