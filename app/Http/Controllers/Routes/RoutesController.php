@@ -33,7 +33,8 @@ class RoutesController extends Controller
     public function index()
     {
         $routes = Route::paginate(15);
-
+        // $routes =
+        // dd($routes);
         return view('routes.index', compact('routes'));
     }
 

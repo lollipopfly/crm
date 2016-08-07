@@ -40,7 +40,7 @@
                             @foreach ($routes as $route)
                                 <tr>
                                     <td><a class="text-info" href="routes/{{$route->id}}">{{ $route->id }}</a></td>
-                                    <td>{{ $route->user_name }}</td>
+                                    <td>{{ $route->user->name . ' ' . $route->user->last_name }}</td>
                                     <td>{{ $route->date }}</td>
                                     <td>
                                        <uib-progressbar class="progress-striped active" max="200" value="166" type="danger"><i>166 / 200</i></uib-progressbar>
