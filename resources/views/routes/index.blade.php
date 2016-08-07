@@ -8,7 +8,7 @@
         @endif
     </div>
 
-    <div class="wrapper-md" ng-controller="indexRouteCtrl">
+    <div class="wrapper-md">
         {{-- Flash message --}}
         @if(Session::has('flash_message'))
             <div class="row">
@@ -43,9 +43,7 @@
                                     <td>{{ $route->user_name }}</td>
                                     <td>{{ $route->date }}</td>
                                     <td>
-                                        <div class="progress ng-isolate-scope" animate="false" value="dynamic" type="success">
-                                          <div class="progress-bar progress-bar-success" ng-class="type &amp;&amp; 'progress-bar-' + type" role="progressbar" aria-valuenow="47" aria-valuemin="0" aria-valuemax="100" ng-style="{width: (percent < 100 ? percent : 100) + '%'}" aria-valuetext="47%" aria-labelledby="progressbar" ng-transclude="" style="transition: none; width: 47%;"><b class="ng-binding ng-scope">47%</b></div>
-                                        </div>
+                                       <uib-progressbar class="progress-striped active" max="200" value="166" type="danger"><i>166 / 200</i></uib-progressbar>
                                     </td>
                                     @if (Auth::user()->user_group === 'admin')
                                         <td class="text-right">

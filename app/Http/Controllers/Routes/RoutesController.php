@@ -11,6 +11,7 @@ use App\Store;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
+use DB;
 
 class RoutesController extends Controller
 {
@@ -56,10 +57,40 @@ class RoutesController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
         $this->validate($request, ['user_id' => 'required', 'date' => 'required', ]);
 
-        Route::create($request->all());
+        $pointsArr = Array();
+
+        $collection = collect($request->all());
+        $collection->forget(['_token', 'user_id', 'date']); // except this keys
+        $collection->all();
+
+        $n = 1;
+        foreach($collection as $key => $value) {
+            $date = date("Y-m-d H:i:s");
+            if($key == 'store_id_'.$n) {
+                $pointArr[] = [
+                    'user_id'       => $request->user_id,
+                    'store_id'      => $collection['store_id_'.$n],
+                    'deadline_time' => $collection['deadline_time_'.$n],
+                    'products'      => $collection['products_'.$n],
+                    'created_at'    => $date,
+                    'updated_at'    => $date
+                ];
+                $n++;
+            }
+        }
+
+        // Create New Route
+        $route = Route::create(['user_id' => $request->user_id, 'date' => $request->date]);
+
+        // Add route id to the points
+        foreach ($pointArr as $key => &$value) {
+            $value['route_id'] = $route->id;
+        }
+
+        // Create new points
+        DB::table('points')->insert($pointArr);
 
         Session::flash('flash_message', 'Route added!');
 

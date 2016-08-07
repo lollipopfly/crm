@@ -12,21 +12,21 @@
             <div class="col-lg-8">
                 <div class="panel panel-default">
                     <div class="panel-body">
-                        {!! Form::open(['url' => '/routes', 'class' => 'form-horizontal']) !!}
+                        {!! Form::open(['url' => '/routes', 'class' => 'form-horizontal', 'name' => 'create-route']) !!}
                             @if ($users)
                                 <div class="row">
                                     <div class="col-md-1"></div>
                                     <div class="col-md-3 m-t-xs">
                                         <span class="text"><i class="fa icon-user text"></i> User:</span>
                                     </div>
-                                    <div class="col-md-7 {{ $errors->has('name') ? 'has-error' : '' }}">
+                                    <div class="col-md-7 {{ $errors->has('user_id') ? 'has-error' : '' }}">
                                         <select name="user_id" class="form-control m-b">
                                             <option selected="selected" value="">Select Driver...</option>
                                             @foreach ($users as $user)
                                                 <option value="{{ $user->id }}">{{ $user->name }} {{ $user->last_name }}</option>
                                             @endforeach
                                         </select>
-                                        {!! $errors->first('name', '<p class="help-block">:message</p>') !!}
+                                        {!! $errors->first('user_id', '<p class="help-block">:message</p>') !!}
                                     </div>
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -45,36 +45,32 @@
                                 </div>
                             </div>
                             <div class="line line-dashed b-b line-lg pull-in"></div>
-                                {{-- <div class="row">
-                                    <div class="col-md-12">
-                                        <button type="button" ng-click="addPoint(pointCount)" class="btn m-b-xs btn-info text-u-c "><i class="fa fa-plus m-r-xs"></i>Add point</button>
-                                    </div>
-                                </div> --}}
 
+                            <div class="row" ng-repeat="form in pointForms">
+                                <div class="col-md-6" >
+                                    <label>Store</label>
+                                    <select name="store_id_@{{ $index+1 }}" class="form-control m-b" ng-model="form.store" required>
+                                        <option selected="selected" value="">Select Store...</option>
+                                        @foreach ($stores as $store)
+                                            <option value="{{ $store->id }}">{{ $store->name }}</option>
+                                        @endforeach
+                                    </select>
 
-                                <div class="row" ng-repeat="form in pointForms">
-                                    <div class="col-md-6" >
-                                        <label>Store</label>
-                                        <select name="store_id_@{{ $index+1 }}" class="form-control m-b">
-                                            <option selected="selected" value="">Select Store...</option>
-                                            @foreach ($stores as $store)
-                                                <option value="{{ $store->id }}">{{ $store->name }}</option>
-                                            @endforeach
-                                        </select>
-
-                                        <timepicker
-                                            label="'Deadline'"
-                                            ng-model="time"
-                                            attr-name="deadline_time_@{{ $index+1 }}"
-                                        ></timepicker>
-                                    </div>
-                                    <div class="col-md-6">
-                                        <label>Orders</label>
-                                        <textarea class="form-control m-b-sm" rows="7" name="orders_@{{ $index+1 }}" cols="50"></textarea>
-                                        <button class="btn pull-right btn-danger" type="button" ng-click="removePoint($index)">Delete</button>
-                                    </div>
+                                    <timepicker
+                                        label="'Deadline'"
+                                        ng-model="form.time"
+                                        attr-name="deadline_time_@{{ $index+1 }}"
+                                    ></timepicker>
+                                </div>
+                                <div class="col-md-6">
+                                    <label>Orders</label>
+                                    <textarea class="form-control m-b-sm" rows="7" name="products_@{{ $index+1 }}" cols="50" required></textarea>
+                                </div>
+                                <div class="col-md-12 m-b-sm">
+                                    <button class="btn pull-right btn-danger" type="button" ng-click="removePoint($index)">Delete</button>
                                 </div>
                                 <div class="line line-dashed b-b line-lg pull-in"></div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-md-12 text-right">
@@ -82,10 +78,10 @@
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row padding-top-10">
                             <div class="col-md-4"></div>
                                 <div class="col-xs-7 text-right">
-                                    {!! Form::submit('create', ['class' => 'btn btn-primary text-u-c']) !!}
+                                    {!! Form::submit('create', ['class' => 'btn btn-primary text-u-c', 'ng-click' => 'submit()', 'type' => 'button']) !!}
                                 </div>
                             </div>
                         {!! Form::close() !!}
