@@ -27,6 +27,9 @@ class Route extends Model
      */
     protected $fillable = ['user_id', 'date'];
 
+    /**
+     * Make relationship with Users tablet
+     */
     public function user()
     {
         return $this->belongsTo('App\User');

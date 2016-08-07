@@ -8,10 +8,11 @@ use App\Http\Controllers\Controller;
 use App\Route;
 use App\User;
 use App\Store;
+use App\Point;
+use DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
-use DB;
 
 class RoutesController extends Controller
 {
@@ -33,8 +34,7 @@ class RoutesController extends Controller
     public function index()
     {
         $routes = Route::paginate(15);
-        // $routes =
-        // dd($routes);
+
         return view('routes.index', compact('routes'));
     }
 
@@ -155,9 +155,9 @@ class RoutesController extends Controller
     public function destroy($id)
     {
         Route::destroy($id);
+        Point::where('route_id', $id)->delete();
 
         Session::flash('flash_message', 'Route deleted!');
 
-        return redirect('routes');
     }
 }
