@@ -122,8 +122,10 @@ class RoutesController extends Controller
     public function edit($id)
     {
         $route = Route::findOrFail($id);
+        $users = User::all();
+        $stores = Store::all();
 
-        return view('routes.edit', compact('route'));
+        return view('routes.edit', compact(['route', 'users', 'stores']));
     }
 
     /**
@@ -159,5 +161,11 @@ class RoutesController extends Controller
 
         Session::flash('flash_message', 'Route deleted!');
 
+    }
+
+    public function getPoints($id) {
+        $points = Point::where('route_id', $id)->get();
+
+        return $points;
     }
 }

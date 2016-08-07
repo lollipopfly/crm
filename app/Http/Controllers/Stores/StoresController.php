@@ -133,15 +133,4 @@ class StoresController extends Controller
         Session::flash('flash_message', 'Store deleted!');
 
     }
-
-    /**
-     * Get all stores for Create Store page
-     *
-     * @return collection
-     */
-    public function getAllStores() {
-        $stores = Store::select('id', 'name')->get();
-
-        return $stores;
-    }
 }

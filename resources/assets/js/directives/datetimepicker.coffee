@@ -2,6 +2,7 @@ app.directive 'datetimepicker', () ->
   restrict: 'AE'
   templateUrl: '/views/directives/datetimepicker.html'
   scope:
+    model: "=model"
     label: "=?label"
     attrName: "=attrName"
     attrValue: "=?attrValue"
@@ -9,7 +10,6 @@ app.directive 'datetimepicker', () ->
   link: (scope, element, attrs) ->
     scope.open = () ->
       scope.date_opened = true
-
 
 
 

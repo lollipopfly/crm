@@ -1,6 +1,7 @@
 app.directive 'timepicker', () ->
   restrict: 'AE'
   templateUrl: '/views/directives/timepicker.html'
+  require: 'ngModel'
   scope:
     label: "=?label"
     attrName: "@"

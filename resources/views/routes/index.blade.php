@@ -47,7 +47,10 @@
                                     </td>
                                     @if (Auth::user()->user_group === 'admin')
                                         <td class="text-right">
-                                            <a href="" ng-click="deleteRoute({{$route->id}})" target="_self" tooltip-placement="top-right" uib-tooltip="Delete route">
+                                            <a href="{{ url('routes/' .$route->id. '/edit') }}" class="v-middle" tooltip-placement="top-right" uib-tooltip="Edit store">
+                                                <i class="icon-pencil c-p f-z-15 color-green"></i>
+                                            </a>
+                                            <a href="" ng-click="deleteRoute({{$route->id}})" class="v-middle" target="_self" tooltip-placement="top-right" uib-tooltip="Delete route">
                                                 <i class="fa fa-close c-p f-z-20 color-red"></i>
                                             </a>
                                         </td>
