@@ -69,7 +69,9 @@
                                 <div class="col-md-12 m-b-sm">
                                     <button class="btn pull-right btn-danger" type="button" ng-click="removePoint($index)">Delete</button>
                                 </div>
-                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                <div class="col-md-12">
+                                    <div class="line line-dashed b-b line-lg pull-in"></div>
+                                </div>
                             </div>
 
                             <div class="row">
@@ -81,7 +83,7 @@
                             <div class="row padding-top-10">
                             <div class="col-md-4"></div>
                                 <div class="col-xs-7 text-right">
-                                    {!! Form::submit('create', ['class' => 'btn btn-primary text-u-c', 'ng-click' => 'submit()', 'type' => 'button']) !!}
+                                    {!! Form::submit('create', ['class' => 'btn btn-primary text-u-c btn-md', 'ng-click' => 'submit()', 'type' => 'button']) !!}
                                 </div>
                             </div>
                         {!! Form::close() !!}

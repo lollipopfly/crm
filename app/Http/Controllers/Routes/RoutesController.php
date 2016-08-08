@@ -9,7 +9,6 @@ use App\Route;
 use App\User;
 use App\Store;
 use App\Point;
-use DB;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Session;
@@ -91,7 +90,7 @@ class RoutesController extends Controller
         }
 
         // Create new points
-        DB::table('points')->insert($pointArr);
+        Point::insert($pointArr);
 
         Session::flash('flash_message', 'Route added!');
 
@@ -139,8 +138,62 @@ class RoutesController extends Controller
     {
         $this->validate($request, ['user_id' => 'required', 'date' => 'required', ]);
 
+        $pointsArr = Array();
+        $collection = collect($request->all());
+        $collection->forget(['_token', 'user_id', 'date', '_method']); // except this keys
+        $collection->all();
+
+        // Get all routes by route_id
+        $points = Point::where('route_id', $id)->get();
+
+        foreach ($points as $key => $value) {
+            // find route by id
+            $search_point = $collection->search($value['id']);
+
+            // If found point, update it
+            if($search_point) {
+                $pointArr = [
+                    'user_id'       => $request->user_id,
+                    'store_id'      => $collection['store_id_'.$value['id']],
+                    'deadline_time' => $collection['deadline_time_'.$value['id']],
+                    'products'      => $collection['products_'.$value['id']],
+                ];
+
+                Point::where(['route_id' => $id, 'id' => $value['id']])->update($pointArr);
+            } else {
+                // Delete point
+                Point::where('id', $value['id'])->delete();
+            }
+            // except values from collection. It is for creating new points
+            $collection->forget(['id_'.$value["id"], 'store_id_'.$value["id"], 'deadline_time_'.$value["id"], 'products_'.$value["id"]]);
+        }
+
+        // If have new routes, create its
+        if(!$collection->isEmpty()) {
+            $n = 1;
+            foreach($collection as $key => $value) {
+                $date = date("Y-m-d H:i:s");
+                if($key == 'id_'.$n.'_new') {
+                    $newPointArr[] = [
+                        'route_id'      => $id,
+                        'user_id'       => $request->user_id,
+                        'store_id'      => $collection['store_id_'.$n.'_new'],
+                        'deadline_time' => $collection['deadline_time_'.$n.'_new'],
+                        'products'      => $collection['products_'.$n.'_new'],
+                        'created_at'    => $date,
+                        'updated_at'    => $date
+                    ];
+                    $n++;
+                }
+            }
+
+            // Create new points
+            Point::insert($newPointArr);
+        }
+
+        // Update Route
         $route = Route::findOrFail($id);
-        $route->update($request->all());
+        $route->update(["user_id" => $request->user_id, "date" => $request->date]);
 
         Session::flash('flash_message', 'Route updated!');
 
