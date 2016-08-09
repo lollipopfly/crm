@@ -41,7 +41,6 @@
                             </div>
                             <div class="line line-dashed b-b line-lg pull-in"></div>
 
-
                             <div class="row">
                                 <div class="col-md-1"></div>
                                 <div class="col-md-3 m-t-xs">

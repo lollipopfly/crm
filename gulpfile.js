@@ -84,6 +84,7 @@ gulp.task('compress', function() {
         'node_modules/ng-lodash/build/ng-lodash.js',
         "node_modules/ng-mask/dist/ngMask.js",
         "node_modules/moment/moment.js",
+        "node_modules/angular-moment/angular-moment.js"
     ])
         .pipe(plumber())
         .pipe(concat('global.min.js'))

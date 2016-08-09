@@ -107,8 +107,8 @@ class RoutesController extends Controller
     public function show($id)
     {
         $route = Route::findOrFail($id);
-
-        return view('routes.show', compact('route'));
+        $stores = Store::all();
+        return view('routes.show', compact(['route', 'stores']));
     }
 
     /**
@@ -216,6 +216,11 @@ class RoutesController extends Controller
 
     }
 
+    /**
+     * Get all points of route
+     *
+     * @return array
+     */
     public function getPoints($id) {
         $points = Point::where('route_id', $id)->get();
 
