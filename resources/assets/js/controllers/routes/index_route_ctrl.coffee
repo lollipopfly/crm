@@ -6,8 +6,8 @@ app.controller 'indexRouteCtrl', ($scope, $http) ->
           $http(
               method: 'DELETE'
               url: '/routes/' + id).then ((response) ->
-                  window.location.reload()
-                  return
+                window.location.reload()
+                return
           )
 
       return

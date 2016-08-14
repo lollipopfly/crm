@@ -21,9 +21,9 @@
                                     </div>
                                     <div class="col-md-7 {{ $errors->has('user_id') ? 'has-error' : '' }}">
                                         <select name="user_id" class="form-control m-b">
-                                            <option selected="selected" value="">Select Driver...</option>
-                                            @foreach ($users as $user)
-                                                <option value="{{ $user->id }}">{{ $user->name }} {{ $user->last_name }}</option>
+                                             <option selected="selected" value="">Select Driver...</option>
+                                            @foreach ($users as $key => $user)
+                                                <option {{ (old("user_id") == $user->id ? "selected":"") }} value="{{ $user->id }}">{{ $user->name }} {{ $user->last_name }}</option>
                                             @endforeach
                                         </select>
                                         {!! $errors->first('user_id', '<p class="help-block">:message</p>') !!}
@@ -39,7 +39,9 @@
                                 </div>
                                 <div class="col-md-7 {{ $errors->has('date') ? 'has-error' : '' }}">
                                     <datetimepicker
-                                        attr-name="'date'">
+                                        attr-name="'date'"
+                                        attr-value="'{{ old("date") }}'"
+                                        >
                                     </datetimepicker>
                                     {!! $errors->first('date', '<p class="help-block">:message</p>') !!}
                                 </div>

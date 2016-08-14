@@ -22,7 +22,6 @@
                                                 {{ $user->country }}
                                             @endif
                                         </small>
-
                                 </div>
                                 <a href="profile/edit" class="btn btn-sm btn-success btn-rounded">Edit</a>
                                 @if($user->user_group === 'admin')
@@ -80,6 +79,10 @@
                         <tr>
                             <td><strong>Job title</strong></td>
                             <td>{{ $user->job_title }}</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Current route</strong></td>
+                            {{-- <td>{{ $route->date }}</td> --}}
                         </tr>
                     </table>
                 </div>

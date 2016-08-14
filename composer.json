@@ -10,7 +10,8 @@
         "barryvdh/laravel-ide-helper": "^2.1",
         "laravelcollective/html": "5.2.*",
         "intervention/image": "^2.3",
-        "appzcoder/crud-generator": "^1.1"
+        "appzcoder/crud-generator": "^1.1",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

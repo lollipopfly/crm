@@ -44,7 +44,7 @@ class RoutesController extends Controller
      */
     public function create()
     {
-        $users = User::select('id', 'name', 'last_name')->get();
+        $users = User::select('id', 'name', 'last_name')->where('availability', '!=', false)->get();
         $stores = Store::select('id', 'name')->get();
 
         return view('routes.create')->with(['users' => $users, 'stores' => $stores]);
@@ -59,7 +59,7 @@ class RoutesController extends Controller
     {
         $this->validate($request, ['user_id' => 'required', 'date' => 'required', ]);
 
-        $pointsArr = Array();
+        $pointArr = Array();
 
         $collection = collect($request->all());
         $collection->forget(['_token', 'user_id', 'date']); // except this keys
@@ -92,6 +92,9 @@ class RoutesController extends Controller
         // Create new points
         Point::insert($pointArr);
 
+        // Update availability of Driver
+        User::where('id', $request->user_id)->update(['availability' => false]);
+
         Session::flash('flash_message', 'Route added!');
 
         return redirect('routes');
@@ -121,7 +124,7 @@ class RoutesController extends Controller
     public function edit($id)
     {
         $route = Route::findOrFail($id);
-        $users = User::all();
+        $users = User::select('id', 'name', 'last_name')->where('availability', '!=', false)->orWhere('id', $route->user_id)->get();
         $stores = Store::all();
 
         return view('routes.edit', compact(['route', 'users', 'stores']));
@@ -138,7 +141,7 @@ class RoutesController extends Controller
     {
         $this->validate($request, ['user_id' => 'required', 'date' => 'required', ]);
 
-        $pointsArr = Array();
+        $pointArr = Array();
         $collection = collect($request->all());
         $collection->forget(['_token', 'user_id', 'date', '_method']); // except this keys
         $collection->all();
@@ -193,7 +196,14 @@ class RoutesController extends Controller
 
         // Update Route
         $route = Route::findOrFail($id);
+        $old_user_id = $route->user_id;
         $route->update(["user_id" => $request->user_id, "date" => $request->date]);
+
+        // Update current and new User availability if user was changed
+        if($old_user_id !== $request->user_id) {
+            User::where('id', $old_user_id)->update(['availability' => true]); // update old user
+            User::where('id', $request->user_id)->update(['availability' => false]);//update news user
+        }
 
         Session::flash('flash_message', 'Route updated!');
 
@@ -209,8 +219,10 @@ class RoutesController extends Controller
      */
     public function destroy($id)
     {
+        $route = Route::findOrFail($id);
         Route::destroy($id);
         Point::where('route_id', $id)->delete();
+        User::where('id', $route->user_id)->update(['availability' => true]); // update availabillity
 
         Session::flash('flash_message', 'Route deleted!');
 
