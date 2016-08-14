@@ -27,4 +27,12 @@ class Point extends Model
      */
     protected $fillable = ['route_id', 'store_id', 'user_id', 'products', 'status'];
 
+    /**
+     * Make relationship with Stores table
+     */
+    public function store()
+    {
+        return $this->belongsTo('App\Store');
+    }
+
 }

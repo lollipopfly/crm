@@ -28,7 +28,7 @@ class Route extends Model
     protected $fillable = ['user_id', 'date'];
 
     /**
-     * Make relationship with Users tablet
+     * Make relationship with Users table
      */
     public function user()
     {

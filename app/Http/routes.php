@@ -9,6 +9,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('profile/',  'Profile\ProfileController@index');
     Route::get('profile/edit',  'Profile\ProfileController@edit');
     Route::post('profile/update/{id}',  'Profile\ProfileController@update');
+    Route::put('profile/updatepoints', 'Profile\ProfileController@updatePoints');
 
     // USERS
     Route::get('users', 'Users\UsersController@index');

@@ -7,10 +7,13 @@ use Illuminate\Http\Request;
 use App\Route;
 use App\Http\Requests\ProfileUpdateRequest;
 use App\User;
+use App\Point;
+use App\Store;
 use App\Http\Requests;
 use Auth;
 use Image;
 use File;
+use Session;
 
 class ProfileController extends Controller
 {
@@ -24,9 +27,9 @@ class ProfileController extends Controller
      */
     public function index() {
         $user = Auth::user();
-        $route = Route::where('user_id', $user->id)->first();
+        $points = Point::where('user_id', $user->id)->get();
 
-        return view('profile.index')->with(['user' => $user, 'route' => $route]);
+        return view('profile.index')->withUser($user)->withPoints($points);
     }
 
 
@@ -69,7 +72,8 @@ class ProfileController extends Controller
         }
 
         $current_user->update($data);
-        session()->flash('profile_updated', 'Profile updated.');
+        Session::flash('flash_message', 'Profile updated.');
+
         return redirect('profile/');
     }
 
@@ -85,5 +89,33 @@ class ProfileController extends Controller
         }
 
         return true;
+    }
+
+    /**
+     * Update points from profile
+     *
+     * @param Request
+     * @return view
+     */
+    public function updatePoints(Request $request) {
+        $user_id = Auth::user()->id;
+        $points = Point::select('id')->where('user_id', $user_id)->get();
+
+        $collection = collect($request->all());
+        $collection->forget(['_token', '_method']); // except this keys
+        $collection->all();
+
+        foreach ($points as $key => $point) {
+            if(!$collection->has('point_' . $point->id)) {
+                $status = 0;
+            } else {
+                $status = true;
+            }
+            Point::where(['user_id' => $user_id, 'id' => $point->id])->update(['status' => $status]);
+        }
+
+        Session::flash('flash_message', 'Points updated!');
+
+        return redirect('profile');
     }
 }

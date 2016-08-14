@@ -1,10 +1,11 @@
-<div class="checkbox">
+<div class="checkbox {{ attrClass }}">
     <label class="i-checks">
         <input
             type="checkbox"
             name="{{ attrName }}"
-            value="{{ attrValue }}"
+            ng-checked="checked"
         >
-        <i></i> {{ label }}
+        <i></i>
+        <div ng-if="label" class="inline">{{ label }}</div>
     </label>
 </div>
