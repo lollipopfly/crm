@@ -33,8 +33,36 @@ class RoutesController extends Controller
     public function index()
     {
         $routes = Route::paginate(15);
+        $points = Point::select('route_id', 'status')->get();
 
-        return view('routes.index', compact('routes'));
+        // GET PROGRESS OF ROUTE
+        foreach ($routes as &$route) {
+            // Filter points by route id
+            $filteredPoints = $points->filter(function ($value, $key) use ($route){
+                return $value->route_id == $route->id;
+            });
+
+            $filteredPoints->all();
+
+            $statusArr = Array();
+            $percentCount = 0;
+
+            // Get count of completed routes
+            foreach ($filteredPoints as $point) {
+                $statusArr[] = $point->status;
+
+                if($point->status == 1) {
+                    $percentCount++;
+                }
+            }
+            $statusArrCount = count($statusArr);
+
+            // Calculate percentage & Add progress to Route
+            $progress = ($percentCount / $statusArrCount) * 100;
+            $route->progress = round($progress);
+        }
+
+        return view('routes.index')->withRoutes($routes);
     }
 
     /**

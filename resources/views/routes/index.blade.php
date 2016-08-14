@@ -43,7 +43,7 @@
                                     <td>{{ $route->user->name . ' ' . $route->user->last_name }}</td>
                                     <td>{{ $route->date }}</td>
                                     <td>
-                                       <uib-progressbar animate="false" value="dynamic" type="success"><b>100%</b></uib-progressbar>
+                                       <uib-progressbar animate="false" value="{{ $route->progress }}" type="success"><b>{{ $route->progress }}%</b></uib-progressbar>
                                     </td>
                                     @if (Auth::user()->user_group === 'admin')
                                         <td class="text-right">
