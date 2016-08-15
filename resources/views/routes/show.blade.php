@@ -13,8 +13,7 @@
 
     <div class="wrapper-md">
         <div class="row">
-            <div class="col-lg-2"></div>
-            <div class="col-lg-8">
+            <div class="col-lg-6">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="row">
@@ -69,15 +68,15 @@
                                 </tr>
                             </tbody>
                         </table>
-
-
-                        <div class="col-md-12">
-                            <div class="line line-dashed b-b line-lg pull-in"></div>
-                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="col-lg-6">
+                <div id="route-map"></div>
+            </div>
         </div>
+
     </div>
 </div>
 @endsection

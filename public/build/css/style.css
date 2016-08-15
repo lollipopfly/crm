@@ -14993,3 +14993,6 @@ button i {
 
 .sort-link.active-desc {
   background: url("/images/sort_desc.png") no-repeat center right; }
+
+#route-map {
+  height: 500px; }

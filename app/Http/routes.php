@@ -20,6 +20,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     // STORES
     Route::resource('stores', 'Stores\StoresController');
+    Route::get('stores/getstoreaddress/{id}', 'Stores\StoresController@getstoreaddress');
 
     // ROUTES
     Route::get('routes/getpoints/{id}', 'Routes\RoutesController@getPoints');

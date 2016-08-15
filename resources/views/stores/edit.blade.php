@@ -6,7 +6,7 @@
         <a href="{{ url('/stores/') }}" class="btn btn-default"><i class="fa fa-long-arrow-left" aria-hidden="true"></i> Back</a>
     </div>
 
-    <div class="wrapper-md">
+    <div class="wrapper-md" ng-controller="editStoreCtrl">
         <div class="row">
             <div class="col-lg-2"></div>
             <div class="col-lg-8">
@@ -48,7 +48,15 @@
                                    <span class="text"><i class="fa icon-map text"></i> Address:</span>
                                </div>
                                <div class="col-md-7 {{ $errors->has('address') ? 'has-error' : '' }}">
-                                   {!! Form::text('address', null, ['class' => 'form-control', 'required' => 'required']) !!}
+                                   {!! Form::text('address', null, [
+                                       'class' => 'form-control',
+                                       'required' => 'required',
+                                       'ng-model' => 'asyncSelected',
+                                       'autocomplete' => 'off',
+                                       'uib-typeahead' => 'address for address in getLocation($viewValue)',
+                                       'typeahead-loading' => 'loadingLocations',
+                                      ' typeahead-no-results' => 'noResults',
+                                    ]) !!}
                                    {!! $errors->first('address', '<p class="help-block">:message</p>') !!}
                                </div>
                            </div>

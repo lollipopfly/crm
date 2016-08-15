@@ -9,16 +9,10 @@
 
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAqNHy-Afa0DpIIM9Z7sTS30WkJek37Srk"></script>
 <script src="{!! asset('build/js/global.min.js') !!}"></script>
 <script src="{!! asset('build/js/app.js') !!}"></script>
-
-{{-- Elixir livereload --}}
-{{-- @if ( Config::get('app.debug') )
-    <script type="text/javascript">
-        document.write('<script src="//localhost:35729/livereload.js?snipver=1" type="text/javascript"><\/script>')
-    </script>
-@endif --}}
 
 </body>
 </html>

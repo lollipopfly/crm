@@ -120,6 +120,17 @@ class StoresController extends Controller
     }
 
     /**
+     * Get Address by id
+     *
+     * @return string
+     */
+    public function getStoreAddress($id) {
+        $storeAddress = Store::select('address')->where('id', $id)->first();
+
+        return $storeAddress->address;
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
