@@ -5,8 +5,9 @@ app.controller 'showRouteCtrl', ($scope, $http) ->
 
   $http(
     method: 'GET'
-    url: '/routes/getpoints/' + $scope.id).then ((response) ->
-      $scope.pointForms = response.data
+    url: '/routes/getpointsjson/' + $scope.id).then ((response) ->
+      $scope.points = response.data
+      console.log($scope.points);
       return
   )
 
@@ -21,8 +22,6 @@ app.controller 'showRouteCtrl', ($scope, $http) ->
           return
       )
 
-
-
   # When the window has finished loading create our google map below
   init = ->
     # Basic options for a simple Google Map
@@ -32,130 +31,131 @@ app.controller 'showRouteCtrl', ($scope, $http) ->
       mapTypeControl: false
       streetViewControl: false
       zoomControlOptions: position: google.maps.ControlPosition.LEFT_BOTTOM
-      center: new (google.maps.LatLng)(40.6700, -73.9400)
-      styles: [
-        {
-          'featureType': 'water'
-          'elementType': 'geometry'
-          'stylers': [
-            { 'color': '#e9e9e9' }
-            { 'lightness': 17 }
-          ]
-        }
-        {
-          'featureType': 'landscape'
-          'elementType': 'geometry'
-          'stylers': [
-            { 'color': '#f5f5f5' }
-            { 'lightness': 20 }
-          ]
-        }
-        {
-          'featureType': 'road.highway'
-          'elementType': 'geometry.fill'
-          'stylers': [
-            { 'color': '#ffffff' }
-            { 'lightness': 17 }
-          ]
-        }
-        {
-          'featureType': 'road.highway'
-          'elementType': 'geometry.stroke'
-          'stylers': [
-            { 'color': '#ffffff' }
-            { 'lightness': 29 }
-            { 'weight': 0.2 }
-          ]
-        }
-        {
-          'featureType': 'road.arterial'
-          'elementType': 'geometry'
-          'stylers': [
-            { 'color': '#ffffff' }
-            { 'lightness': 18 }
-          ]
-        }
-        {
-          'featureType': 'road.local'
-          'elementType': 'geometry'
-          'stylers': [
-            { 'color': '#ffffff' }
-            { 'lightness': 16 }
-          ]
-        }
-        {
-          'featureType': 'poi'
-          'elementType': 'geometry'
-          'stylers': [
-            { 'color': '#f5f5f5' }
-            { 'lightness': 21 }
-          ]
-        }
-        {
-          'featureType': 'poi.park'
-          'elementType': 'geometry'
-          'stylers': [
-            { 'color': '#dedede' }
-            { 'lightness': 21 }
-          ]
-        }
-        {
-          'elementType': 'labels.text.stroke'
-          'stylers': [
-            { 'visibility': 'on' }
-            { 'color': '#ffffff' }
-            { 'lightness': 16 }
-          ]
-        }
-        {
-          'elementType': 'labels.text.fill'
-          'stylers': [
-            { 'saturation': 36 }
-            { 'color': '#333333' }
-            { 'lightness': 40 }
-          ]
-        }
-        {
-          'elementType': 'labels.icon'
-          'stylers': [ { 'visibility': 'off' } ]
-        }
-        {
-          'featureType': 'transit'
-          'elementType': 'geometry'
-          'stylers': [
-            { 'color': '#f2f2f2' }
-            { 'lightness': 19 }
-          ]
-        }
-        {
-          'featureType': 'administrative'
-          'elementType': 'geometry.fill'
-          'stylers': [
-            { 'color': '#fefefe' }
-            { 'lightness': 20 }
-          ]
-        }
-        {
-          'featureType': 'administrative'
-          'elementType': 'geometry.stroke'
-          'stylers': [
-            { 'color': '#fefefe' }
-            { 'lightness': 17 }
-            { 'weight': 1.2 }
-          ]
-        }
-      ]
+      center: new (google.maps.LatLng)(51.500152, -0.126236)
+      styles: $scope.styles
 
     mapElement = document.getElementById('route-map')
     map = new (google.maps.Map)(mapElement, mapOptions)
 
     marker = new (google.maps.Marker)(
-      icon: 'images/baloon.png'
-      position: new (google.maps.LatLng)(40.6700, -73.9400)
+      icon: 'images/baloon.svg'
+      position: new (google.maps.LatLng)(51.500152, -0.126236)
       map: map
       title: 'Snazzy!')
     return
 
-    # Init map
-  google.maps.event.addDomListener window, 'load', init
+  $scope.styles = [
+    {
+      'featureType': 'water'
+      'elementType': 'geometry'
+      'stylers': [
+        { 'color': '#e9e9e9' }
+        { 'lightness': 17 }
+      ]
+    }
+    {
+      'featureType': 'landscape'
+      'elementType': 'geometry'
+      'stylers': [
+        { 'color': '#f5f5f5' }
+        { 'lightness': 20 }
+      ]
+    }
+    {
+      'featureType': 'road.highway'
+      'elementType': 'geometry.fill'
+      'stylers': [
+        { 'color': '#ffffff' }
+        { 'lightness': 17 }
+      ]
+    }
+    {
+      'featureType': 'road.highway'
+      'elementType': 'geometry.stroke'
+      'stylers': [
+        { 'color': '#ffffff' }
+        { 'lightness': 29 }
+        { 'weight': 0.2 }
+      ]
+    }
+    {
+      'featureType': 'road.arterial'
+      'elementType': 'geometry'
+      'stylers': [
+        { 'color': '#ffffff' }
+        { 'lightness': 18 }
+      ]
+    }
+    {
+      'featureType': 'road.local'
+      'elementType': 'geometry'
+      'stylers': [
+        { 'color': '#ffffff' }
+        { 'lightness': 16 }
+      ]
+    }
+    {
+      'featureType': 'poi'
+      'elementType': 'geometry'
+      'stylers': [
+        { 'color': '#f5f5f5' }
+        { 'lightness': 21 }
+      ]
+    }
+    {
+      'featureType': 'poi.park'
+      'elementType': 'geometry'
+      'stylers': [
+        { 'color': '#dedede' }
+        { 'lightness': 21 }
+      ]
+    }
+    {
+      'elementType': 'labels.text.stroke'
+      'stylers': [
+        { 'visibility': 'on' }
+        { 'color': '#ffffff' }
+        { 'lightness': 16 }
+      ]
+    }
+    {
+      'elementType': 'labels.text.fill'
+      'stylers': [
+        { 'saturation': 36 }
+        { 'color': '#333333' }
+        { 'lightness': 40 }
+      ]
+    }
+    {
+      'elementType': 'labels.icon'
+      'stylers': [ { 'visibility': 'off' } ]
+    }
+    {
+      'featureType': 'transit'
+      'elementType': 'geometry'
+      'stylers': [
+        { 'color': '#f2f2f2' }
+        { 'lightness': 19 }
+      ]
+    }
+    {
+      'featureType': 'administrative'
+      'elementType': 'geometry.fill'
+      'stylers': [
+        { 'color': '#fefefe' }
+        { 'lightness': 20 }
+      ]
+    }
+    {
+      'featureType': 'administrative'
+      'elementType': 'geometry.stroke'
+      'stylers': [
+        { 'color': '#fefefe' }
+        { 'lightness': 17 }
+        { 'weight': 1.2 }
+      ]
+    }
+  ]
 
+  # Init map
+  google.maps.event.addDomListener window, 'load', init
