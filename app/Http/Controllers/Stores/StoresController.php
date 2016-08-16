@@ -31,12 +31,10 @@ class StoresController extends Controller
     {
         // if ordered table, get all except current user
         if($request->orderBy && $request->direction) {
-       $stores = Store::orderBy($request->orderBy, $request->direction)->where('id', '!=', Auth::user()->id)->paginate(10);
+            $stores = Store::orderBy($request->orderBy, $request->direction)->paginate(15);
         } else {
-        $stores = Store::latest('created_at')->where('id', '!=', Auth::user()->id)->paginate(10);
+            $stores = Store::latest('created_at')->paginate(15);
         }
-
-        // $stores = Store::paginate(10);
 
         return view('stores.index', compact('stores'));
     }

@@ -14996,3 +14996,7 @@ button i {
 
 #route-map {
   height: 500px; }
+
+.marker-content {
+  font-size: 16px;
+  font-weight: bold; }

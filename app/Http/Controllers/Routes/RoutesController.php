@@ -253,7 +253,6 @@ class RoutesController extends Controller
         User::where('id', $route->user_id)->update(['availability' => true]); // update availabillity
 
         Session::flash('flash_message', 'Route deleted!');
-
     }
 
     /**
@@ -262,7 +261,8 @@ class RoutesController extends Controller
      * @return array
      */
     public function getPoints($id) {
-        $points = Point::where('route_id', $id)->get();
+        $points = Point::where('route_id', $id)->orderBy('id', 'asc')->get();
+
         return $points;
     }
 
@@ -274,7 +274,7 @@ class RoutesController extends Controller
     public function getPointsJson($id) {
         $points = Point::select('id', 'store_id')->where('route_id', $id)->with(['store' => function($query) {
             $query->select('id', 'address');
-        }])->get();
+        }])->orderBy('id', 'asc')->get();
 
         return $points->toJSON();
     }

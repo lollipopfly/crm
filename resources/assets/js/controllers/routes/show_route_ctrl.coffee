@@ -2,7 +2,10 @@ app.controller 'showRouteCtrl', ($scope, $http) ->
   $scope.pointForms = []
   $scope.pathArr = window.location.pathname.split('/',3)
   $scope.id = $scope.pathArr[$scope.pathArr.length - 1]
+  geocoder = new google.maps.Geocoder()
+  $scope.markers = []
 
+  # Get points JSON
   $http(
     method: 'GET'
     url: '/routes/getpointsjson/' + $scope.id).then ((response) ->
@@ -10,6 +13,14 @@ app.controller 'showRouteCtrl', ($scope, $http) ->
       console.log($scope.points);
       return
   )
+
+  # Get points
+  $http(
+      method: 'GET'
+      url: '/routes/getpoints/' + $scope.id).then ((response) ->
+        $scope.pointForms = response.data
+        return
+    )
 
   $scope.deleteRoute = (id) ->
     confirmation = confirm('Are you sure?')
@@ -23,7 +34,7 @@ app.controller 'showRouteCtrl', ($scope, $http) ->
       )
 
   # When the window has finished loading create our google map below
-  init = ->
+  initMap = ->
     # Basic options for a simple Google Map
     mapOptions =
       zoom: 12
@@ -36,12 +47,43 @@ app.controller 'showRouteCtrl', ($scope, $http) ->
 
     mapElement = document.getElementById('route-map')
     map = new (google.maps.Map)(mapElement, mapOptions)
+    prevInfoWindow =false;
 
-    marker = new (google.maps.Marker)(
-      icon: 'images/baloon.svg'
-      position: new (google.maps.LatLng)(51.500152, -0.126236)
-      map: map
-      title: 'Snazzy!')
+    # Set locations
+    angular.forEach( $scope.points, (value, key) ->
+      # Geocode Addresses by address name
+      geocoder.geocode { 'address': value.store.address }, (results, status) ->
+        if (status == google.maps.GeocoderStatus.OK)
+          contentString = '<div class="marker-content ">' + value.store.address + '</div>'
+          infoWindow = new (google.maps.InfoWindow)(content: contentString) # popup
+          map.setCenter results[0].geometry.location
+
+          marker = new (google.maps.Marker)(
+            map: map
+            icon: 'images/baloon.svg'
+            position: results[0].geometry.location)
+
+          # Click by other marker
+          google.maps.event.addListener(marker, 'click', ->
+            if( prevInfoWindow )
+              prevInfoWindow.close()
+
+            prevInfoWindow = infoWindow;
+            infoWindow.open map, marker
+
+            return
+          )
+
+          # Click by empty map area
+          google.maps.event.addListener(map, 'click', ->
+            infoWindow.close()
+
+            return
+          )
+
+          # Add new marker to array for outside map links (ordered by id in backend)
+          $scope.markers.push(marker)
+    )
     return
 
   $scope.styles = [
@@ -157,5 +199,14 @@ app.controller 'showRouteCtrl', ($scope, $http) ->
     }
   ]
 
+  # Go to point after click outside map link
+  $scope.goToPoint = (id) ->
+    google.maps.event.trigger($scope.markers[id], 'click')
+
+
   # Init map
-  google.maps.event.addDomListener window, 'load', init
+  google.maps.event.addDomListener window, 'load', initMap
+
+
+
+

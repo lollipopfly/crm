@@ -60,7 +60,7 @@
                                     <td>@{{ $index+1 }}</td>
                                     <td>
                                         @foreach ($stores as $store)
-                                            <a href="{{ url('stores/'.$store->id) }}" ng-if="form.store_id == <?=$store->id?>" class="text-info">{{ $store->name }}</a>
+                                            <a ng-click="goToPoint($index)" ng-if="form.store_id == <?=$store->id?>" class="text-info">{{ $store->name }}</a>
                                         @endforeach
                                     </td>
                                     <td>@{{ form.deadline_time | amDateFormat:'hh:mm:ss a' }}</td>
