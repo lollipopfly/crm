@@ -24,10 +24,10 @@ Route::group(['middleware' => 'auth'], function () {
 
     // ROUTES
     Route::get('routes/getpoints/{id}', 'Routes\RoutesController@getPoints');
-    Route::get('routes/getpointsjson/{id}', 'Routes\RoutesController@getPointsJson');
     Route::resource('routes', 'Routes\RoutesController');
 
     // MAP
+    Route::get('map/getallpoints', 'MapController@getAllPoints');
     Route::get('map/', 'MapController@index');
 });
 

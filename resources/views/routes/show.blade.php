@@ -46,25 +46,32 @@
                         </div>
                         <div class="line line-dashed b-b line-lg pull-in"></div>
 
-                        <table class="table table-striped b-a" ng-if="pointForms">
+                        <table class="table table-striped b-a" ng-if="points">
                             <thead>
                                 <tr>
                                     <th class="text-u-c">#</th>
                                     <th class="text-u-c">Store</th>
                                     <th class="text-u-c">Deadline Time</th>
                                     <th class="text-u-c">Products</th>
+                                    <th class="text-u-c">Status</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr ng-repeat="form in pointForms">
+                                <tr ng-repeat="point in points">
                                     <td>@{{ $index+1 }}</td>
                                     <td>
                                         @foreach ($stores as $store)
-                                            <a ng-click="goToPoint($index)" ng-if="form.store_id == <?=$store->id?>" class="text-info">{{ $store->name }}</a>
+                                            <a ng-click="goToPoint($index)" ng-if="point.store.id == <?=$store->id?>" class="text-info">{{ $store->name }}</a>
                                         @endforeach
                                     </td>
-                                    <td>@{{ form.deadline_time | amDateFormat:'hh:mm:ss a' }}</td>
-                                    <td>@{{ form.products }}</td>
+                                    <td>
+                                        <div class="label text-base bg-primary pos-rlt m-r" ng-if="point.deadline_time">
+                                            @{{ point.deadline_time | amDateFormat:'hh:mm a' }}
+                                            <i class="arrow right arrow-primary"></i>
+                                        </div>
+                                    </td>
+                                    <td>@{{ point.products }}</td>
+                                    <td><i class="fa fa-circle m-r-xs m-l-sm" ng-class="{'text-success' : point.status == 1, 'text-danger' : point.status == 0}"></i></td>
                                 </tr>
                             </tbody>
                         </table>

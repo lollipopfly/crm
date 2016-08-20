@@ -1,4 +1,4 @@
-app.controller 'showRouteCtrl', ($scope, $http) ->
+app.controller 'indexMapCtrl', ($scope, $http) ->
   $scope.pointForms = []
   $scope.pathArr = window.location.pathname.split('/',3)
   $scope.id = $scope.pathArr[$scope.pathArr.length - 1]
@@ -8,26 +8,12 @@ app.controller 'showRouteCtrl', ($scope, $http) ->
   # Get points JSON
   $http(
     method: 'GET'
-    url: '/routes/getpoints/' + $scope.id).then ((response) ->
+    url: 'map/getallpoints').then ((response) ->
       $scope.points = response.data
-      console.log($scope.points);
       return
   )
 
-  $scope.deleteRoute = (id) ->
-    confirmation = confirm('Are you sure?')
-
-    if confirmation
-      $http(
-        method: 'DELETE'
-        url: '/routes/' + id).then ((response) ->
-          document.location.href = '/routes/'
-          return
-      )
-
-  # When the window has finished loading create our google map below
   initMap = ->
-    # Basic options for a simple Google Map
     mapOptions =
       zoom: 12
       scrollwheel: false,
@@ -37,13 +23,12 @@ app.controller 'showRouteCtrl', ($scope, $http) ->
       center: new (google.maps.LatLng)(51.500152, -0.126236)
       styles: $scope.styles
 
-    mapElement = document.getElementById('route-map')
+    mapElement = document.getElementById('map')
     map = new (google.maps.Map)(mapElement, mapOptions)
     prevInfoWindow =false;
 
     # Set locations
     angular.forEach( $scope.points, (value, key) ->
-
       # Geocode Addresses by address name
       geocoder.geocode { 'address': value.store.address }, (results, status) ->
         if (status == google.maps.GeocoderStatus.OK)
@@ -51,15 +36,9 @@ app.controller 'showRouteCtrl', ($scope, $http) ->
           infoWindow = new (google.maps.InfoWindow)(content: contentString) # popup
           map.setCenter results[0].geometry.location
 
-          # select icons by status (green or red)
-          if parseInt value.status
-            $scope.baloonName = 'images/baloon_shiped.svg'
-          else
-            $scope.baloonName = 'images/baloon.svg'
-
           marker = new (google.maps.Marker)(
             map: map
-            icon: $scope.baloonName
+            icon: 'images/baloon.svg'
             position: results[0].geometry.location)
 
           # Click by other marker
