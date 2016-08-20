@@ -257,15 +257,15 @@ class RoutesController extends Controller
     }
 
     /**
-     * Get all points of route in JSON Format by route id
+     * Get all points of route by route id
      *
-     * @return JSON
+     * @return Array
      */
     public function getPoints($id) {
         $points = Point::select('id', 'store_id', 'deadline_time', 'products', 'status')->where('route_id', $id)->with(['store' => function($query) {
             $query->select('id', 'address');
         }])->orderBy('id', 'asc')->get();
 
-        return $points->toJSON();
+        return $points;
     }
 }

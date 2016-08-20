@@ -1,4 +1,4 @@
-app.controller 'indexMapCtrl', ($scope, $http) ->
+app.controller 'indexMapCtrl', ($scope, $http, $timeout) ->
   $scope.pointForms = []
   $scope.pathArr = window.location.pathname.split('/',3)
   $scope.id = $scope.pathArr[$scope.pathArr.length - 1]
@@ -36,9 +36,15 @@ app.controller 'indexMapCtrl', ($scope, $http) ->
           infoWindow = new (google.maps.InfoWindow)(content: contentString) # popup
           map.setCenter results[0].geometry.location
 
+          # select icons by status (green or red)
+          if parseInt value.status
+            $scope.baloonName = 'images/baloon_shiped.svg'
+          else
+            $scope.baloonName = 'images/baloon.svg'
+
           marker = new (google.maps.Marker)(
             map: map
-            icon: 'images/baloon.svg'
+            icon: $scope.baloonName
             position: results[0].geometry.location)
 
           # Click by other marker
@@ -181,9 +187,11 @@ app.controller 'indexMapCtrl', ($scope, $http) ->
   $scope.goToPoint = (id) ->
     google.maps.event.trigger($scope.markers[id], 'click')
 
-
   # Init map
-  google.maps.event.addDomListener window, 'load', initMap
+  $timeout (()->
+    initMap()
+    return
+  ), 500
 
 
 

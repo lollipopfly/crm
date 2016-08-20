@@ -19,7 +19,7 @@ class MapController extends Controller
      * @return JSON
      */
     public function getAllPoints() {
-        $points = Point::select('id', 'status', 'store_id')->where('status', '=', 0)->with(['store' => function($query) {
+        $points = Point::select('id', 'status', 'store_id')->with(['store' => function($query) {
             $query->select('id', 'address');
         }])->get();
 

@@ -1,16 +1,15 @@
-app.controller 'showRouteCtrl', ($scope, $http) ->
+app.controller 'showRouteCtrl', ($scope, $http, $timeout) ->
   $scope.pointForms = []
   $scope.pathArr = window.location.pathname.split('/',3)
   $scope.id = $scope.pathArr[$scope.pathArr.length - 1]
   geocoder = new google.maps.Geocoder()
   $scope.markers = []
 
-  # Get points JSON
+  # Get points
   $http(
     method: 'GET'
     url: '/routes/getpoints/' + $scope.id).then ((response) ->
       $scope.points = response.data
-      console.log($scope.points);
       return
   )
 
@@ -204,7 +203,10 @@ app.controller 'showRouteCtrl', ($scope, $http) ->
 
 
   # Init map
-  google.maps.event.addDomListener window, 'load', initMap
+  $timeout (()->
+   initMap()
+   return
+  ), 500
 
 
 
