@@ -10,7 +10,6 @@ app.controller 'showRouteCtrl', ($scope, $http) ->
     method: 'GET'
     url: '/routes/getpointsjson/' + $scope.id).then ((response) ->
       $scope.points = response.data
-      console.log($scope.points);
       return
   )
 

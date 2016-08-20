@@ -112,6 +112,12 @@
                             <span>Users</span>
                         </a>
                     </li>
+                    <li>
+                        <a href="{{ url('/map/') }}" class="auto">
+                            <i class="glyphicon glyphicon-map-marker icon"></i>
+                            <span>Map</span>
+                        </a>
+                    </li>
                     <li class="line dk hidden-folded"></li>
                 </ul>
             </nav>
