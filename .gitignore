@@ -7,6 +7,7 @@ public/bower/
 Homestead.yaml
 Homestead.json
 
+config/jwt.php
 .env
 config/mail.php
 

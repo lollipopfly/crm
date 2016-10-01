@@ -1,0 +1,61 @@
+.container
+  .row
+    .col-md-8.col-md-offset-2
+      .panel.panel-default
+        h3.panel-heading Registration
+        .panel-body
+          form.form-horizontal name="signUpForm" ng-submit="register.register(signUpForm)"
+            .form-group ng-class="{'has-error': register.error.name}"
+              label.col-md-4.control-label Name
+              .col-md-6
+                input.form-control [
+                  type="text"
+                  ng-model="register.user.name"
+                ]
+                span.help-block ng-if="register.error.name"
+                  strong
+                    | {{register.error.name[0]}}
+
+            .form-group ng-class="{'has-error': register.error.email}"
+              label.col-md-4.control-label E-Mail Address
+              .col-md-6
+                input.form-control [
+                  type="email"
+                  ng-model="register.user.email"
+                ]
+                span.help-block ng-if="register.error.email"
+                  strong
+                    | {{register.error.email[0]}}
+
+            .form-group ng-class="{'has-error': register.error.password}"
+              label.col-md-4.control-label Password
+              .col-md-6
+                input.form-control [
+                  type="password"
+                  ng-model="register.user.password"
+                ]
+                span.help-block ng-if="register.error.password"
+                  strong
+                    | {{register.error.password[0]}}
+
+            .form-group
+              label.col-md-4.control-label Confirm Password
+              .col-md-6
+                input.form-control [
+                  type="password"
+                  ng-model="register.user.password_confirmation"
+                ]
+
+            .form-group
+              .col-md-6.col-md-offset-4
+                button.btn.btn-primary.m-r type="submit"
+                  i.fa.fa-btn.fa-user
+                  | Registration
+
+                i.fa.fa-circle-o-notch.fa-spin.text-lg.fa-fw.pos-rlt.t-2 ng-if="register.spinnerDone"
+            .form-group
+              .col-md-6.col-md-offset-4
+                p.text-center
+                  small Already have an account?
+                a.btn.btn-lg.btn-default.btn-block href="/user/sign_in"  Sign in
+

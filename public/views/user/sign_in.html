@@ -1,0 +1,43 @@
+<div class="container margin-top-50">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="panel panel-default">
+        <h3 class="panel-heading">
+          Login
+        </h3>
+        <div class="panel-body">
+          <form class="form-horizontal" name="signInForm" ng-submit="auth.login()">
+            <div class="form-group">
+              <label class="col-md-4 control-label">E-Mail Address</label>
+              <div class="col-md-6">
+                <input class="form-control" ng-model="auth.email" ng-required="true" placeholder="Email" type="email" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4 control-label">Password</label>
+              <div class="col-md-6">
+                <input class="form-control" ng-model="auth.password" ng-required="true" placeholder="Password" type="password" />
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-6 col-md-offset-4">
+                <button class="btn btn-primary" type="submit"><i class="fa fa-btn fa-sign-in"></i>Login</button><a class="btn btn-link" href="/user/forgot_password"> Forgot Your Password?</a>
+              </div>
+            </div>
+            <div class="alert alert-danger" ng-if="auth.loginErrorText">
+              {{ auth.loginErrorText }}
+            </div>
+            <div class="form-group">
+              <div class="col-md-6 col-md-offset-4">
+                <p class="text-center">
+                  <small>Do not have an account?</small>
+                </p>
+                <a class="btn btn-lg btn-default btn-block" href="/user/sign_up"> Create an account</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

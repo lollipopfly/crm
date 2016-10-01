@@ -1,0 +1,14 @@
+.col-sm-6.col-sm-offset-3
+  .well
+    h3 Users by {{ currentUser.name }}
+    button.btn.btn-primary ng-click="user.getUsers()" style="margin-bottom: 10px"  Get Users!
+    button.btn.btn-danger ng-click="user.logout()" type="button"  Logout
+    ul.list-group ng-if="user.users"
+      li.list-group-item ng-repeat="user in user.users"
+        h4 {{ user.name }}
+        h5 {{ user.email }}
+    .alert.alert-danger ng-if="user.error"
+      strong There was an error:
+      | {{user.error.error}}
+      br
+        go back and login again

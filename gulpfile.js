@@ -1,4 +1,5 @@
 var gulp          = require('gulp'),
+    slim          = require("gulp-slim"),
     postcss       = require('gulp-postcss'),
     sass          = require('gulp-sass'),
     size          = require('postcss-size'),
@@ -17,6 +18,25 @@ var gulp          = require('gulp'),
     debug         = require('gulp-debug'),
     gutil         = require('gulp-util'),
     elixir        = require('laravel-elixir');
+
+/*------------------------------------*\
+ Slim
+\*------------------------------------*/
+gulp.task('slim', function(){
+  gulp.src("resources/views/**/*.slim")
+    .pipe(slim({
+      pretty: true,
+      options: "attr_list_delims={'(' => ')', '[' => ']'}",
+
+    }))
+    .on('error', function (message) {
+        gutil.log(gutil.colors.red(message));
+        this.emit('end');
+    })
+    .pipe(debug({title: 'render-slim:'}))
+    .pipe(gulp.dest("public/views/"));
+});
+
 
 /*------------------------------------*\
  TASKS
@@ -79,7 +99,8 @@ gulp.task('compress', function() {
         'public/theme/js/ui-client.js',
 
         'node_modules/angular/angular.js',
-        'node_modules/angular-route/angular-route.js',
+        'node_modules/angular-ui-router/release/angular-ui-router.js',
+        'node_modules/satellizer/dist/satellizer.js',
         'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
         'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
         'node_modules/ng-lodash/build/ng-lodash.js',
@@ -95,7 +116,9 @@ gulp.task('compress', function() {
 });
 
 gulp.task('compile-coffee', function() {
-    gulp.src('resources/assets/js/**/*.coffee')
+    gulp.src(['resources/assets/js/app.coffee',
+              'resources/assets/js/controllers/user/*.coffee',
+            ])
         .pipe(sourcemaps.init())
         .pipe(coffee({bare: true}).on('error', gutil.log))
         .pipe(sourcemaps.write())
@@ -132,8 +155,9 @@ gulp.task('copy-theme-fonts', function() {
 \*------------------------------------*/
 
 gulp.task('watch', function() {
-    gulp.watch('resources/assets/sass/**/*.scss', { interval: 500 }, ['sass', 'notify']);
-    gulp.watch('resources/assets/js/**/*.coffee', ['compile-coffee', 'notify']);
+  gulp.watch('resources/views/**/*.slim', ['slim', 'notify']);
+  gulp.watch('resources/assets/sass/**/*.scss', { interval: 500 }, ['sass', 'notify']);
+  gulp.watch('resources/assets/js/**/*.coffee', ['compile-coffee', 'notify']);
 });
 
 /*------------------------------------*\
@@ -151,6 +175,7 @@ gulp.task('notify', function(a) {
  \*------------------------------------*/
 
 gulp.task('default', [
+    'slim',
     'copy-theme-libs',
     'copy-theme-fonts',
     'sass',

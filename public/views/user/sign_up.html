@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-2">
+      <div class="panel panel-default">
+        <h3 class="panel-heading">
+          Registration
+        </h3>
+        <div class="panel-body">
+          <form class="form-horizontal" name="signUpForm" ng-submit="register.register(signUpForm)">
+            <div class="form-group" ng-class="{&#39;has-error&#39;: register.error.name}">
+              <label class="col-md-4 control-label">Name</label>
+              <div class="col-md-6">
+                <input class="form-control" ng-model="register.user.name" type="text" /><span class="help-block" ng-if="register.error.name"><strong>{{register.error.name[0]}}</strong></span>
+              </div>
+            </div>
+            <div class="form-group" ng-class="{&#39;has-error&#39;: register.error.email}">
+              <label class="col-md-4 control-label">E-Mail Address</label>
+              <div class="col-md-6">
+                <input class="form-control" ng-model="register.user.email" type="email" /><span class="help-block" ng-if="register.error.email"><strong>{{register.error.email[0]}}</strong></span>
+              </div>
+            </div>
+            <div class="form-group" ng-class="{&#39;has-error&#39;: register.error.password}">
+              <label class="col-md-4 control-label">Password</label>
+              <div class="col-md-6">
+                <input class="form-control" ng-model="register.user.password" type="password" /><span class="help-block" ng-if="register.error.password"><strong>{{register.error.password[0]}}</strong></span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-4 control-label">Confirm Password</label>
+              <div class="col-md-6">
+                <input class="form-control" ng-model="register.user.password_confirmation" type="password" />
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-6 col-md-offset-4">
+                <button class="btn btn-primary m-r" type="submit"><i class="fa fa-btn fa-user"></i>Registration</button><i class="fa fa-circle-o-notch fa-spin text-lg fa-fw pos-rlt t-2" ng-if="register.spinnerDone"></i>
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="col-md-6 col-md-offset-4">
+                <p class="text-center">
+                  <small>Already have an account?</small>
+                </p>
+                <a class="btn btn-lg btn-default btn-block" href="/user/sign_in"> Sign in</a>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
