@@ -1,18 +1,3 @@
-/ .col-sm-4.col-sm-offset-4.page-header
-/   .well
-/     h3 Login
-/     form name="signInForm" ng-submit="auth.login()"
-/       .form-group
-/         input.form-control ng-model="auth.email" placeholder="Email" type="email" ng-required="true"
-/       .form-group
-/         input.form-control ng-model="auth.password" placeholder="Password" type="password" ng-required="true"
-/       .form-group
-/         a href="/user/forgot_password" Forgot your password?
-/       .form-group
-/         a href="user/sign_up" Create your account
-/       .alert.alert-danger ng-if="auth.loginErrorText"
-/         | {{ auth.loginErrorText }}
-/       button.btn.btn-primary type="submit"  Submit
 .container.margin-top-50
   .row
     .col-md-8.col-md-offset-2
@@ -20,32 +5,37 @@
         h3.panel-heading Login
         .panel-body
           form.form-horizontal name="signInForm" ng-submit="auth.login()"
-            .form-group
+            .form-group ng-class="{'has-error': auth.error.email}"
               label.col-md-4.control-label E-Mail Address
               .col-md-6
                 input.form-control [
                   type="email"
                   ng-model="auth.email"
                   placeholder="Email"
-                  ng-required="true"
                 ]
-            .form-group
+                span.help-block ng-if="auth.error.email"
+                  strong
+                    | {{auth.error.email[0]}}
+
+            .form-group ng-class="{'has-error': auth.error.password}"
               label.col-md-4.control-label Password
               .col-md-6
                 input.form-control [
                   type="password"
                   ng-model="auth.password"
                   placeholder="Password"
-                  ng-required="true"
                 ]
+                span.help-block ng-if="auth.error.password"
+                  strong
+                    | {{auth.error.password[0]}}
+
             .form-group
               .col-md-6.col-md-offset-4
                 button.btn.btn-primary type="submit"
                   i.fa.fa-btn.fa-sign-in
                   | Login
                 a.btn.btn-link href="/user/forgot_password"  Forgot Your Password?
-            .alert.alert-danger ng-if="auth.loginErrorText"
-              | {{ auth.loginErrorText }}
+
             .form-group
               .col-md-6.col-md-offset-4
                 p.text-center

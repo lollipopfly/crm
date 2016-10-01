@@ -66,7 +66,7 @@ angular
       'sign_up'
       'confirm'
       'forgot_password'
-      'reset_password'
+      'reset_password',
     ]
 
     # if not logged

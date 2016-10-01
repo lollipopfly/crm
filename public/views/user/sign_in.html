@@ -7,25 +7,22 @@
         </h3>
         <div class="panel-body">
           <form class="form-horizontal" name="signInForm" ng-submit="auth.login()">
-            <div class="form-group">
+            <div class="form-group" ng-class="{&#39;has-error&#39;: auth.error.email}">
               <label class="col-md-4 control-label">E-Mail Address</label>
               <div class="col-md-6">
-                <input class="form-control" ng-model="auth.email" ng-required="true" placeholder="Email" type="email" />
+                <input class="form-control" ng-model="auth.email" placeholder="Email" type="email" /><span class="help-block" ng-if="auth.error.email"><strong>{{auth.error.email[0]}}</strong></span>
               </div>
             </div>
-            <div class="form-group">
+            <div class="form-group" ng-class="{&#39;has-error&#39;: auth.error.password}">
               <label class="col-md-4 control-label">Password</label>
               <div class="col-md-6">
-                <input class="form-control" ng-model="auth.password" ng-required="true" placeholder="Password" type="password" />
+                <input class="form-control" ng-model="auth.password" placeholder="Password" type="password" /><span class="help-block" ng-if="auth.error.password"><strong>{{auth.error.password[0]}}</strong></span>
               </div>
             </div>
             <div class="form-group">
               <div class="col-md-6 col-md-offset-4">
                 <button class="btn btn-primary" type="submit"><i class="fa fa-btn fa-sign-in"></i>Login</button><a class="btn btn-link" href="/user/forgot_password"> Forgot Your Password?</a>
               </div>
-            </div>
-            <div class="alert alert-danger" ng-if="auth.loginErrorText">
-              {{ auth.loginErrorText }}
             </div>
             <div class="form-group">
               <div class="col-md-6 col-md-offset-4">

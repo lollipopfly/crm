@@ -60,20 +60,31 @@ button i {
 .f-z-15 {
     font-size: 15px;
 }
+.f-z-18 {
+    font-size: 18px;
+}
 .f-z-20 {
     font-size: 20px;
 }
 
 .color-red {
-    color: $red;
+  color: $red;
 }
-
+.color-red--bold {
+  color: $red_bold;
+}
 .color-green {
-    color: $green;
+  color: $green;
 }
 
 .c-p {
-    cursor: pointer;
+  cursor: pointer;
+}
+
+/* Animation */
+.fa-spin-3x {
+  -webkit-animation: fa-spin 1s infinite linear;
+  animation: fa-spin 1s infinite linear;
 }
 
 // Avatar remove directive
@@ -109,4 +120,20 @@ button i {
 .marker-content {
     font-size: 16px;
     font-weight: bold;
+}
+
+// Forgot password
+.forgot-password__spinner {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: rebeccapurple;
+}
+
+// Reset password
+.reset-password__link {
+  color: #337ab7;
+  font-weight: bold;
+  font-size: 17px;
+  text-decoration: underline;
 }

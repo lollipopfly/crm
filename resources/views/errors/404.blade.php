@@ -17,11 +17,11 @@
                         <i class="fa fa-chevron-right text-muted"></i>
                         <i class="fa fa-fw fa-mail-forward m-r-xs"></i> Goto application
                     </a>
-                    <a href="/login" class="list-group-item">
+                    <a href="/user/sign_in" class="list-group-item">
                         <i class="fa fa-chevron-right text-muted"></i>
                         <i class="fa fa-fw fa-sign-in m-r-xs"></i> Sign in
                     </a>
-                    <a href="/register" class="list-group-item">
+                    <a href="/user/sign_up" class="list-group-item">
                         <i class="fa fa-chevron-right text-muted"></i>
                         <i class="fa fa-fw fa-unlock-alt m-r-xs"></i> Sign up
                     </a>

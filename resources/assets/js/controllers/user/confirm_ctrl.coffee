@@ -15,7 +15,6 @@ ConfirmController = ($scope, $auth, $state, $http, $rootScope, $stateParams) ->
 
     $state.go 'users'
   ).error (data, status, header, config) ->
-    console.log(data);
   return
 
 'use strict'

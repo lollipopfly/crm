@@ -24,6 +24,8 @@ class User extends Authenticatable
       'city',
       'phone',
       'avatar',
+      'confirmation_code',
+      'reset_password_code'
     ];
 
     /**
@@ -32,6 +34,6 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'confirmation_code', 'reset_password_code'
     ];
 }

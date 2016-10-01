@@ -36,6 +36,12 @@ class AuthController extends Controller
 
     public function authenticate(Request $request)
     {
+      // Validate first
+      $this->validate($request, [
+        'email' => 'required',
+        'password' => 'required',
+      ]);
+
       // grab credentials from the request
       $credentials = $request->only('email', 'password');
       try {
@@ -57,7 +63,7 @@ class AuthController extends Controller
       $this->validate($request, [
         'name' => 'required',
         'email' => 'required|email|unique:users,email',
-        'password' => 'required|min:8|confirmed',
+        'password' => 'required|min:3|confirmed',
       ]);
 
       $confirmation_code = str_random(30);
@@ -143,6 +149,11 @@ class AuthController extends Controller
 
     public function sendResetCode(Request $request)
     {
+      // Validation first
+      $this->validate($request, [
+        'email' => 'required|email',
+      ]);
+
       $user = User::where('email', $request->email)->first();
 
       if($user) {
@@ -170,6 +181,10 @@ class AuthController extends Controller
 
     public function resetPassword(Request $request)
     {
+      // Validation first
+      $this->validate($request, [
+        'password' => 'required|min:8|confirmed',
+      ]);
       $user = User::where('reset_password_code', $request->reset_password_code)->first();
 
       if($user) {

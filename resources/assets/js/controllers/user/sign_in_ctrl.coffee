@@ -1,5 +1,6 @@
 SignInController = ($auth, $state, $http, $rootScope) ->
   vm = this
+
   vm.login = () ->
     credentials =
       email: vm.email
@@ -14,10 +15,10 @@ SignInController = ($auth, $state, $http, $rootScope) ->
         $rootScope.authenticated = true
         $rootScope.currentUser = response.data.user
 
-        $state.go 'users'
+        $state.go '/'
         return
     ), (error) ->
-      vm.loginErrorText = error.data.error
+      vm.error = error.data
       return
   return
 
