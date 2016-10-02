@@ -12,7 +12,7 @@
 <body ng-cloak>
 <div class="app app-header-fixed ">
     <!-- header -->
-    <header id="header" class="app-header navbar" role="menu">
+    <header id="header" class="app-header navbar" role="menu" ng-if="authenticated">
         <!-- navbar header -->
         <div class="navbar-header bg-dark">
             <button class="pull-right visible-xs dk" ui-toggle-class="show" target=".navbar-collapse">
@@ -129,16 +129,16 @@
                                 <div class="text-center">
                                     <div class="inline">
                                         <div ui-jq="easyPieChart" ui-options="{
-                          percent: 65,
-                          lineWidth: 50,
-                          trackColor: '#e8eff0',
-                          barColor: '#23b7e5',
-                          scaleColor: false,
-                          size: 100,
-                          rotate: 90,
-                          lineCap: 'butt',
-                          animate: 2000
-                        }">
+                                          percent: 65,
+                                          lineWidth: 50,
+                                          trackColor: '#e8eff0',
+                                          barColor: '#23b7e5',
+                                          scaleColor: false,
+                                          size: 100,
+                                          rotate: 90,
+                                          lineCap: 'butt',
+                                          animate: 2000
+                                        }">
                                         </div>
                                     </div>
                                 </div>
@@ -152,20 +152,14 @@
                         <span translate="header.navbar.new.NEW">New</span> <span class="caret"></span>
                     </a>
                     <ul class="dropdown-menu" role="menu">
-                        @if (Auth::user()->user_group === "admin")
-                            <li>
-                                <a href="{{ url('/routes/create') }}">
-                                    <span>Route</span>
-                                </a>
-                            </li>
-                        @endif
-                        @if (Auth::user()->user_group === "admin")
-                            <li><a href="{{ url('/stores/create') }}">Store</a></li>
-                        @endif
-                        @if (Auth::user()->user_group === "admin")
-                            <li><a href="{{ url('/users/create') }}">User</a></li>
-                        @endif
-                        <li class="divider"></li>
+                      <li ng-if="currentUser.user_group == 'admin'">
+                          <a href="{{ url('/routes/create') }}">
+                              <span>Route</span>
+                          </a>
+                      </li>
+                      <li ng-if="currentUser.user_group == 'admin'"><a href="{{ url('/stores/create') }}">Store</a></li>
+                      <li ng-if="currentUser.user_group == 'admin'"><a href="{{ url('/users/create') }}" >User</a></li>
+                        <li class="divider" ng-if="currentUser.user_group == 'admin'"></li>
                         <li>
                             <a href>
                                 <span class="badge bg-danger pull-right">4</span>
@@ -206,18 +200,18 @@
                             </div>
                             <div class="list-group">
                                 <a href class="list-group-item">
-                    <span class="pull-left m-r thumb-sm">
-                    </span>
-                    <span class="clear block m-b-none">
-                      Use awesome animate.css<br>
-                      <small class="text-muted">10 minutes ago</small>
-                    </span>
+                                  <span class="pull-left m-r thumb-sm">
+                                  </span>
+                                  <span class="clear block m-b-none">
+                                    Use awesome animate.css<br>
+                                    <small class="text-muted">10 minutes ago</small>
+                                  </span>
                                 </a>
                                 <a href class="list-group-item">
-                    <span class="clear block m-b-none">
-                      1.0 initial released<br>
-                      <small class="text-muted">1 hour ago</small>
-                    </span>
+                                  <span class="clear block m-b-none">
+                                    1.0 initial released<br>
+                                    <small class="text-muted">1 hour ago</small>
+                                  </span>
                                 </a>
                             </div>
                             <div class="panel-footer text-sm">
@@ -230,11 +224,11 @@
                 </li>
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle clear" data-toggle="dropdown">
-              <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
-                <img src="/uploads/avatars/{!! Auth::user()->avatar !!}">
-                <i class="on md b-white bottom"></i>
-              </span>
-                        <span class="hidden-sm hidden-md">{{ Auth::user()->name }}</span> <b class="caret"></b>
+                      <span class="thumb-sm avatar pull-right m-t-n-sm m-b-n-sm m-l-sm">
+                        <img ng-src="@{{ currentUser.avatar }}">
+                        <i class="on md b-white bottom"></i>
+                      </span>
+                      <span class="hidden-sm hidden-md">@{{ currentUser.name }}</span> <b class="caret"></b>
                     </a>
                     <!-- dropdown -->
                     <ul class="dropdown-menu animated fadeInRight w">
@@ -247,9 +241,7 @@
                             </a>
                         </li>
                         <li class="divider"></li>
-                        <li>
-                            <a href="/logout/">Logout</a>
-                        </li>
+                        <li><a href="#" ng-click="logout()">Logout</a></li>
                     </ul>
                     <!-- / dropdown -->
                 </li>

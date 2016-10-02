@@ -15,7 +15,6 @@ SignUpController = ($auth, $state) ->
       $state.go 'sign_up_success'
       return
     ).catch (error) ->
-      console.log(error);
       vm.spinnerDone = false
       vm.error = error.data
       return

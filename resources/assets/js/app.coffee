@@ -83,6 +83,10 @@ angular
       if user && $auth.isAuthenticated()
         $rootScope.authenticated = true
         $rootScope.currentUser = user
+        if $rootScope.currentUser.avatar == 'default_avatar.jpg'
+          $rootScope.currentUser.avatar = '/images/' + $rootScope.currentUser.avatar
+        else
+          $rootScope.currentUser.avatar = 'uploads/avatars/' + $rootScope.currentUser.avatar
 
       $rootScope.logout = ->
         $auth.logout().then ->

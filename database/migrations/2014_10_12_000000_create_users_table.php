@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->string('country');
             $table->string('city');
             $table->string('phone');
-            $table->string('avatar')->default('default.jpg');
+            $table->string('avatar')->default('default_avatar.jpg');
             $table->string('last_login');
             $table->enum('user_group', ['admin', 'user'])->default('user');
             $table->boolean('live');

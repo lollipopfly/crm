@@ -29,6 +29,10 @@
                   strong
                     | {{auth.error.password[0]}}
 
+            .form-group ng-if="auth.error.error"
+              .col-md-6.col-md-offset-4
+                .alert.alert-danger  {{auth.error.error}}
+
             .form-group
               .col-md-6.col-md-offset-4
                 button.btn.btn-primary type="submit"

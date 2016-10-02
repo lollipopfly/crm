@@ -1,5 +1,5 @@
 <!-- aside -->
-<aside id="aside" class="app-aside hidden-xs bg-dark">
+<aside id="aside" class="app-aside hidden-xs bg-dark" ng-if="authenticated">
     <div class="aside-wrap">
         <div class="navi-wrap">
             <!-- user -->
@@ -7,20 +7,16 @@
                 <div class="dropdown wrapper">
                     <a href="app.page.profile">
                         <span class="thumb-lg w-auto-folded avatar m-t-sm">
-                            <img src="/uploads/avatars/{!! Auth::user()->avatar !!}" class="img-full">
+                            <img ng-src="@{{ currentUser.avatar }}" class="img-full">
                         </span>
                     </a>
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle hidden-folded">
                 <span class="clear">
                   <span class="block m-t-sm">
-                      @if(Auth::user()->name)
-                        <strong class="font-bold text-lt">{!! Auth::user()->name !!}.{!! Auth::user()->last_name !!}</strong>
-                      @endif
+                    <strong ng-if="currentUser.name" class="font-bold text-lt">@{{ currentUser.name }}.@{{ currentUser.last_name }}</strong>
                     <b class="caret"></b>
                   </span>
-                    @if(Auth::user()->job_titile)
-                        <span class="text-muted text-xs block">{!! Auth::user()->job_title !!}</span>
-                    @endif
+                  <span ng-if="currentUser.job_title" class="text-muted text-xs block">@{{ currentUser.job_title }}</span>
                 </span>
                     </a>
                     <!-- dropdown -->
@@ -56,12 +52,12 @@
                     </li>
                     <li>
                         <a href class="auto">
-                  <span class="pull-right text-muted">
-                    <i class="fa fa-fw fa-angle-right text"></i>
-                    <i class="fa fa-fw fa-angle-down text-active"></i>
-                  </span>
-                            <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
-                            <span class="font-bold">Dashboard</span>
+                          <span class="pull-right text-muted">
+                            <i class="fa fa-fw fa-angle-right text"></i>
+                            <i class="fa fa-fw fa-angle-down text-active"></i>
+                          </span>
+                          <i class="glyphicon glyphicon-stats icon text-primary-dker"></i>
+                          <span class="font-bold">Dashboard</span>
                         </a>
                         <ul class="nav nav-sub dk">
                             <li class="nav-sub-header">

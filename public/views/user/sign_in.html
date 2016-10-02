@@ -19,6 +19,13 @@
                 <input class="form-control" ng-model="auth.password" placeholder="Password" type="password" /><span class="help-block" ng-if="auth.error.password"><strong>{{auth.error.password[0]}}</strong></span>
               </div>
             </div>
+            <div class="form-group" ng-if="auth.error.error">
+              <div class="col-md-6 col-md-offset-4">
+                <div class="alert alert-danger">
+                  {{auth.error.error}}
+                </div>
+              </div>
+            </div>
             <div class="form-group">
               <div class="col-md-6 col-md-offset-4">
                 <button class="btn btn-primary" type="submit"><i class="fa fa-btn fa-sign-in"></i>Login</button><a class="btn btn-link" href="/user/forgot_password"> Forgot Your Password?</a>

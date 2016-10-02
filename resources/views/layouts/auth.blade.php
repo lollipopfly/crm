@@ -10,8 +10,7 @@
 
 </head>
 <body>
-      <div ui-view></div>
-    {{-- @yield('content') --}}
+    <div ui-view></div>
     <script src="{!! asset('build/js/global.min.js') !!}"></script>
     <script src="{!! asset('build/js/app.js') !!}"></script>
 </body>
