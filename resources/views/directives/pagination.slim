@@ -1,0 +1,7 @@
+ul.pagination ng-if="vm.perPage < vm.total"
+  li ng-class="{'disabled' : vm.currentPage == 1}"
+    a href="#" ng-click="vm.getPosts(1)"  &laquo;
+  li ng-class="{'active' : vm.currentPage == i}" ng-repeat="i in vm.range"
+    a href="#" ng-click="vm.getPosts(i)" {{i}}
+  li ng-class="{'disabled' : vm.currentPage == vm.totalPages}"
+    a href="#" ng-click="vm.getPosts(vm.totalPages)"  &raquo;

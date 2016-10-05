@@ -1,0 +1,63 @@
+.bg-light.lter.b-b.wrapper-md
+  h1.m-r-md.inline.media-middle.font-thin.h3 Stores
+  a.btn.btn-primary [
+    href="/stores/create"
+    ng-if="currentUser.user_group == 'admin'"
+  ]
+    i.fa.fa-plus.m-r-xs
+    | Add new store
+
+.wrapper-md
+  .row ng-if="stores.successMessage"
+    .col-xs-12
+        p.alert.alert-success
+          a.close aria-label="close" data-dismiss="alert" href="#" title="close"  ×
+          strong  {{ stores.successMessage }}
+
+  .row
+    .col-xs-12
+      .panel.panel-default
+        table.table.table-striped.m-b-none.table-layout-fixed
+          thead
+            tr
+              th.sorting.v-top
+                span#id.sort-link.c-p ng-click="stores.sortBy('id')"  Id
+              th.sorting.v-top
+                span#name.sort-link.c-p ng-click="stores.sortBy('name')" Name
+              th.sorting.v-top
+                span#owner_name.sort-link.c-p ng-click="stores.sortBy('owner_name')"  Owner name
+              th.sorting.v-top
+                span#address.sort-link.c-p ng-click="stores.sortBy('address')"  Address
+              th.sorting.v-top
+                span#phone.sort-link.c-p ng-click="stores.sortBy('phone')" Phone
+              th.text-right ng-if="currentUser.user_group == 'admin'" Actions
+          tbody
+            tr ng-repeat="store in stores.stores"
+              td
+                a.text-info href="stores/{{ store.id }}" {{ store.id }}
+              td  {{ store.name }}
+              td  {{ store.owner_name }}
+              td  {{ store.address }}
+              td  {{ store.phone }}
+              td.text-right ng-if="currentUser.user_group == 'admin'"
+                a.v-middle.margin-right-5 [
+                  href="/stores/{{ store.id }}/edit/"
+                  tooltip-placement="top-right"
+                  uib-tooltip="Edit store"
+                ]
+                  i.icon-pencil.c-p.f-z-15.color-green
+                i.v-middle [
+                  ng-click="stores.deleteStore(store.id, $index)"
+                  target="_self"
+                  tooltip-placement="top-right"
+                  uib-tooltip="Delete store"
+                ]
+                  i.fa.fa-close.c-p.f-z-20.color-red
+  .row
+    .col-xs-12.text-right
+      pagination [
+        pagi-arr="stores.pagiArr"
+        stores="stores.stores"
+        ctrl="IndexStoreCtrl"
+        pagi-api-url="stores.pagiApiUrl"
+      ]

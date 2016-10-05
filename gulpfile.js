@@ -118,12 +118,15 @@ gulp.task('compress', function() {
 gulp.task('compile-coffee', function() {
     gulp.src(['resources/assets/js/app.coffee',
               'resources/assets/js/controllers/user/*.coffee',
+              'resources/assets/js/controllers/stores/*.coffee',
+
+              'resources/assets/js/directives/pagination.coffee',
             ])
         .pipe(sourcemaps.init())
         .pipe(coffee({bare: true}).on('error', gutil.log))
-        .pipe(sourcemaps.write())
         .pipe(plumber())
         .pipe(concat('app.js'))
+        .pipe(sourcemaps.write())
         .pipe(debug({title: 'compile-coffee:'}))
         .pipe(gulp.dest('public/build/js'));
 });

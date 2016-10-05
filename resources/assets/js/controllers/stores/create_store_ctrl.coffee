@@ -1,4 +1,4 @@
-app.controller 'createStoreCtrl', ($scope, $http) ->
+CreateStoreCtrl = ($scope, $http) ->
     $scope.getLocation = (address) ->
       $http.get('//maps.googleapis.com/maps/api/geocode/json', params:
         address: address
@@ -7,4 +7,9 @@ app.controller 'createStoreCtrl', ($scope, $http) ->
     ).then (response) ->
         response.data.results.map (item) ->
           item.formatted_address
+
+'use strict'
+angular
+  .module('app')
+  .controller('CreateStoreCtrl', CreateStoreCtrl)
 

@@ -52,6 +52,29 @@ angular
         controller: 'ConfirmController'
       )
 
+      # Stores
+      .state('stores',
+        url: '/stores'
+        templateUrl: '../views/stores/index.html'
+        controller: 'IndexStoreCtrl as stores'
+      )
+      .state('stores_create',
+        url: '/stores/create'
+        templateUrl: '../views/stores/create.html'
+        controller: 'CreateStoreCtrl'
+      )
+      .state('stores_edit',
+        url: '/stores/:id/edit'
+        templateUrl: '../views/stores/edit.html'
+        controller: 'EditStoreCtrl'
+      )
+      .state('stores_show',
+        url: '/stores/:id'
+        templateUrl: '../views/stores/show.html'
+        controller: 'ShowStoreCtrl'
+      )
+
+
       # Users
       .state('users',
         url: '/users'

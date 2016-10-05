@@ -29,14 +29,9 @@ class StoresController extends Controller
      */
     public function index(Request $request)
     {
-        // if ordered table, get all except current user
-        if($request->orderBy && $request->direction) {
-            $stores = Store::orderBy($request->orderBy, $request->direction)->paginate(15);
-        } else {
-            $stores = Store::latest('created_at')->paginate(15);
-        }
+      $stores = Store::latest('created_at')->paginate(2);
 
-        return view('stores.index', compact('stores'));
+      return $stores;
     }
 
     /**
@@ -137,9 +132,8 @@ class StoresController extends Controller
      */
     public function destroy($id)
     {
-        Store::destroy($id);
+      Store::destroy($id);
 
-        Session::flash('flash_message', 'Store deleted!');
-
+      return response()->json(true, 200);
     }
 }

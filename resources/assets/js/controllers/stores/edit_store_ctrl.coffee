@@ -1,4 +1,4 @@
-app.controller 'editStoreCtrl', ($scope, $http) ->
+EditStoreCtrl = ($scope, $http) ->
     $scope.pathArr = window.location.pathname.split('/',3)
     $scope.id = $scope.pathArr[$scope.pathArr.length - 1]
 
@@ -20,3 +20,7 @@ app.controller 'editStoreCtrl', ($scope, $http) ->
         response.data.results.map (item) ->
           item.formatted_address
 
+'use strict'
+angular
+  .module('app')
+  .controller('EditStoreCtrl', EditStoreCtrl)

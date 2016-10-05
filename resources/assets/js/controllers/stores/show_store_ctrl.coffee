@@ -1,4 +1,4 @@
-app.controller 'showStoreCtrl', ($scope, $http) ->
+ShowStoreCtrl = ($scope, $http) ->
     $scope.deleteStore = (id) ->
         confirmation = confirm('Are you sure?')
 
@@ -12,3 +12,7 @@ app.controller 'showStoreCtrl', ($scope, $http) ->
 
         return
 
+'use strict'
+angular
+  .module('app')
+  .controller('ShowStoreCtrl', ShowStoreCtrl)
