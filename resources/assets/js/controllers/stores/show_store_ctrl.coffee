@@ -1,16 +1,26 @@
-ShowStoreCtrl = ($scope, $http) ->
-    $scope.deleteStore = (id) ->
-        confirmation = confirm('Are you sure?')
+ShowStoreCtrl = ($http, $stateParams, $state) ->
+  vm = this
+  vm.id = $stateParams.id
 
-        if confirmation
-            $http(
-                method: 'DELETE'
-                url: '/stores/' + id).then ((response) ->
-                    document.location.href = '/stores/'
-                    return
-            )
+  $http.get('api/stores/'+vm.id).then((response) ->
+    vm.data = response.data
+    return
+  , (error) ->
+    vm.error = error.data
+    return
+  )
 
+  vm.deleteStore = (id) ->
+    confirmation = confirm('Are you sure?')
+
+    if confirmation
+      $http.delete('api/stores/' + id).then ((response) ->
+        $state.go 'stores', { flashSuccess: 'Store deleted!' }
         return
+      )
+
+    return
+  return
 
 'use strict'
 angular

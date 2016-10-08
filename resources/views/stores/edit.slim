@@ -1,0 +1,93 @@
+.bg-light.lter.b-b.wrapper-md
+  h1.m-b-sm.font-thin.h3 Edit "{{store.data.name}}" store
+  a.btn.btn-default href="/stores"
+    i.fa.fa-long-arrow-left.mr-3 aria-hidden="true"
+    | Back
+
+.wrapper-md
+  .row
+    .col-lg-2
+    .col-lg-8
+      .panel.panel-default
+        .panel-body
+          form.form-horizontal ng-submit="store.update()"
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.fa-building-o.text.mr-3
+                  | Name:
+              .col-md-7 ng-class="{'has-error': store.error.name}"
+                input.form-control type="text" ng-model="store.data.name"
+                span.help-block ng-if="store.error.name"
+                  strong
+                    | {{store.error.name[0]}}
+
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-user.text.mr-3
+                  | Owner name:
+              .col-md-7 ng-class="{'has-error': store.error.ownerName}"
+                input.form-control type="text" ng-model="store.data.owner_name"
+                span.help-block ng-if="store.error.ownerName"
+                  strong
+                    | {{store.error.ownerName[0]}}
+
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-map.text.mr-3
+                  | Address:
+              .col-md-7 ng-class="{'has-error': store.error.address}"
+                input.form-control [
+                  type="text"
+                  ng-model="store.data.address"
+                  autocomplete="off"
+                  uib-typeahead="address for address in getLocation($viewValue)"
+                  typeahead-loading="loadingLocations"
+                  typeahead-no-results="noResults"
+                ]
+                span.help-block ng-if="store.error.address"
+                  strong
+                    | {{store.error.address[0]}}
+
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-screen-smartphone.text.mr-3
+                  | Phone:
+              .col-md-7 ng-class="{'has-error': store.error.phone}"
+                input.form-control [
+                  type="text"
+                  ng-model="store.data.phone"
+                  mask="9999-999-999"
+                ]
+                span.help-block ng-if="store.error.phone"
+                  strong
+                    | {{store.error.phone[0]}}
+
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-envelope-open.text.mr-3
+                  | Email:
+              .col-md-7 ng-class="{'has-error': store.error.email}"
+                input.form-control type="text" ng-model="store.data.email"
+                span.help-block ng-if="store.error.email"
+                  strong
+                    | {{store.error.email[0]}}
+
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-4
+              .col-xs-7.text-right
+                button.btn.btn-primary.text-u-c type="submit" Update

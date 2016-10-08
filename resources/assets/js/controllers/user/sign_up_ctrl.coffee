@@ -1,7 +1,7 @@
 SignUpController = ($auth, $state) ->
   vm = this
 
-  vm.register = (form)->
+  vm.register = ()->
     vm.spinnerDone = true
     if vm.user
       credentials =

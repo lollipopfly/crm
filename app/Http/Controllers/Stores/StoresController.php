@@ -7,9 +7,6 @@ use App\Http\Controllers\Controller;
 
 use App\Store;
 use Illuminate\Http\Request;
-use Carbon\Carbon;
-use Session;
-use Auth;
 
 class StoresController extends Controller
 {
@@ -19,7 +16,7 @@ class StoresController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct() {
-        $this->middleware('role', ['only' => 'create|destroy|store|update|edit']);
+        $this->middleware('role', ['only' => 'destroy|store|update|edit']);
     }
 
     /**
@@ -29,19 +26,9 @@ class StoresController extends Controller
      */
     public function index(Request $request)
     {
-      $stores = Store::latest('created_at')->paginate(2);
+      $stores = Store::latest('created_at')->paginate(15);
 
       return $stores;
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return void
-     */
-    public function create()
-    {
-        return view('stores.create');
     }
 
     /**
@@ -55,14 +42,12 @@ class StoresController extends Controller
             'name' => 'required',
             'address' => 'required|unique:stores',
             'phone' => 'required||unique:stores',
-            'email' => 'email||unique:stores'
+            'email' => 'email|unique:stores'
         ]);
 
         Store::create($request->all());
 
-        Session::flash('flash_message', 'Store added!');
-
-        return redirect('stores');
+        return response()->json(true);
     }
 
     /**
@@ -76,21 +61,7 @@ class StoresController extends Controller
     {
         $store = Store::findOrFail($id);
 
-        return view('stores.show', compact('store'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     *
-     * @return void
-     */
-    public function edit($id)
-    {
-        $store = Store::findOrFail($id);
-
-        return view('stores.edit', compact('store'));
+        return $store;
     }
 
     /**
@@ -102,26 +73,19 @@ class StoresController extends Controller
      */
     public function update($id, Request $request)
     {
-        $this->validate($request, ['name' => 'required', 'address' => 'required', 'phone' => 'required', ]);
+        $this->validate($request, [
+          'name' => 'required',
+          'address' => 'required',
+          'phone' => 'required',
+          'email' => 'email'
+        ]);
 
         $store = Store::findOrFail($id);
         $store->update($request->all());
 
-        Session::flash('flash_message', 'Store updated!');
-
-        return redirect('stores');
+        return response()->json(true);
     }
 
-    /**
-     * Get Address by id
-     *
-     * @return string
-     */
-    public function getStoreAddress($id) {
-        $storeAddress = Store::select('address')->where('id', $id)->first();
-
-        return $storeAddress->address;
-    }
 
     /**
      * Remove the specified resource from storage.

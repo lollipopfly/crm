@@ -20,7 +20,10 @@ Route::group(['prefix' => 'api'], function()
 
     Route::get('stores', 'Stores\StoresController@index');
     Route::delete('stores/{id}', 'Stores\StoresController@destroy');
-    // Route::get('stores/getstoreaddress/{id}', 'Stores\StoresController@getStoreAddress');
+    Route::get('stores/{id}', 'Stores\StoresController@show');
+    Route::post('stores/', 'Stores\StoresController@store');
+    Route::patch('stores/{id}', 'Stores\StoresController@update');
+
 });
 
 // Public
@@ -33,11 +36,11 @@ Route::get('user/confirm/{confirmation_code}', function() { return view('layouts
 Route::get('user/forgot_password', function() { return view('layouts.layout'); });
 Route::get('user/reset_password/{reset_password_code}', function() { return view('layouts.auth'); });
 
-// // STORES
-// Route::resource('stores', 'Stores\StoresController');
+// STORES
 Route::get('stores/', function() { return view('layouts.layout'); });
-
-
+Route::get('stores/{id}', function() { return view('layouts.layout'); });
+Route::get('stores/create', function() { return view('layouts.layout'); });
+Route::get('stores/{id}/edit/', function() { return view('layouts.layout'); });
 
 Route::group(['middleware' => 'auth'], function () {
     // Route::get('/',  'HomeController@index');

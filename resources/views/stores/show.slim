@@ -1,0 +1,68 @@
+.bg-light.lter.b-b.wrapper-md
+  h1.m-b-sm.font-thin.h3  {{store.data.name}}
+  a.btn.btn-default.mr-3 href="/stores"
+    i.fa.fa-long-arrow-left.mr-3 aria-hidden="true"
+    | Back
+  a.btn.btn-primary.mr-3 [
+    href="/stores/{{store.id}}/edit"
+    ng-if="currentUser.user_group == 'admin'"
+  ]
+    | Edit
+  button.btn.btn-danger.mr-3 [
+    ng-click="store.deleteStore(store.id)"
+    ng-if="currentUser.user_group == 'admin'"
+  ]
+    | Delete
+
+.wrapper-md
+  .row
+    .col-lg-2
+    .col-lg-8
+      .panel.panel-default
+        .panel-body
+          .row
+            .col-md-1
+            .col-md-3
+              span.text
+                i.fa.fa-building-o.text.mr-3
+                | Name:
+            .col-md-7
+              span.text  {{ store.data.name }}
+          .line.line-dashed.b-b.line-lg.pull-in
+          .row
+            .col-md-1
+            .col-md-3
+              span.text
+                i.fa.icon-user.text.mr-3
+                | Owner name:
+            .col-md-7
+              span.text ng-show="store.data.owner_name" {{ store.data.owner_name }}
+          .line.line-dashed.b-b.line-lg.pull-in
+          .row
+            .col-md-1
+            .col-md-3
+              span.text
+                i.fa.icon-map.text.mr-3
+                | Address:
+            .col-md-7
+              span.text ng-show="store.data.address" {{ store.data.address }}
+          .line.line-dashed.b-b.line-lg.pull-in
+          .row
+            .col-md-1
+            .col-md-3
+              span.text
+                i.fa.icon-screen-smartphone.text.mr-3
+                | Phone:
+            .col-md-7
+              span.text ng-show="store.data.phone" {{ store.data.phone }}
+          .line.line-dashed.b-b.line-lg.pull-in
+          .row
+            .col-md-1
+            .col-md-3
+              span.text
+                i.fa.icon-envelope-open.text.mr-3
+                | Email:
+            .col-md-7
+              span.text ng-show="store.data.email" {{ store.data.email }}
+
+

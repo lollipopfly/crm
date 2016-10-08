@@ -10,6 +10,7 @@ angular
     "angularMoment"
   ]).config(($stateProvider, $urlRouterProvider, $authProvider, $locationProvider) ->
     $locationProvider.html5Mode true
+
     # Satellizer configuration that specifies which API
     # route the JWT should be retrieved from
     $authProvider.loginUrl = '/api/authenticate'
@@ -57,21 +58,23 @@ angular
         url: '/stores'
         templateUrl: '../views/stores/index.html'
         controller: 'IndexStoreCtrl as stores'
+        params:
+          flashSuccess: null
       )
       .state('stores_create',
         url: '/stores/create'
         templateUrl: '../views/stores/create.html'
-        controller: 'CreateStoreCtrl'
+        controller: 'CreateStoreCtrl as store'
       )
       .state('stores_edit',
         url: '/stores/:id/edit'
         templateUrl: '../views/stores/edit.html'
-        controller: 'EditStoreCtrl'
+        controller: 'EditStoreCtrl as store'
       )
       .state('stores_show',
         url: '/stores/:id'
         templateUrl: '../views/stores/show.html'
-        controller: 'ShowStoreCtrl'
+        controller: 'ShowStoreCtrl as store'
       )
 
 

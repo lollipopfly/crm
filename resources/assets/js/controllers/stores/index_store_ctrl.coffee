@@ -1,8 +1,12 @@
-IndexStoreCtrl = ($scope, $http, $filter) ->
+IndexStoreCtrl = ($http, $filter, $rootScope, $stateParams) ->
   vm = this
   vm.sortReverse = null
   vm.pagiApiUrl = '/api/stores'
   orderBy = $filter('orderBy')
+
+  # Flash from others pages
+  if $stateParams.flashSuccess
+    vm.flashSuccess = $stateParams.flashSuccess
 
   $http.get('api/stores').then((response) ->
     vm.stores = response.data.data
@@ -37,7 +41,8 @@ IndexStoreCtrl = ($scope, $http, $filter) ->
       $http.delete('/api/stores/' + id).then ((response) ->
         # Delete from scope
         vm.stores.splice(index, 1)
-        vm.successMessage = 'Store deleted!'
+        vm.flashSuccess = 'Store deleted!'
+        console.log(vm.flashSuccess);
 
         return
       ), (error) ->

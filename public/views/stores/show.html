@@ -1,0 +1,66 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-b-sm font-thin h3">
+    {{store.data.name}}
+  </h1>
+  <a class="btn btn-default mr-3" href="/stores"><i aria-hidden="true" class="fa fa-long-arrow-left mr-3"></i>Back</a><a class="btn btn-primary mr-3" href="/stores/{{store.id}}/edit" ng-if="currentUser.user_group == &#39;admin&#39;">Edit</a><button class="btn btn-danger mr-3" ng-click="store.deleteStore(store.id)" ng-if="currentUser.user_group == &#39;admin&#39;">Delete</button>
+</div>
+<div class="wrapper-md">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+              <span class="text"><i class="fa fa-building-o text mr-3"></i>Name:</span>
+            </div>
+            <div class="col-md-7">
+              <span class="text"> {{ store.data.name }}</span>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+              <span class="text"><i class="fa icon-user text mr-3"></i>Owner name:</span>
+            </div>
+            <div class="col-md-7">
+              <span class="text" ng-show="store.data.owner_name">{{ store.data.owner_name }}</span>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+              <span class="text"><i class="fa icon-map text mr-3"></i>Address:</span>
+            </div>
+            <div class="col-md-7">
+              <span class="text" ng-show="store.data.address">{{ store.data.address }}</span>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+              <span class="text"><i class="fa icon-screen-smartphone text mr-3"></i>Phone:</span>
+            </div>
+            <div class="col-md-7">
+              <span class="text" ng-show="store.data.phone">{{ store.data.phone }}</span>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+              <span class="text"><i class="fa icon-envelope-open text mr-3"></i>Email:</span>
+            </div>
+            <div class="col-md-7">
+              <span class="text" ng-show="store.data.email">{{ store.data.email }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

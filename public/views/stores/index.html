@@ -5,10 +5,10 @@
   <a class="btn btn-primary" href="/stores/create" ng-if="currentUser.user_group == &#39;admin&#39;"><i class="fa fa-plus m-r-xs"></i>Add new store</a>
 </div>
 <div class="wrapper-md">
-  <div class="row" ng-if="stores.successMessage">
+  <div class="row" ng-if="stores.flashSuccess">
     <div class="col-xs-12">
       <p class="alert alert-success">
-        <a aria-label="close" class="close" data-dismiss="alert" href="#" title="close"> ×</a><strong> {{ stores.successMessage }}</strong>
+        <strong> {{ stores.flashSuccess }}</strong>
       </p>
     </div>
   </div>
@@ -56,7 +56,7 @@
                 {{ store.phone }}
               </td>
               <td class="text-right" ng-if="currentUser.user_group == &#39;admin&#39;">
-                <a class="v-middle margin-right-5" href="/stores/{{ store.id }}/edit/" tooltip-placement="top-right" uib-tooltip="Edit store"><i class="icon-pencil c-p f-z-15 color-green"></i></a><i class="v-middle" ng-click="stores.deleteStore(store.id, $index)" target="_self" tooltip-placement="top-right" uib-tooltip="Delete store"><i class="fa fa-close c-p f-z-20 color-red"></i></i>
+                <a class="v-middle mr-5" href="/stores/{{ store.id }}/edit" tooltip-placement="top-right" uib-tooltip="Edit store"><i class="icon-pencil c-p f-z-15 color-green"></i></a><i class="v-middle" ng-click="stores.deleteStore(store.id, $index)" target="_self" tooltip-placement="top-right" uib-tooltip="Delete store"><i class="fa fa-close c-p f-z-20 color-red"></i></i>
               </td>
             </tr>
           </tbody>

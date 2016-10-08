@@ -4,7 +4,7 @@
       .panel.panel-default
         h3.panel-heading Login
         .panel-body
-          form.form-horizontal name="signInForm" ng-submit="auth.login()"
+          form.form-horizontal ng-submit="auth.login()"
             .form-group ng-class="{'has-error': auth.error.email}"
               label.col-md-4.control-label E-Mail Address
               .col-md-6

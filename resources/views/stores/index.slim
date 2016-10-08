@@ -8,11 +8,10 @@
     | Add new store
 
 .wrapper-md
-  .row ng-if="stores.successMessage"
+  .row ng-if="stores.flashSuccess"
     .col-xs-12
         p.alert.alert-success
-          a.close aria-label="close" data-dismiss="alert" href="#" title="close"  ×
-          strong  {{ stores.successMessage }}
+          strong  {{ stores.flashSuccess }}
 
   .row
     .col-xs-12
@@ -40,8 +39,8 @@
               td  {{ store.address }}
               td  {{ store.phone }}
               td.text-right ng-if="currentUser.user_group == 'admin'"
-                a.v-middle.margin-right-5 [
-                  href="/stores/{{ store.id }}/edit/"
+                a.v-middle.mr-5 [
+                  href="/stores/{{ store.id }}/edit"
                   tooltip-placement="top-right"
                   uib-tooltip="Edit store"
                 ]
