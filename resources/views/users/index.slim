@@ -1,0 +1,74 @@
+.bg-light.lter.b-b.wrapper-md
+  h1.m-r-md.inline.media-middle.font-thin.h3 Users
+  a.btn.btn-primary [
+    href="/users/create"
+    ng-if="currentUser.user_group == 'admin'"
+  ]
+    i.fa.fa-plus.m-r-xs
+    | Add new store
+
+.wrapper-md
+  .row ng-if="users.flashSuccess"
+    .col-xs-12
+        p.alert.alert-success
+          strong  {{ users.flashSuccess }}
+
+  .row
+    .col-xs-12
+      .panel.panel-default
+        table.table.table-striped.m-b-none.table-layout-fixed
+          thead
+            tr
+              th.sorting.v-top
+                span#id.sort-link.c-p ng-click="users.sortBy('id')"  Id
+              th.sorting.v-top
+                span#name.sort-link.c-p ng-click="users.sortBy('name')" Name
+              th.sorting.v-top
+                span#last_name.sort-link.c-p ng-click="users.sortBy('last_name')"  Last name
+              th.sorting.v-top
+                span#bday.sort-link.c-p ng-click="users.sortBy('bday')"  Birthday
+              th.sorting.v-top
+                span#job_title.sort-link.c-p ng-click="users.sortBy('job_title')" Job title
+              th.sorting.v-top
+                span#email.sort-link.c-p ng-click="users.sortBy('email')"  Email
+              th.sorting.v-top
+                span#phone.sort-link.c-p ng-click="users.sortBy('phone')"  Phone
+              th.sorting.v-top
+                span#country.sort-link.c-p ng-click="users.sortBy('country')"  Country
+              th.sorting.v-top
+                span#city.sort-link.c-p ng-click="users.sortBy('city')"  City
+              th.text-right ng-if="currentUser.user_group == 'admin'" Actions
+          tbody
+            tr ng-repeat="user in users.users"
+              td
+                a.text-info href="users/{{ user.id }}" {{ user.id }}
+              td  {{ user.name }}
+              td  {{ user.last_name }}
+              td  {{ user.bday | amDateFormat:'MM.DD.YYYY' }}
+              td  {{ user.job_title }}
+              td  {{ user.email }}
+              td  {{ user.phone }}
+              td  {{ user.country }}
+              td  {{ user.city }}
+              td.text-right ng-if="currentUser.user_group == 'admin'"
+                a.v-middle.mr-5 [
+                  href="/users/{{ user.id }}/edit"
+                  tooltip-placement="top-right"
+                  uib-tooltip="Edit user"
+                ]
+                  i.icon-pencil.c-p.f-z-15.color-green
+                i.v-middle [
+                  ng-click="users.deleteUser(user.id, $index)"
+                  target="_self"
+                  tooltip-placement="top-right"
+                  uib-tooltip="Delete user"
+                ]
+                  i.fa.fa-close.c-p.f-z-20.color-red
+  .row
+    .col-xs-12.text-right
+      pagination [
+        pagi-arr="users.pagiArr"
+        items="users.users"
+        ctrl="IndexUserCtrl"
+        pagi-api-url="users.pagiApiUrl"
+      ]

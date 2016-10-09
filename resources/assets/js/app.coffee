@@ -77,15 +77,30 @@ angular
         controller: 'ShowStoreCtrl as store'
       )
 
-
       # Users
       .state('users',
         url: '/users'
-        templateUrl: '../views/user/users_view.html'
-        controller: 'UserController as user'
+        templateUrl: '../views/users/index.html'
+        controller: 'IndexUserCtrl as users'
+        params:
+          flashSuccess: null
       )
+      # .state('users_create',
+      #   url: '/users/create'
+      #   templateUrl: '../views/users/create.html'
+      #   controller: 'CreateUserCtrl as user'
+      # )
+      # .state('users_edit',
+      #   url: '/users/:id/edit'
+      #   templateUrl: '../views/users/edit.html'
+      #   controller: 'EditUserCtrl as user'
+      # )
+      # .state('users_show',
+      #   url: '/users/:id'
+      #   templateUrl: '../views/users/show.html'
+      #   controller: 'ShowUserCtrl as user'
+      # )
 
-    # Get user on every load page
     return
   ).run ($q, $rootScope, $state, $auth, $location, $timeout) ->
     publicRoutes = [

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use app\User;
+use App\User;
 use Image;
 use Hash;
 use Auth;
@@ -36,14 +36,9 @@ class UsersController extends Controller
      */
     public function index(Request $request)
     {
-        // if ordered table, get all except current user
-        if($request->orderBy && $request->direction) {
-           $users = User::orderBy($request->orderBy, $request->direction)->where('id', '!=', Auth::user()->id)->paginate(10);
-        } else {
-            $users = User::latest('created_at')->where('id', '!=', Auth::user()->id)->paginate(10);
-        }
+      $users = User::latest('created_at')->paginate(15);
 
-        return view('users.index')->with('users', $users);
+      return $users;
     }
 
 
@@ -106,7 +101,7 @@ class UsersController extends Controller
     {
         $user = User::findOrFail($id);
 
-        return view('users.show')->with('user', $user);
+        return $user;
     }
 
 
@@ -118,10 +113,10 @@ class UsersController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
+      User::destroy($id);
 
-        $user->delete();
-        session()->flash('flash_message', 'User has been deleted.');
+      return response()->json(true, 200);
+        // session()->flash('flash_message', 'User has been deleted.');
     }
 
 

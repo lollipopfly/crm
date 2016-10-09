@@ -1,0 +1,96 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-r-md inline media-middle font-thin h3">
+    Users
+  </h1>
+  <a class="btn btn-primary" href="/users/create" ng-if="currentUser.user_group == &#39;admin&#39;"><i class="fa fa-plus m-r-xs"></i>Add new store</a>
+</div>
+<div class="wrapper-md">
+  <div class="row" ng-if="users.flashSuccess">
+    <div class="col-xs-12">
+      <p class="alert alert-success">
+        <strong> {{ users.flashSuccess }}</strong>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="panel panel-default">
+        <table class="table table-striped m-b-none table-layout-fixed">
+          <thead>
+            <tr>
+              <th class="sorting v-top">
+                <span class="sort-link c-p" id="id" ng-click="users.sortBy(&#39;id&#39;)"> Id</span>
+              </th>
+              <th class="sorting v-top">
+                <span class="sort-link c-p" id="name" ng-click="users.sortBy(&#39;name&#39;)">Name</span>
+              </th>
+              <th class="sorting v-top">
+                <span class="sort-link c-p" id="last_name" ng-click="users.sortBy(&#39;last_name&#39;)"> Last name</span>
+              </th>
+              <th class="sorting v-top">
+                <span class="sort-link c-p" id="bday" ng-click="users.sortBy(&#39;bday&#39;)"> Birthday</span>
+              </th>
+              <th class="sorting v-top">
+                <span class="sort-link c-p" id="job_title" ng-click="users.sortBy(&#39;job_title&#39;)">Job title</span>
+              </th>
+              <th class="sorting v-top">
+                <span class="sort-link c-p" id="email" ng-click="users.sortBy(&#39;email&#39;)"> Email</span>
+              </th>
+              <th class="sorting v-top">
+                <span class="sort-link c-p" id="phone" ng-click="users.sortBy(&#39;phone&#39;)"> Phone</span>
+              </th>
+              <th class="sorting v-top">
+                <span class="sort-link c-p" id="country" ng-click="users.sortBy(&#39;country&#39;)"> Country</span>
+              </th>
+              <th class="sorting v-top">
+                <span class="sort-link c-p" id="city" ng-click="users.sortBy(&#39;city&#39;)"> City</span>
+              </th>
+              <th class="text-right" ng-if="currentUser.user_group == &#39;admin&#39;">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="user in users.users">
+              <td>
+                <a class="text-info" href="users/{{ user.id }}">{{ user.id }}</a>
+              </td>
+              <td>
+                {{ user.name }}
+              </td>
+              <td>
+                {{ user.last_name }}
+              </td>
+              <td>
+                {{ user.bday | amDateFormat:'MM.DD.YYYY' }}
+              </td>
+              <td>
+                {{ user.job_title }}
+              </td>
+              <td>
+                {{ user.email }}
+              </td>
+              <td>
+                {{ user.phone }}
+              </td>
+              <td>
+                {{ user.country }}
+              </td>
+              <td>
+                {{ user.city }}
+              </td>
+              <td class="text-right" ng-if="currentUser.user_group == &#39;admin&#39;">
+                <a class="v-middle mr-5" href="/users/{{ user.id }}/edit" tooltip-placement="top-right" uib-tooltip="Edit user"><i class="icon-pencil c-p f-z-15 color-green"></i></a><i class="v-middle" ng-click="users.deleteUser(user.id, $index)" target="_self" tooltip-placement="top-right" uib-tooltip="Delete user"><i class="fa fa-close c-p f-z-20 color-red"></i></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 text-right">
+      <pagination ctrl="IndexUserCtrl" items="users.users" pagi-api-url="users.pagiApiUrl" pagi-arr="users.pagiArr"></pagination>
+    </div>
+  </div>
+</div>

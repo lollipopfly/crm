@@ -42,7 +42,6 @@ IndexStoreCtrl = ($http, $filter, $rootScope, $stateParams) ->
         # Delete from scope
         vm.stores.splice(index, 1)
         vm.flashSuccess = 'Store deleted!'
-        console.log(vm.flashSuccess);
 
         return
       ), (error) ->

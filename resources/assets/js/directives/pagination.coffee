@@ -8,7 +8,7 @@ pagination = ($http) ->
     bindToController: true
     scope: {
       pagiArr: '='
-      stores: '='
+      items: '='
       pagiApiUrl: '='
     }
     link: (scope, element, attr)->
@@ -32,7 +32,7 @@ pagination = ($http) ->
         if pageNumber == undefined
           pageNumber = '1'
         $http.get(scope.vm.pagiApiUrl+'?page=' + pageNumber).success (response) ->
-          scope.vm.stores = response.data
+          scope.vm.items = response.data
           scope.vm.totalPages = response.last_page
           scope.vm.currentPage = response.current_page
 

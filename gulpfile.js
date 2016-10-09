@@ -41,10 +41,6 @@ gulp.task('slim', function(){
 /*------------------------------------*\
  TASKS
  \*------------------------------------*/
-// require('laravel-elixir-livereload');
-// elixir(function(mix) {
-//    mix.livereload();
-// });
 
 /*------------------------------------*\
  Sass
@@ -118,6 +114,7 @@ gulp.task('compress', function() {
 gulp.task('compile-coffee', function() {
     gulp.src(['resources/assets/js/app.coffee',
               'resources/assets/js/controllers/user/*.coffee',
+              'resources/assets/js/controllers/users/*.coffee',
               'resources/assets/js/controllers/stores/*.coffee',
 
               'resources/assets/js/directives/pagination.coffee',
@@ -158,9 +155,9 @@ gulp.task('copy-theme-fonts', function() {
 \*------------------------------------*/
 
 gulp.task('watch', function() {
-  gulp.watch('resources/views/**/*.slim', ['slim', 'notify']);
+  gulp.watch('resources/views/**/*.slim', ['slim']);
   gulp.watch('resources/assets/sass/**/*.scss', { interval: 500 }, ['sass', 'notify']);
-  gulp.watch('resources/assets/js/**/*.coffee', ['compile-coffee', 'notify']);
+  gulp.watch('resources/assets/js/**/*.coffee', ['compile-coffee']);
 });
 
 /*------------------------------------*\

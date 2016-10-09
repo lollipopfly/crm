@@ -15,19 +15,24 @@ Route::group(['prefix' => 'api'], function()
     Route::post('authenticate/confirm', 'AuthController@confirm');
     Route::post('authenticate/send_reset_code', 'AuthController@sendResetCode');
     Route::post('authenticate/reset_password', 'AuthController@resetPassword');
-    // Route::resource('users', 'UsersController');
 
-
+    // Stores
     Route::get('stores', 'Stores\StoresController@index');
     Route::delete('stores/{id}', 'Stores\StoresController@destroy');
     Route::get('stores/{id}', 'Stores\StoresController@show');
     Route::post('stores/', 'Stores\StoresController@store');
     Route::patch('stores/{id}', 'Stores\StoresController@update');
 
+    // Users
+    Route::get('users', 'Users\UsersController@index');
+    Route::delete('users/{id}', 'Users\UsersController@destroy');
+    Route::get('users/{id}', 'Users\UsersController@show');
+    Route::post('users/', 'Users\UsersController@store');
+    Route::patch('users/{id}', 'Users\UsersController@update');
 });
 
 // Public
-Route::get('users', function() { return view('index'); });
+
 
 Route::get('user/sign_in', function() { return view('layouts.layout'); });
 Route::get('user/sign_up', function() { return view('layouts.layout'); });
@@ -42,8 +47,12 @@ Route::get('stores/{id}', function() { return view('layouts.layout'); });
 Route::get('stores/create', function() { return view('layouts.layout'); });
 Route::get('stores/{id}/edit/', function() { return view('layouts.layout'); });
 
-Route::group(['middleware' => 'auth'], function () {
-    // Route::get('/',  'HomeController@index');
+Route::get('users/', function() { return view('layouts.layout'); });
+Route::get('users/{id}', function() { return view('layouts.layout'); });
+Route::get('users/create', function() { return view('layouts.layout'); });
+Route::get('users/{id}/edit/', function() { return view('layouts.layout'); });
+
+// Route::group(['middleware' => 'auth'], function () {
 
     // // PROFILE
     // Route::get('profile/',  'Profile\ProfileController@index');
@@ -51,12 +60,6 @@ Route::group(['middleware' => 'auth'], function () {
     // Route::post('profile/update/{id}',  'Profile\ProfileController@update');
     // Route::put('profile/updatepoints', 'Profile\ProfileController@updatePoints');
 
-    // // USERS
-    // Route::get('users', 'Users\UsersController@index');
-    // Route::post('users', 'Users\UsersController@store');
-    // Route::get('users/create', 'Users\UsersController@create');
-    // Route::get('users/{id}', 'Users\UsersController@show');
-    // Route::delete('users/{id}', 'Users\UsersController@destroy');
 
     // // ROUTES
     // Route::get('routes/getpoints/{id}', 'Routes\RoutesController@getPoints');
@@ -65,4 +68,4 @@ Route::group(['middleware' => 'auth'], function () {
     // // MAP
     // Route::get('map/getallpoints', 'MapController@getAllPoints');
     // Route::get('map/', 'MapController@index');
-});
+// });
