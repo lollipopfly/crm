@@ -8,6 +8,7 @@ angular
     "ngLodash"
     "ngMask"
     "angularMoment"
+    "easypiechart"
   ]).config(($stateProvider, $urlRouterProvider, $authProvider, $locationProvider) ->
     $locationProvider.html5Mode true
 
@@ -95,11 +96,11 @@ angular
       #   templateUrl: '../views/users/edit.html'
       #   controller: 'EditUserCtrl as user'
       # )
-      # .state('users_show',
-      #   url: '/users/:id'
-      #   templateUrl: '../views/users/show.html'
-      #   controller: 'ShowUserCtrl as user'
-      # )
+      .state('users_show',
+        url: '/users/:id'
+        templateUrl: '../views/users/show.html'
+        controller: 'ShowUserCtrl as user'
+      )
 
     return
   ).run ($q, $rootScope, $state, $auth, $location, $timeout) ->

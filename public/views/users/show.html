@@ -1,0 +1,91 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-b-sm font-thin h3">
+    {{user.data.name}}
+  </h1>
+  <a class="btn btn-default" href="/users"><i aria-hidden="true" class="fa fa-long-arrow-left mr-3"></i>Back</a>
+</div>
+<div class="wrapper-md">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="clearfix text-center m-t">
+            <div class="inline">
+              <div class="easyPieChart" easyPieChart="" options="user.settings" percent="75" style="width: 134px; height: 134px; line-height: 134px;">
+                <div class="thumb-xl">
+                  <img class="img-circle w-full" src="{{user.data.avatar}}" />
+                </div>
+              </div>
+              <div class="h4 m-t m-b-xs">
+                {{ user.data.name }}
+              </div>
+              <small class="text-muted m-b" ng-show="user.data.bday">24.02.1983</small>
+            </div>
+          </div>
+        </div>
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+              <span class="text"><i class="fa icon-user text mr-3"></i>Initials:</span>
+            </div>
+            <div class="col-md-7">
+              <span class="text" ng-show="user.data.initials">{{user.data.initials}}</span>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+              <span class="text"><i class="fa icon-bag text mr-3"></i>Job title:</span>
+            </div>
+            <div class="col-md-7">
+              <span class="text" ng-show="user.data.job_title">{{user.data.job_title}}</span>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+              <span class="text"><i class="fa icon-direction text mr-3"></i>Country:</span>
+            </div>
+            <div class="col-md-7">
+              <span class="text" ng-show="user.data.country">{{user.data.country}}</span>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+              <span class="text"><i class="fa icon-home text mr-3"></i>City:</span>
+            </div>
+            <div class="col-md-7">
+              <span class="text" ng-show="user.data.city">{{user.data.city}}</span>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+              <span class="text"><i class="fa icon-screen-smartphone text mr-3"></i>Phone:</span>
+            </div>
+            <div class="col-md-7">
+              <span class="text" ng-show="user.data.phone">{{user.data.phone}}</span>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+              <span class="text"><i class="fa icon-envelope-letter text mr-3"></i>Email:</span>
+            </div>
+            <div class="col-md-7">
+              <span class="text" ng-show="user.data.email">{{user.data.email}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

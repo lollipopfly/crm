@@ -8,6 +8,7 @@
     "angular-moment": "^1.0.0-beta.6",
     "angular-ui-bootstrap": "^1.3.3",
     "angular-ui-router": "^0.3.1",
+    "easy-pie-chart": "git+https://github.com/rendro/easy-pie-chart.git",
     "autoprefixer": "*",
     "merge-stream": "*",
     "moment": "^2.14.1",

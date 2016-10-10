@@ -99,6 +99,7 @@ gulp.task('compress', function() {
         'node_modules/satellizer/dist/satellizer.js',
         'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
         'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
+        'node_modules/easy-pie-chart/dist/angular.easypiechart.js',
         'node_modules/ng-lodash/build/ng-lodash.js',
         "node_modules/ng-mask/dist/ngMask.js",
         "node_modules/moment/moment.js",
@@ -196,4 +197,3 @@ function error(error) {
     console.log(error.toString());
     this.emit('end');
 }
-

@@ -1,0 +1,78 @@
+.bg-light.lter.b-b.wrapper-md
+  h1.m-b-sm.font-thin.h3  {{user.data.name}}
+  a.btn.btn-default href="/users"
+    i.fa.fa-long-arrow-left.mr-3 aria-hidden="true"
+    | Back
+
+.wrapper-md
+  .row
+    .col-lg-2
+    .col-lg-8
+      .panel.panel-default
+        .panel-body
+          .clearfix.text-center.m-t
+            .inline
+              .easyPieChart [
+                easyPieChart
+                style="width: 134px; height: 134px; line-height: 134px;"
+                percent="75"
+                options="user.settings"
+              ]
+                .thumb-xl
+                  img.img-circle.w-full src="{{user.data.avatar}}"
+              .h4.m-t.m-b-xs {{ user.data.name }}
+              small.text-muted.m-b ng-show="user.data.bday" 24.02.1983
+        .panel-body
+          .row
+            .col-md-1
+            .col-md-3
+              span.text
+                i.fa.icon-user.text.mr-3
+                | Initials:
+            .col-md-7
+              span.text ng-show="user.data.initials" {{user.data.initials}}
+          .line.line-dashed.b-b.line-lg.pull-in
+          .row
+            .col-md-1
+            .col-md-3
+              span.text
+                i.fa.icon-bag.text.mr-3
+                | Job title:
+            .col-md-7
+              span.text ng-show="user.data.job_title" {{user.data.job_title}}
+          .line.line-dashed.b-b.line-lg.pull-in
+          .row
+            .col-md-1
+            .col-md-3
+              span.text
+                i.fa.icon-direction.text.mr-3
+                | Country:
+            .col-md-7
+              span.text ng-show="user.data.country" {{user.data.country}}
+          .line.line-dashed.b-b.line-lg.pull-in
+          .row
+            .col-md-1
+            .col-md-3
+              span.text
+                i.fa.icon-home.text.mr-3
+                | City:
+            .col-md-7
+              span.text ng-show="user.data.city" {{user.data.city}}
+          .line.line-dashed.b-b.line-lg.pull-in
+          .row
+            .col-md-1
+            .col-md-3
+              span.text
+                i.fa.icon-screen-smartphone.text.mr-3
+                | Phone:
+            .col-md-7
+              span.text ng-show="user.data.phone" {{user.data.phone}}
+          .line.line-dashed.b-b.line-lg.pull-in
+          .row
+            .col-md-1
+            .col-md-3
+              span.text
+                i.fa.icon-envelope-letter.text.mr-3
+                | Email:
+            .col-md-7
+              span.text ng-show="user.data.email" {{user.data.email}}
