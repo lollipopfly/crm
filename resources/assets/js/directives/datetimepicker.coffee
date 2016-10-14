@@ -1,15 +1,25 @@
-app.directive 'datetimepicker', () ->
-  restrict: 'AE'
-  templateUrl: '/views/directives/datetimepicker.html'
-  scope:
-    model: "=model"
-    label: "=?label"
-    attrName: "=attrName"
-    attrValue: "=?attrValue"
+datetimepicker = () ->
+  directive = {
+    restrict: 'AE'
+    templateUrl: '/views/directives/datetimepicker.html'
+    controllerAs: 'vm',
+    controller: '@'
+    name: 'ctrl',
+    bindToController: true
+    scope: {
+      ngModel: "=ngModel"
+      label: "=?label"
+      attrName: "=attrName"
+      attrValue: "=?attrValue"
+    }
+    link: (scope, element, attr) ->
+      scope.vm.open = () ->
+        scope.vm.date_opened = true
+  }
 
-  link: (scope, element, attrs) ->
-    scope.open = () ->
-      scope.date_opened = true
+  return directive
 
-
-
+'use strict'
+angular
+  .module('app')
+  .directive 'datetimepicker', datetimepicker

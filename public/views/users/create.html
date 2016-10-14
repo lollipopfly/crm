@@ -1,0 +1,156 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-b-sm font-thin h3">
+    Create new user
+  </h1>
+  <a class="btn btn-default" href="/users"><i aria-hidden="true" class="fa fa-long-arrow-left mr-3"></i>Back</a>
+</div>
+<div class="wrapper-md">
+  <div class="row">
+    <div class="col-lg-2"></div>
+    <div class="col-lg-8">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <form enctype="multipart/form-data" ng-submit="user.addUser()">
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-3">
+                <div class="col text-left w-sm">
+                  <div class="thumb-lg avatar inline">
+                    <img src="images/default_avatar.jpg" />
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-7">
+                <div attr-id="&#39;file-field&#39;" class="margin-top-25" ctrl="CreateUserCtrl" file_field="" ng-model="user.avatar"></div>
+              </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-3 m-t-xs">
+                <span class="text"><i class="fa icon-user text mr-3"></i>Name:</span>
+              </div>
+              <div class="col-md-7" ng-class="{&#39;has-error&#39;: user.error.name}">
+                <input class="form-control" ng-model="user.name" type="text" /><span class="help-block" ng-if="user.error.name"><strong>{{user.error.name[0]}}</strong></span>
+              </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-3 m-t-xs">
+                <span class="text"><i class="fa icon-users text mr-3"></i>Last name:</span>
+              </div>
+              <div class="col-md-7" ng-class="{&#39;has-error&#39;: user.error.last_name}">
+                <input class="form-control" ng-model="user.last_name" type="text" />
+              </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-3 m-t-xs">
+                <span class="text"><i class="fa icon-heart text mr-3"></i>Initials:</span>
+              </div>
+              <div class="col-md-7" ng-class="{&#39;has-error&#39;: user.error.initials}">
+                <input class="form-control" ng-model="user.initials" type="text" /><span class="help-block" ng-if="user.error.initials"><strong>{{user.error.initials[0]}}</strong></span>
+              </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-3 m-t-xs">
+                <span class="text"><i class="fa icon-calendar text mr-3"></i>Birthday:</span>
+              </div>
+              <div class="col-md-7">
+                <datetimepicker attr-name="&#39;bday&#39;" ctrl="CreateUserCtrl" ng-model="user.bday"></datetimepicker>
+              </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-3 m-t-xs">
+                <span class="text"><i class="fa icon-bag text mr-3"></i>Job title:</span>
+              </div>
+              <div class="col-md-7" ng-class="{&#39;has-error&#39;: user.error.job_title}">
+                <input class="form-control" ng-model="user.job_title" type="text" />
+              </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-3 m-t-xs">
+                <span class="text"><i class="fa icon-user-following text mr-3"></i>User group:</span>
+              </div>
+              <div class="col-md-7">
+                <radio-field attr-name="&#39;user_group&#39;" attr-value="enum" ctrl="CreateUserCtrl" label="enum" ng-checked="{&#39;checked&#39;: $index == 0}" ng-model="user.user_group" ng-repeat="enum in user.enums"></radio-field>
+              </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-3 m-t-xs">
+                <span class="text"><i class="fa icon-map text mr-3"></i>Country:</span>
+              </div>
+              <div class="col-md-7" ng-class="{&#39;has-error&#39;: user.error.country}">
+                <input class="form-control" ng-model="user.country" type="text" />
+              </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-3 m-t-xs">
+                <span class="text"><i class="fa icon-direction text mr-3"></i>City:</span>
+              </div>
+              <div class="col-md-7" ng-class="{&#39;has-error&#39;: user.error.city}">
+                <input class="form-control" ng-model="user.city" type="text" />
+              </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-3 m-t-xs">
+                <span class="text"><i class="fa icon-screen-smartphone text mr-3"></i>Phone:</span>
+              </div>
+              <div class="col-md-7" ng-class="{&#39;has-error&#39;: user.error.phone}">
+                <input class="form-control" mask="9999-999-999" ng-model="user.phone" type="text" /><span class="help-block" ng-if="user.error.phone"><strong>{{user.error.phone[0]}}</strong></span>
+              </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-3 m-t-xs">
+                <span class="text"><i class="fa icon-envelope-open text mr-3"></i>Email:</span>
+              </div>
+              <div class="col-md-7" ng-class="{&#39;has-error&#39;: user.error.email}">
+                <input class="form-control" ng-model="user.email" type="text" /><span class="help-block" ng-if="user.error.email"><strong>{{user.error.email[0]}}</strong></span>
+              </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="row">
+              <div class="col-md-1"></div>
+              <div class="col-md-3 m-t-xs">
+                <span class="text"><i class="fa icon-lock text mr-3"></i>Password:</span>
+              </div>
+              <div class="col-md-7" ng-class="{&#39;has-error&#39;: user.error.password}">
+                <div class="row">
+                  <div class="col-md-8">
+                    <input class="form-control" ng-model="user.password" type="text" /><span class="help-block" ng-if="user.error.password"><strong>{{user.error.password[0]}}</strong></span>
+                  </div>
+                  <div class="col-md-4 pull-right text-right">
+                    <button class="btn btn-default" ng-click="user.generatePass()" type="button"><i class="fa fa-random mr-3"></i>Generate password</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="line line-dashed b-b line-lg pull-in"></div>
+            <div class="row">
+              <div class="col-md-4"></div>
+              <div class="col-xs-7 text-right">
+                <button class="btn btn-primary text-u-c" type="submit">Create</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

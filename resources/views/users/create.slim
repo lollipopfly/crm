@@ -1,0 +1,172 @@
+.bg-light.lter.b-b.wrapper-md
+  h1.m-b-sm.font-thin.h3 Create new user
+  a.btn.btn-default href="/users"
+    i.fa.fa-long-arrow-left.mr-3 aria-hidden="true"
+    | Back
+.wrapper-md
+  .row
+    .col-lg-2
+    .col-lg-8
+      .panel.panel-default
+        .panel-body
+          form ng-submit="user.addUser()" enctype="multipart/form-data"
+            .row
+              .col-md-1
+              .col-md-3
+                .col.text-left.w-sm
+                  .thumb-lg.avatar.inline
+                    img src="images/default_avatar.jpg"
+              .col-md-7
+                .margin-top-25 [
+                  file_field=""
+                  ctrl="CreateUserCtrl"
+                  attr-id="'file-field'"
+                  ng-model="user.avatar"
+                ]
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-user.text.mr-3
+                  | Name:
+              .col-md-7 ng-class="{'has-error': user.error.name}"
+                input.form-control type="text" ng-model="user.name"
+                span.help-block ng-if="user.error.name"
+                  strong
+                    | {{user.error.name[0]}}
+
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-users.text.mr-3
+                  | Last name:
+              .col-md-7 ng-class="{'has-error': user.error.last_name}"
+                input.form-control type="text" ng-model="user.last_name"
+
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-heart.text.mr-3
+                  | Initials:
+              .col-md-7 ng-class="{'has-error': user.error.initials}"
+                input.form-control type="text" ng-model="user.initials"
+                span.help-block ng-if="user.error.initials"
+                  strong
+                    | {{user.error.initials[0]}}
+
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-calendar.text.mr-3
+                  | Birthday:
+              .col-md-7
+                datetimepicker [
+                  attr-name="'bday'"
+                  ng-model="user.bday"
+                  ctrl="CreateUserCtrl"
+                ]
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-bag.text.mr-3
+                  | Job title:
+              .col-md-7 ng-class="{'has-error': user.error.job_title}"
+                input.form-control type="text" ng-model="user.job_title"
+
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-user-following.text.mr-3
+                  | User group:
+              .col-md-7
+                radio-field [
+                  ctrl="CreateUserCtrl"
+                  ng-model="user.user_group"
+                  ng-repeat="enum in user.enums"
+                  attr-name="'user_group'"
+                  attr-value="enum"
+                  ng-checked="{'checked': $index == 0}"
+                  label="enum"
+                ]
+
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-map.text.mr-3
+                  | Country:
+              .col-md-7 ng-class="{'has-error': user.error.country}"
+                input.form-control type="text" ng-model="user.country"
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-direction.text.mr-3
+                  | City:
+              .col-md-7 ng-class="{'has-error': user.error.city}"
+                input.form-control type="text" ng-model="user.city"
+
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-screen-smartphone.text.mr-3
+                  | Phone:
+              .col-md-7 ng-class="{'has-error': user.error.phone}"
+                input.form-control [
+                  type="text"
+                  ng-model="user.phone"
+                  mask="9999-999-999"
+                ]
+                span.help-block ng-if="user.error.phone"
+                  strong
+                    | {{user.error.phone[0]}}
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-envelope-open.text.mr-3
+                  | Email:
+              .col-md-7 ng-class="{'has-error': user.error.email}"
+                input.form-control type="text" ng-model="user.email"
+                span.help-block ng-if="user.error.email"
+                  strong
+                    | {{user.error.email[0]}}
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-lock.text.mr-3
+                  | Password:
+              .col-md-7 ng-class="{'has-error': user.error.password}"
+                .row
+                  .col-md-8
+                    input.form-control type="text" ng-model="user.password"
+                    span.help-block ng-if="user.error.password"
+                      strong
+                        | {{user.error.password[0]}}
+                  .col-md-4.pull-right.text-right
+                    button.btn.btn-default ng-click="user.generatePass()" type="button"
+                      i.fa.fa-random.mr-3
+                      | Generate password
+            .line.line-dashed.b-b.line-lg.pull-in
+            .row
+              .col-md-4
+              .col-xs-7.text-right
+                button.btn.btn-primary.text-u-c type="submit" Create

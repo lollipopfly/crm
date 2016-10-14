@@ -1,10 +1,11 @@
 var gulp          = require('gulp'),
+    changed       = require('gulp-changed'),
     slim          = require("gulp-slim"),
     postcss       = require('gulp-postcss'),
     sass          = require('gulp-sass'),
     size          = require('postcss-size'),
     coffee        = require('gulp-coffee'),
-    sourcemaps    = require('gulp-sourcemaps')
+    sourcemaps    = require('gulp-sourcemaps'),
     pxtorem       = require('postcss-pxtorem'),
     colorFunction = require("postcss-color-function"),
     postcssExtend = require('postcss-sass-extend'),
@@ -24,10 +25,10 @@ var gulp          = require('gulp'),
 \*------------------------------------*/
 gulp.task('slim', function(){
   gulp.src("resources/views/**/*.slim")
+    .pipe(changed('public/views/', {extension: '.html'}))
     .pipe(slim({
       pretty: true,
       options: "attr_list_delims={'(' => ')', '[' => ']'}",
-
     }))
     .on('error', function (message) {
         gutil.log(gutil.colors.red(message));
@@ -37,14 +38,9 @@ gulp.task('slim', function(){
     .pipe(gulp.dest("public/views/"));
 });
 
-
-/*------------------------------------*\
- TASKS
- \*------------------------------------*/
-
 /*------------------------------------*\
  Sass
- \*------------------------------------*/
+\*------------------------------------*/
 
 gulp.task('sass', function() {
     var processors = [
@@ -104,6 +100,8 @@ gulp.task('compress', function() {
         "node_modules/ng-mask/dist/ngMask.js",
         "node_modules/moment/moment.js",
         "node_modules/angular-moment/angular-moment.js",
+        "node_modules/ng-file-upload/dist/ng-file-upload-shim.js",
+        "node_modules/ng-file-upload/dist/ng-file-upload.js"
     ])
         .pipe(plumber())
         .pipe(concat('global.min.js'))
@@ -119,7 +117,10 @@ gulp.task('compile-coffee', function() {
               'resources/assets/js/controllers/stores/*.coffee',
 
               'resources/assets/js/directives/pagination.coffee',
-            ])
+              'resources/assets/js/directives/file_field.coffee',
+              'resources/assets/js/directives/datetimepicker.coffee',
+              'resources/assets/js/directives/radio_field.coffee',
+        ])
         .pipe(sourcemaps.init())
         .pipe(coffee({bare: true}).on('error', gutil.log))
         .pipe(plumber())

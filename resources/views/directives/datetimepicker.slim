@@ -1,0 +1,15 @@
+label ng-if="vm.label" {{ vm.label }
+.input-group
+  input.form-control [
+    close-text="Close"
+    is-open="vm.date_opened"
+    name="{{ vmattrName }}"
+    ng-model="vm.ngModel"
+    ng-value="vm.attrValue"
+    type="text"
+    uib-datepicker-popup="dd.MM.yyyy"
+  ]
+
+  span.input-group-btn
+    button.btn.btn-default ng-click="vm.open()" type="button"
+      span.glyphicon.glyphicon-calendar

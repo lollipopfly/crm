@@ -1,15 +1,26 @@
-app.directive 'fileField', () ->
-  restrict: 'AE'
-  templateUrl: '/views/directives/file_field.html'
-  scope:
-    attrId: '=?attrId'
-    attrName: '=attrName'
+fileField = () ->
+  directive = {
+    restrict: 'AE'
+    templateUrl: 'views/directives/file_field.html'
+    controllerAs: 'vm',
+    controller: '@'
+    name: 'ctrl',
+    bindToController: true
+    scope: {
+      attrId: '='
+      ngModel: '=ngModel'
+    }
+    link: (scope, element, attr) ->
+      element.bind 'change', (changeEvent) ->
+        scope.vm.ngModel = event.target.files;
+        files = event.target.files;
+        fileName = files[0].name;
+        element[0].querySelector('input[type=text]').setAttribute('value', fileName)
+  }
 
-  link: (scope, element, attrs) ->
-    if scope.attrId == undefined
-        scope.attrId = 'default-file-id'
-    element.bind 'change', (changeEvent) ->
-      scope.element = element
-      files = event.target.files;
-      fileName = files[0].name;
-      element[0].querySelector('input[type=text]').setAttribute('value', fileName)
+  return directive
+
+'use strict'
+angular
+  .module('app')
+  .directive 'fileField', fileField

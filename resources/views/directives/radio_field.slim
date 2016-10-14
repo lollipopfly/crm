@@ -1,0 +1,10 @@
+.radio
+  label.i-checks.text-capitalize
+    input [
+      ng-checked="vm.ngChecked.checked"
+      type="radio"
+      value="{{ vm.attrValue }}"
+      name="{{ vm.attrName }}"
+    ]
+    i
+    | {{ vm.label }}

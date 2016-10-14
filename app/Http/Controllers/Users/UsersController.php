@@ -49,8 +49,9 @@ class UsersController extends Controller
      */
     public function create()
     {
-        $userGroupEnums = $this->getPossibleEnumValues('user_group');
-        return view('users.create')->with('userGroupEnums', $userGroupEnums);
+      $userGroupEnums = $this->getPossibleEnumValues('user_group');
+
+      return response()->json($userGroupEnums, 200);
     }
 
 
@@ -62,32 +63,31 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        // Validation
-        $this->validate($request, [
-            'name' => 'required',
-            'initials' => 'required|unique:users',
-            'email' => 'required|email|unique:users',
-            'password' => 'required|min:6'
-        ]);
+      // Validation
+      $this->validate($request, [
+          'name' => 'required',
+          'initials' => 'required|unique:users',
+          'email' => 'required|email|unique:users',
+          'password' => 'required|min:8'
+      ]);
 
-        $user = new User;
-        $data = $request->all();
+      $user = new User;
+      $data = $request->all();
 
-        // Upload avatar image
-        if($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' .   $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize('125', '125')->save(public_path($this->upload_path . $filename));
-            $data['avatar'] = $filename;
-        }
+      // Upload avatar image
+      if($request->hasFile('avatar')) {
+        $avatar = $request->file('avatar')[0];
+        $filename = time() . '.' .   $avatar->getClientOriginalExtension();
+        Image::make($avatar)->resize('125', '125')->save(public_path($this->upload_path . $filename));
+        $data['avatar'] = $filename;
+      }
 
-        // Hashing password
-        $data['password'] = Hash::make($data['password']);
+      // Hashing password
+      $data['password'] = Hash::make($data['password']);
 
-        $user->create($data);
-        session()->flash('flash_message', 'New user has been added.');
+      $user->create($data);
 
-        return redirect('users/');
+      return response()->json(true, 200);
     }
 
 
@@ -116,7 +116,6 @@ class UsersController extends Controller
       User::destroy($id);
 
       return response()->json(true, 200);
-        // session()->flash('flash_message', 'User has been deleted.');
     }
 
 

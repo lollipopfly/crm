@@ -24,6 +24,7 @@ Route::group(['prefix' => 'api'], function()
     Route::patch('stores/{id}', 'Stores\StoresController@update');
 
     // Users
+    Route::get('users/create', 'Users\UsersController@create');
     Route::get('users', 'Users\UsersController@index');
     Route::delete('users/{id}', 'Users\UsersController@destroy');
     Route::get('users/{id}', 'Users\UsersController@show');
@@ -32,8 +33,6 @@ Route::group(['prefix' => 'api'], function()
 });
 
 // Public
-
-
 Route::get('user/sign_in', function() { return view('layouts.layout'); });
 Route::get('user/sign_up', function() { return view('layouts.layout'); });
 Route::get('user/sign_up_success', function() { return view('layouts.auth'); });

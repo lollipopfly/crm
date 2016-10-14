@@ -9,6 +9,7 @@ angular
     "ngMask"
     "angularMoment"
     "easypiechart"
+    "ngFileUpload"
   ]).config(($stateProvider, $urlRouterProvider, $authProvider, $locationProvider) ->
     $locationProvider.html5Mode true
 
@@ -86,11 +87,11 @@ angular
         params:
           flashSuccess: null
       )
-      # .state('users_create',
-      #   url: '/users/create'
-      #   templateUrl: '../views/users/create.html'
-      #   controller: 'CreateUserCtrl as user'
-      # )
+      .state('users_create',
+        url: '/users/create'
+        templateUrl: '../views/users/create.html'
+        controller: 'CreateUserCtrl as user'
+      )
       # .state('users_edit',
       #   url: '/users/:id/edit'
       #   templateUrl: '../views/users/edit.html'

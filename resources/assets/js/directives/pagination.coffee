@@ -11,7 +11,7 @@ pagination = ($http) ->
       items: '='
       pagiApiUrl: '='
     }
-    link: (scope, element, attr)->
+    link: (scope, element, attr) ->
       scope.$watch (->
         scope.vm.pagiArr
       ), ((newValue, oldValue) ->
