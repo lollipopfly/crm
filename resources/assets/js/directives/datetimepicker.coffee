@@ -9,7 +9,6 @@ datetimepicker = () ->
     scope: {
       ngModel: "=ngModel"
       label: "=?label"
-      attrName: "=attrName"
       attrValue: "=?attrValue"
     }
     link: (scope, element, attr) ->

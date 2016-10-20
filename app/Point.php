@@ -25,7 +25,7 @@ class Point extends Model
      *
      * @var array
      */
-    protected $fillable = ['route_id', 'store_id', 'user_id', 'products', 'status'];
+    protected $fillable = ['route_id', 'store_id', 'user_id', 'products', 'status', 'deadline_time'];
 
     /**
      * Make relationship with Stores table

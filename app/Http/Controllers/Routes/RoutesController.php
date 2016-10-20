@@ -10,6 +10,7 @@ use App\User;
 use App\Store;
 use App\Point;
 use Illuminate\Http\Request;
+use App\Http\Requests\RoutesCreateRequest;
 use Carbon\Carbon;
 use Session;
 
@@ -21,7 +22,7 @@ class RoutesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct() {
-        $this->middleware('role', ['only' => 'create|destroy|store|update|edit']);
+        $this->middleware('role', ['only' => 'getUsersAndStores|destroy|store|update|edit']);
     }
 
 
@@ -66,16 +67,16 @@ class RoutesController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Return users and stores
      *
      * @return void
      */
-    public function create()
+    public function getUsersAndStores()
     {
         $users = User::select('id', 'name', 'last_name')->where('availability', '!=', false)->get();
         $stores = Store::select('id', 'name')->get();
 
-        return view('routes.create')->with(['users' => $users, 'stores' => $stores]);
+        return response()->json(['users' => $users, 'stores' => $stores]);
     }
 
     /**
@@ -83,49 +84,37 @@ class RoutesController extends Controller
      *
      * @return void
      */
-    public function store(Request $request)
+    public function store(RoutesCreateRequest $request)
     {
-        $this->validate($request, ['user_id' => 'required', 'date' => 'required', ]);
+      $pointArr = $request->points;
 
-        $pointArr = Array();
+      // Create New Route
+      $route = Route::create(['user_id' => $request->user_id, 'date' => $request->date]);
 
-        $collection = collect($request->all());
-        $collection->forget(['_token', 'user_id', 'date']); // except this keys
-        $collection->all();
-
-        $n = 1;
-        foreach($collection as $key => $value) {
-            $date = date("Y-m-d H:i:s");
-            if($key == 'store_id_'.$n) {
-                $pointArr[] = [
-                    'user_id'       => $request->user_id,
-                    'store_id'      => $collection['store_id_'.$n],
-                    'deadline_time' => $collection['deadline_time_'.$n],
-                    'products'      => $collection['products_'.$n],
-                    'created_at'    => $date,
-                    'updated_at'    => $date
-                ];
-                $n++;
-            }
+      // TODO: REFACTORING Массовое заполнение через create()
+      // почему то не работает - ставит по 0
+      // After create new route, add new route id to the points
+      foreach ($pointArr as $key => &$value) {
+        $date = date("Y-m-d H:i:s");
+        $value['route_id'] = $route->id;
+        $value['user_id'] = $request->user_id;
+        if(isset($value["deadline_time"])) {
+          $value['deadline_time'] = $value["deadline_time"];
+        } else {
+          $value['deadline_time'] = "";
         }
+        $value['created_at'] = $date;
+        $value['updated_at'] = $date;
+      }
 
-        // Create New Route
-        $route = Route::create(['user_id' => $request->user_id, 'date' => $request->date]);
+       // TODO: refactoring mass asingnment with create()
+      // Create new points
+      Point::insert($pointArr);
 
-        // Add route id to the points
-        foreach ($pointArr as $key => &$value) {
-            $value['route_id'] = $route->id;
-        }
+      // Update availability of Driver
+      User::where('id', $request->user_id)->update(['availability' => false]);
 
-        // Create new points
-        Point::insert($pointArr);
-
-        // Update availability of Driver
-        User::where('id', $request->user_id)->update(['availability' => false]);
-
-        Session::flash('flash_message', 'Route added!');
-
-        return redirect('routes');
+      return response()->json(true, 200);
     }
 
     /**

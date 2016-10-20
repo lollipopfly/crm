@@ -92,16 +92,35 @@ angular
         templateUrl: '../views/users/create.html'
         controller: 'CreateUserCtrl as user'
       )
-      # .state('users_edit',
-      #   url: '/users/:id/edit'
-      #   templateUrl: '../views/users/edit.html'
-      #   controller: 'EditUserCtrl as user'
-      # )
       .state('users_show',
         url: '/users/:id'
         templateUrl: '../views/users/show.html'
         controller: 'ShowUserCtrl as user'
       )
+
+      # Routes
+      # .state('routes',
+      #   url: '/routes'
+      #   templateUrl: '../views/routes/index.html'
+      #   controller: 'IndexRouteCtrl as routes'
+      #   params:
+      #     flashSuccess: null
+      # )
+      .state('routes_create',
+        url: '/routes/create'
+        templateUrl: '../views/routes/create.html'
+        controller: 'CreateRouteCtrl as route'
+      )
+      # .state('routes_edit',
+      #   url: '/routes/:id/edit'
+      #   templateUrl: '../views/routes/edit.html'
+      #   controller: 'EditRouteCtrl as route'
+      # )
+      # .state('routes_show',
+      #   url: '/routes/:id'
+      #   templateUrl: '../views/routes/show.html'
+      #   controller: 'ShowRouteCtrl as route'
+      # )
 
     return
   ).run ($q, $rootScope, $state, $auth, $location, $timeout) ->

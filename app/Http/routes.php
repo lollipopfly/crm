@@ -29,10 +29,17 @@ Route::group(['prefix' => 'api'], function()
     Route::delete('users/{id}', 'Users\UsersController@destroy');
     Route::get('users/{id}', 'Users\UsersController@show');
     Route::post('users/', 'Users\UsersController@store');
-    Route::patch('users/{id}', 'Users\UsersController@update');
+
+    // Routes
+    Route::get('routes', 'Routes\RoutesController@index');
+    Route::delete('routes/{id}', 'Routes\RoutesController@destroy');
+    Route::get('routes/{id}', 'Routes\RoutesController@show');
+    Route::post('routes/', 'Routes\RoutesController@store');
+    Route::patch('routes/{id}', 'Routes\RoutesController@update');
+    Route::post('routes/getUsersAndStores', 'Routes\RoutesController@getUsersAndStores');
 });
 
-// Public
+// PUBLIC
 Route::get('user/sign_in', function() { return view('layouts.layout'); });
 Route::get('user/sign_up', function() { return view('layouts.layout'); });
 Route::get('user/sign_up_success', function() { return view('layouts.auth'); });
@@ -40,16 +47,23 @@ Route::get('user/confirm/{confirmation_code}', function() { return view('layouts
 Route::get('user/forgot_password', function() { return view('layouts.layout'); });
 Route::get('user/reset_password/{reset_password_code}', function() { return view('layouts.auth'); });
 
-// STORES
+// stores
 Route::get('stores/', function() { return view('layouts.layout'); });
 Route::get('stores/{id}', function() { return view('layouts.layout'); });
 Route::get('stores/create', function() { return view('layouts.layout'); });
 Route::get('stores/{id}/edit/', function() { return view('layouts.layout'); });
 
+// users
 Route::get('users/', function() { return view('layouts.layout'); });
 Route::get('users/{id}', function() { return view('layouts.layout'); });
 Route::get('users/create', function() { return view('layouts.layout'); });
 Route::get('users/{id}/edit/', function() { return view('layouts.layout'); });
+
+// routes
+Route::get('routes/', function() { return view('layouts.layout'); });
+Route::get('routes/{id}', function() { return view('layouts.layout'); });
+Route::get('routes/create', function() { return view('layouts.layout'); });
+Route::get('routes/{id}/edit/', function() { return view('layouts.layout'); });
 
 // Route::group(['middleware' => 'auth'], function () {
 

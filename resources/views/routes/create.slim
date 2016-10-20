@@ -1,0 +1,95 @@
+.bg-light.lter.b-b.wrapper-md
+  h1.m-b-sm.font-thin.h3 Create new route
+  a.btn.btn-default href="/routes"
+    i.fa.fa-long-arrow-left.mr-3 aria-hidden="true"
+    | Back
+
+.wrapper-md
+  .row
+    .col-lg-2
+    .col-lg-8
+      .panel.panel-default
+        .panel-body
+          form.form-horizontal ng-submit="route.createRoute()"
+            .row ng-if="route.obj.users"
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-user.text.mr-3
+                  | User:
+              .col-md-7 ng-class="{'has-error': route.error.user_id}"
+                select.form-control.m-b name="user_id" ng-model="route.user_id"
+                  option selected="selected" value=""  Select Driver...
+                  option [
+                    ng-repeat="user in route.obj.users"
+                    value="{{user.id}}"
+                  ]
+                    | {{user.name}} {{user.last_name}}
+                span.help-block ng-if="route.error.user_id"
+                  strong
+                    | {{route.error.user_id[0]}}
+            .line.line-dashed.b-b.line-lg.pull-in
+
+            .row
+              .col-md-1
+              .col-md-3.m-t-xs
+                span.text
+                  i.fa.icon-calendar.text.mr-3
+                  | Date:
+              .col-md-7 ng-class="{'has-error': route.error.date}"
+                datetimepicker [
+                  ng-model="route.date"
+                  ctrl="CreateRouteCtrl"
+                ]
+                span.help-block ng-if="route.error.date"
+                  strong
+                    | {{route.error.date[0]}}
+            .line.line-dashed.b-b.line-lg.pull-in
+
+            .row ng-repeat="form in route.pointForms"
+              .col-md-6
+                label Store
+                select.form-control.m-b [
+                  ng-model="form.store_id"
+                  required
+                ]
+                  option selected="selected" value="" Select Store...
+                  option [
+                    ng-repeat="store in route.obj.stores"
+                    value="{{store.id}}"
+                  ]
+                    | {{store.name}}
+
+                timepicker [
+                  ctrl="CreateRouteCtrl"
+                  label="'Deadline'"
+                  ng-model="form.deadline_time"
+                  attr-name="deadline_time_@{{ $index+1 }}"
+                ]
+
+              .col-md-6
+                label Orders
+                textarea.form-control.m-b-sm [
+                  ng-model="form.products"
+                  required
+                  cols="50"
+                  rows="7"
+                ]
+              .col-md-12.m-b-sm
+                button.btn.pull-right.btn-danger ng-click="route.removePoint($index)" type="button"  Delete
+              .col-md-12
+                .line.line-dashed.b-b.line-lg.pull-in
+
+            .row
+              .col-md-12.text-right
+                button.btn.m-b-xs.btn-info.text-u-c ng-click="route.addPoint(pointCount)" type="button"
+                  i.fa.fa-plus.m-r-xs
+                  | Add point
+
+            .row.padding-top-10
+              .col-md-4
+              .col-xs-7.text-right
+                input.btn.btn-primary.text-u-c.btn-md [
+                  type="submit"
+                  value="Create"
+                ]

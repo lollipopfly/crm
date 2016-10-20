@@ -7,6 +7,7 @@ CreateUserCtrl = ($http, $state, Upload, lodash) ->
       vm.enums = response.data
     , (error) ->
       vm.error = error.data
+
   vm.addUser = () ->
     if vm.bday != undefined
       vm.bday = moment(vm.bday).format('YYYY-MM-DD')
