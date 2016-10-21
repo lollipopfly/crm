@@ -91,25 +91,14 @@ class RoutesController extends Controller
       // Create New Route
       $route = Route::create(['user_id' => $request->user_id, 'date' => $request->date]);
 
-      // TODO: REFACTORING Массовое заполнение через create()
-      // почему то не работает - ставит по 0
       // After create new route, add new route id to the points
       foreach ($pointArr as $key => &$value) {
-        $date = date("Y-m-d H:i:s");
         $value['route_id'] = $route->id;
         $value['user_id'] = $request->user_id;
-        if(isset($value["deadline_time"])) {
-          $value['deadline_time'] = $value["deadline_time"];
-        } else {
-          $value['deadline_time'] = "";
-        }
-        $value['created_at'] = $date;
-        $value['updated_at'] = $date;
-      }
 
-       // TODO: refactoring mass asingnment with create()
-      // Create new points
-      Point::insert($pointArr);
+        // Create new points
+        Point::create($value);
+      }
 
       // Update availability of Driver
       User::where('id', $request->user_id)->update(['availability' => false]);
