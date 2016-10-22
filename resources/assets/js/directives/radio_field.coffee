@@ -2,10 +2,6 @@ radioField = ($http) ->
   directive = {
     restrict: 'EA'
     templateUrl: '/views/directives/radio_field.html'
-    controllerAs: 'vm',
-    controller: '@'
-    name: 'ctrl',
-    bindToController: true
     scope: {
       ngModel: "=ngModel"
       label: '=label'
@@ -14,10 +10,10 @@ radioField = ($http) ->
       ngChecked: '=?ngChecked'
     }
     link: (scope, element, attr)->
-      scope.vm.ngModel = scope.vm.attrValue
+      scope.ngModel = scope.attrValue
 
       element.bind('change', ()->
-        scope.vm.ngModel = scope.vm.attrValue
+        scope.ngModel = scope.attrValue
       )
   }
 

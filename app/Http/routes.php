@@ -31,12 +31,14 @@ Route::group(['prefix' => 'api'], function()
     Route::post('users/', 'Users\UsersController@store');
 
     // Routes
-    Route::get('routes', 'Routes\RoutesController@index');
     Route::delete('routes/{id}', 'Routes\RoutesController@destroy');
+    Route::get('routes', 'Routes\RoutesController@index');
     Route::get('routes/{id}', 'Routes\RoutesController@show');
+    Route::get('routes/edit/{id}', 'Routes\RoutesController@edit');
     Route::post('routes/', 'Routes\RoutesController@store');
     Route::patch('routes/{id}', 'Routes\RoutesController@update');
     Route::post('routes/getUsersAndStores', 'Routes\RoutesController@getUsersAndStores');
+
 });
 
 // PUBLIC
@@ -73,10 +75,6 @@ Route::get('routes/{id}/edit/', function() { return view('layouts.layout'); });
     // Route::post('profile/update/{id}',  'Profile\ProfileController@update');
     // Route::put('profile/updatepoints', 'Profile\ProfileController@updatePoints');
 
-
-    // // ROUTES
-    // Route::get('routes/getpoints/{id}', 'Routes\RoutesController@getPoints');
-    // Route::resource('routes', 'Routes\RoutesController');
 
     // // MAP
     // Route::get('map/getallpoints', 'MapController@getAllPoints');

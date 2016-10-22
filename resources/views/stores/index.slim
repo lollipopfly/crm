@@ -29,7 +29,7 @@
                 span#address.sort-link.c-p ng-click="stores.sortBy('address')"  Address
               th.sorting.v-top
                 span#phone.sort-link.c-p ng-click="stores.sortBy('phone')" Phone
-              th.text-right ng-if="currentUser.user_group == 'admin'" Actions
+              th.text-right.v-top ng-if="currentUser.user_group == 'admin'" Actions
           tbody
             tr ng-repeat="store in stores.stores"
               td
@@ -57,6 +57,5 @@
       pagination [
         pagi-arr="stores.pagiArr"
         items="stores.stores"
-        ctrl="IndexStoreCtrl"
         pagi-api-url="stores.pagiApiUrl"
       ]

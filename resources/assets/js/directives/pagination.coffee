@@ -2,10 +2,6 @@ pagination = ($http) ->
   directive = {
     restrict: 'EA'
     templateUrl: 'views/directives/pagination.html'
-    controllerAs: 'vm',
-    controller: '@'
-    name: 'ctrl',
-    bindToController: true
     scope: {
       pagiArr: '='
       items: '='
@@ -13,41 +9,41 @@ pagination = ($http) ->
     }
     link: (scope, element, attr) ->
       scope.$watch (->
-        scope.vm.pagiArr
+        scope.pagiArr
       ), ((newValue, oldValue) ->
         if !angular.equals(oldValue, newValue)
-          scope.vm.pagiArr = newValue
-          scope.vm.totalPages = scope.vm.pagiArr.last_page
-          scope.vm.currentPage = scope.vm.pagiArr.current_page
-          scope.vm.total = scope.vm.pagiArr.total
-          scope.vm.perPage = scope.vm.pagiArr.per_page
+          scope.pagiArr = newValue
+          scope.totalPages = scope.pagiArr.last_page
+          scope.currentPage = scope.pagiArr.current_page
+          scope.total = scope.pagiArr.total
+          scope.perPage = scope.pagiArr.per_page
 
           # Pagination Range
-          scope.vm.painationRange(scope.vm.totalPages)
+          scope.painationRange(scope.totalPages)
 
         return
       ), true
 
-      scope.vm.getPosts = (pageNumber) ->
+      scope.getPosts = (pageNumber) ->
         if pageNumber == undefined
           pageNumber = '1'
-        $http.get(scope.vm.pagiApiUrl+'?page=' + pageNumber).success (response) ->
-          scope.vm.items = response.data
-          scope.vm.totalPages = response.last_page
-          scope.vm.currentPage = response.current_page
+        $http.get(scope.pagiApiUrl+'?page=' + pageNumber).success (response) ->
+          scope.items = response.data
+          scope.totalPages = response.last_page
+          scope.currentPage = response.current_page
 
           # Pagination Range
-          scope.vm.painationRange(scope.vm.totalPages)
+          scope.painationRange(scope.totalPages)
           return
         return
 
-      scope.vm.painationRange = (totalPages) ->
+      scope.painationRange = (totalPages) ->
         pages = []
         i = 1
         while i <= totalPages
           pages.push i
           i++
-        scope.vm.range = pages
+        scope.range = pages
   }
 
   return directive

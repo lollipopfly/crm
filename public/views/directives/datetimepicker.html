@@ -1,4 +1,5 @@
-<label ng-if="vm.label">{{ vm.label }</label>
+<label ng-if="label">{{ label }}</label>
+<div></div>
 <div class="input-group">
-  <input class="form-control" close-text="Close" is-open="vm.date_opened" ng-model="vm.ngModel" ng-value="vm.attrValue" type="text" uib-datepicker-popup="dd.MM.yyyy" /><span class="input-group-btn"><button class="btn btn-default" ng-click="vm.open()" type="button"><span class="glyphicon glyphicon-calendar"></span></button></span>
+  <input class="form-control" close-text="Close" is-open="date_opened" ng-change="selectDate(model)" ng-model="model" type="text" uib-datepicker-popup="dd.MM.yyyy" /><span class="input-group-btn"><button class="btn btn-default" ng-click="open()" type="button"><span class="glyphicon glyphicon-calendar"></span></button></span>
 </div>

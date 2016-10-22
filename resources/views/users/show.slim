@@ -21,7 +21,10 @@
                 .thumb-xl
                   img.img-circle.w-full src="{{user.data.avatar}}"
               .h4.m-t.m-b-xs {{ user.data.name }}
-              small.text-muted.m-b ng-show="user.data.bday" 24.02.1983
+              small.text-muted.m-b [
+                ng-show="user.data.bday"
+              ]
+                | {{user.data.bday | amDateFormat:'DD.MM.YYYY'}}
         .panel-body
           .row
             .col-md-1

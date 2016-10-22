@@ -19,7 +19,6 @@
               .col-md-7
                 .margin-top-25 [
                   file_field=""
-                  ctrl="CreateUserCtrl"
                   attr-id="'file-field'"
                   ng-model="user.avatar"
                 ]
@@ -69,7 +68,6 @@
               .col-md-7
                 datetimepicker [
                   ng-model="user.bday"
-                  ctrl="CreateUserCtrl"
                 ]
             .line.line-dashed.b-b.line-lg.pull-in
             .row
@@ -90,7 +88,6 @@
                   | User group:
               .col-md-7
                 radio-field [
-                  ctrl="CreateUserCtrl"
                   ng-model="user.user_group"
                   ng-repeat="enum in user.enums"
                   attr-name="'user_group'"

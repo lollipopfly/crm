@@ -99,28 +99,28 @@ angular
       )
 
       # Routes
-      # .state('routes',
-      #   url: '/routes'
-      #   templateUrl: '../views/routes/index.html'
-      #   controller: 'IndexRouteCtrl as routes'
-      #   params:
-      #     flashSuccess: null
-      # )
+      .state('routes',
+        url: '/routes'
+        templateUrl: '../views/routes/index.html'
+        controller: 'IndexRouteCtrl as routes'
+        params:
+          flashSuccess: null
+      )
       .state('routes_create',
         url: '/routes/create'
         templateUrl: '../views/routes/create.html'
         controller: 'CreateRouteCtrl as route'
       )
-      # .state('routes_edit',
-      #   url: '/routes/:id/edit'
-      #   templateUrl: '../views/routes/edit.html'
-      #   controller: 'EditRouteCtrl as route'
-      # )
-      # .state('routes_show',
-      #   url: '/routes/:id'
-      #   templateUrl: '../views/routes/show.html'
-      #   controller: 'ShowRouteCtrl as route'
-      # )
+      .state('routes_edit',
+        url: '/routes/:id/edit'
+        templateUrl: '../views/routes/edit.html'
+        controller: 'EditRouteCtrl as route'
+      )
+      .state('routes_show',
+        url: '/routes/:id'
+        templateUrl: '../views/routes/show.html'
+        controller: 'ShowRouteCtrl as route'
+      )
 
     return
   ).run ($q, $rootScope, $state, $auth, $location, $timeout) ->

@@ -45,7 +45,7 @@
               <th class="sorting v-top">
                 <span class="sort-link c-p" id="city" ng-click="users.sortBy(&#39;city&#39;)"> City</span>
               </th>
-              <th class="text-right" ng-if="currentUser.user_group == &#39;admin&#39;">
+              <th class="text-right v-top" ng-if="currentUser.user_group == &#39;admin&#39;">
                 Actions
               </th>
             </tr>
@@ -80,7 +80,7 @@
                 {{ user.city }}
               </td>
               <td class="text-right" ng-if="currentUser.user_group == &#39;admin&#39;">
-                <a class="v-middle mr-5" href="/users/{{ user.id }}/edit" tooltip-placement="top-right" uib-tooltip="Edit user"><i class="icon-pencil c-p f-z-15 color-green"></i></a><i class="v-middle" ng-click="users.deleteUser(user.id, $index)" target="_self" tooltip-placement="top-right" uib-tooltip="Delete user"><i class="fa fa-close c-p f-z-20 color-red"></i></i>
+                <i class="v-middle" ng-click="users.deleteUser(user.id, $index)" target="_self" tooltip-placement="top-right" uib-tooltip="Delete user"><i class="fa fa-close c-p f-z-20 color-red"></i></i>
               </td>
             </tr>
           </tbody>
@@ -90,7 +90,7 @@
   </div>
   <div class="row">
     <div class="col-xs-12 text-right">
-      <pagination ctrl="IndexUserCtrl" items="users.users" pagi-api-url="users.pagiApiUrl" pagi-arr="users.pagiArr"></pagination>
+      <pagination items="users.users" pagi-api-url="users.pagiApiUrl" pagi-arr="users.pagiArr"></pagination>
     </div>
   </div>
 </div>

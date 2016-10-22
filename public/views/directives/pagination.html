@@ -1,11 +1,11 @@
-<ul class="pagination" ng-if="vm.perPage &lt; vm.total">
-  <li ng-class="{&#39;disabled&#39; : vm.currentPage == 1}">
-    <a href="#" ng-click="vm.getPosts(1)"> &laquo;</a>
+<ul class="pagination" ng-if="perPage &lt; total">
+  <li ng-class="{&#39;disabled&#39; : currentPage == 1}">
+    <a href="#" ng-click="getPosts(1)"> &laquo;</a>
   </li>
-  <li ng-class="{&#39;active&#39; : vm.currentPage == i}" ng-repeat="i in vm.range">
-    <a href="#" ng-click="vm.getPosts(i)">{{i}}</a>
+  <li ng-class="{&#39;active&#39; : currentPage == i}" ng-repeat="i in range">
+    <a href="#" ng-click="getPosts(i)">{{i}}</a>
   </li>
-  <li ng-class="{&#39;disabled&#39; : vm.currentPage == vm.totalPages}">
-    <a href="#" ng-click="vm.getPosts(vm.totalPages)"> &raquo;</a>
+  <li ng-class="{&#39;disabled&#39; : currentPage == totalPages}">
+    <a href="#" ng-click="getPosts(totalPages)"> &raquo;</a>
   </li>
 </ul>

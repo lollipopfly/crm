@@ -33,50 +33,41 @@ class RoutesController extends Controller
      */
     public function index()
     {
-        $routes = Route::paginate(15);
+        $routes = Route::with('user')->paginate(15);
         $points = Point::select('route_id', 'status')->get();
 
         // GET PROGRESS OF ROUTE
         foreach ($routes as &$route) {
-            // Filter points by route id
-            $filteredPoints = $points->filter(function ($value, $key) use ($route){
-                return $value->route_id == $route->id;
-            });
+          // Filter points by route id
+          $filteredPoints = $points->filter(function ($value, $key) use ($route){
+              return $value->route_id == $route->id;
+          });
 
-            $filteredPoints->all();
+          $filteredPoints->all();
 
-            $statusArr = Array();
-            $percentCount = 0;
+          $statusArr = Array();
+          $percentCount = 0;
 
-            // Get count of completed routes
-            foreach ($filteredPoints as $point) {
-                $statusArr[] = $point->status;
+          // Get count of completed routes
+          foreach ($filteredPoints as $point) {
+              $statusArr[] = $point->status;
 
-                if($point->status == 1) {
-                    $percentCount++;
-                }
-            }
-            $statusArrCount = count($statusArr);
+              if($point->status == 1) {
+                  $percentCount++;
+              }
+          }
+          $statusArrCount = count($statusArr);
 
-            // Calculate percentage & Add progress to Route
+          // Calculate percentage & Add progress to Route
+          if($percentCount > 0) {
             $progress = ($percentCount / $statusArrCount) * 100;
             $route->progress = round($progress);
+          } else {
+            $route->progress = 0;
+          }
         }
 
-        return view('routes.index')->withRoutes($routes);
-    }
-
-    /**
-     * Return users and stores
-     *
-     * @return void
-     */
-    public function getUsersAndStores()
-    {
-        $users = User::select('id', 'name', 'last_name')->where('availability', '!=', false)->get();
-        $stores = Store::select('id', 'name')->get();
-
-        return response()->json(['users' => $users, 'stores' => $stores]);
+        return response()->json($routes, 200);
     }
 
     /**
@@ -122,7 +113,7 @@ class RoutesController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Get the form for editing the specified resource.
      *
      * @param  int  $id
      *
@@ -130,11 +121,23 @@ class RoutesController extends Controller
      */
     public function edit($id)
     {
-        $route = Route::findOrFail($id);
-        $users = User::select('id', 'name', 'last_name')->where('availability', '!=', false)->orWhere('id', $route->user_id)->get();
-        $stores = Store::all();
+      $route = Route::with('user')->findOrFail($id);
 
-        return view('routes.edit', compact(['route', 'users', 'stores']));
+      $points = Point::select('id', 'store_id', 'deadline_time', 'products', 'status')->where('route_id', $id)->with(['store' => function($query) {
+          $query->select('id', 'address');
+      }])->orderBy('id', 'asc')->get();
+
+      $users = User::select('id', 'name', 'last_name')->where([
+        ['user_group', '!=', 'admin']
+      ])->get();
+
+      $stores = Store::all();
+
+      $route['users'] = $users;
+      $route['points'] = $points;
+      $route['stores'] = $stores;
+
+      return response()->json($route, 200);
     }
 
     /**
@@ -146,76 +149,79 @@ class RoutesController extends Controller
      */
     public function update($id, Request $request)
     {
-        $this->validate($request, ['user_id' => 'required', 'date' => 'required', ]);
+      $this->validate($request, ['user_id' => 'required', 'date' => 'required', ]);
 
-        $pointArr = Array();
-        $collection = collect($request->all());
-        $collection->forget(['_token', 'user_id', 'date', '_method']); // except this keys
-        $collection->all();
+      $pointArrIds = [];
+      $pointArr = $request->points;
 
-        // Get all routes by route_id
-        $points = Point::where('route_id', $id)->get();
+      // Get ids of poins for backend
+      foreach ($pointArr as $value) {
+        $pointArrIds[] = $value['id'];
+      }
 
-        foreach ($points as $key => $value) {
-            // find route by id
-            $search_point = $collection->search($value['id']);
+      // Get all points by route_id
+      $points = Point::where('route_id', $id)->get();
 
-            // If found point, update it
-            if($search_point) {
-                $pointArr = [
-                    'user_id'       => $request->user_id,
-                    'store_id'      => $collection['store_id_'.$value['id']],
-                    'deadline_time' => $collection['deadline_time_'.$value['id']],
-                    'products'      => $collection['products_'.$value['id']],
-                ];
 
-                Point::where(['route_id' => $id, 'id' => $value['id']])->update($pointArr);
-            } else {
-                // Delete point
-                Point::where('id', $value['id'])->delete();
+      foreach ($points as $point) {
+        // If backend point exist in frontend point
+        if(in_array($point['id'], $pointArrIds)) {
+          $founded_point = true;
+        } else {
+          $founded_point = false;
+        }
+
+        // Update point
+        if($founded_point) {
+          foreach ($pointArr as $key => $value) {
+            if ($point['id'] == $value['id']) {
+              $updatedPoint = [
+                  'user_id'       => $request->user_id,
+                  'store_id'      => $value['store_id'],
+                  'deadline_time' => $value['deadline_time'],
+                  'products'      => $value['products'],
+              ];
+
+              Point::where(['route_id' => $id, 'id' => $point['id']])->update($updatedPoint);
+              continue 2;
             }
-            // except values from collection. It is for creating new points
-            $collection->forget(['id_'.$value["id"], 'store_id_'.$value["id"], 'deadline_time_'.$value["id"], 'products_'.$value["id"]]);
+          }
+        } else {
+          Point::where('id', $point['id'])->delete();
         }
+      }
 
-        // If have new routes, create its
-        if(!$collection->isEmpty()) {
-            $n = 1;
-            foreach($collection as $key => $value) {
-                $date = date("Y-m-d H:i:s");
-                if($key == 'id_'.$n.'_new') {
-                    $newPointArr[] = [
-                        'route_id'      => $id,
-                        'user_id'       => $request->user_id,
-                        'store_id'      => $collection['store_id_'.$n.'_new'],
-                        'deadline_time' => $collection['deadline_time_'.$n.'_new'],
-                        'products'      => $collection['products_'.$n.'_new'],
-                        'created_at'    => $date,
-                        'updated_at'    => $date
-                    ];
-                    $n++;
-                }
-            }
-
-            // Create new points
-            Point::insert($newPointArr);
+      // If have new routes, create them
+      if(!empty($pointArrIds)) {
+        $n = 1;
+        foreach($pointArr as $key => $value) {
+          if($value['id'] == $n.'_new') {
+            $newPointArr = [
+              'route_id'      => $id,
+              'user_id'       => $request->user_id,
+              'store_id'      => $value['store_id'],
+              'deadline_time' => $value['deadline_time'],
+              'products'      => $value['products'],
+            ];
+          Point::create($newPointArr);
+            $n++;
+          }
         }
+      }
 
-        // Update Route
-        $route = Route::findOrFail($id);
-        $old_user_id = $route->user_id;
-        $route->update(["user_id" => $request->user_id, "date" => $request->date]);
+      // Update Route
+      $route = Route::findOrFail($id);
+      $old_user_id = $route->user_id;
+      $route->update(["user_id" => $request->user_id, "date" => $request->date]);
 
-        // Update current and new User availability if user was changed
-        if($old_user_id !== $request->user_id) {
-            User::where('id', $old_user_id)->update(['availability' => true]); // update old user
-            User::where('id', $request->user_id)->update(['availability' => false]);//update news user
-        }
+      // Update current and new User availability if user was changed
+      if($old_user_id !== $request->user_id) {
+          User::where('id', $old_user_id)->update(['availability' => true]); // update old user
+          User::where('id', $request->user_id)->update(['availability' => false]);//update news user
+      }
 
-        Session::flash('flash_message', 'Route updated!');
-
-        return redirect('routes');
-    }
+      return response()->json(true, 200);
+  }
 
     /**
      * Remove the specified resource from storage.
@@ -235,15 +241,18 @@ class RoutesController extends Controller
     }
 
     /**
-     * Get all points of route by route id
+     * Return users and stores
      *
-     * @return Array
+     * @return void
      */
-    public function getPoints($id) {
-        $points = Point::select('id', 'store_id', 'deadline_time', 'products', 'status')->where('route_id', $id)->with(['store' => function($query) {
-            $query->select('id', 'address');
-        }])->orderBy('id', 'asc')->get();
+    public function getUsersAndStores()
+    {
+        $users = User::select('id', 'name', 'last_name')->where([
+          ['availability', '!=', false],
+          ['user_group', '!=', 'admin']
+        ])->get();
+        $stores = Store::select('id', 'name')->get();
 
-        return $points;
+        return response()->json(['users' => $users, 'stores' => $stores]);
     }
 }

@@ -9,9 +9,6 @@ CreateUserCtrl = ($http, $state, Upload, lodash) ->
       vm.error = error.data
 
   vm.addUser = () ->
-    if vm.bday != undefined
-      vm.bday = moment(vm.bday).format('YYYY-MM-DD')
-
     vm.data =
       name: vm.name
       last_name: vm.last_name

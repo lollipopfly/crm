@@ -1,23 +1,42 @@
-app.controller 'editRouteCtrl', ($scope, $http) ->
-  $scope.pathArr = window.location.pathname.split('/',3)
-  $scope.id = $scope.pathArr[$scope.pathArr.length - 1]
-  $scope.count = 1;
+EditRouteCtrl = ($http, $state, $stateParams) ->
+  vm = this
+  vm.id = $stateParams.id
+  vm.count = 1
 
-  $http(
-    method: 'GET'
-    url: '/routes/getpoints/' + $scope.id).then ((response) ->
-      $scope.pointForms = response.data
+  $http.get('/api/routes/edit/'+ vm.id)
+    .then (response) ->
+      vm.obj = response.data
       return
-  )
+    , (error) ->
+      vm.error = error.data
 
-  $scope.addPoint = () ->
-    $scope.pointForms.push({
-      id: $scope.count + '_new'
+  vm.update = () ->
+    route =
+      user_id: vm.obj.user_id
+      date: vm.obj.date
+      points: vm.obj.points
+
+    $http.patch('/api/routes/' + vm.id, route)
+      .then (response) ->
+        $state.go 'routes', { flashSuccess: 'Route Updated!' }
+      , (error) ->
+        vm.error = error.data
+        console.log(vm.error)
+
+
+  vm.addPoint = () ->
+    vm.obj.points.push({
+      id: vm.count + '_new'
     })
-    $scope.count++
+    vm.count++
     return
 
-  $scope.removePoint = (index) ->
-    $scope.pointForms.splice(index, 1)
+  vm.removePoint = (index) ->
+    vm.obj.points.splice(index, 1)
 
+  return
 
+'use strict'
+angular
+  .module('app')
+  .controller('EditRouteCtrl', EditRouteCtrl)

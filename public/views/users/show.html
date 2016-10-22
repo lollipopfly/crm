@@ -20,7 +20,7 @@
               <div class="h4 m-t m-b-xs">
                 {{ user.data.name }}
               </div>
-              <small class="text-muted m-b" ng-show="user.data.bday">24.02.1983</small>
+              <small class="text-muted m-b" ng-show="user.data.bday">{{user.data.bday | amDateFormat:'DD.MM.YYYY'}}</small>
             </div>
           </div>
         </div>

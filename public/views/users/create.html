@@ -21,7 +21,7 @@
                 </div>
               </div>
               <div class="col-md-7">
-                <div attr-id="&#39;file-field&#39;" class="margin-top-25" ctrl="CreateUserCtrl" file_field="" ng-model="user.avatar"></div>
+                <div attr-id="&#39;file-field&#39;" class="margin-top-25" file_field="" ng-model="user.avatar"></div>
               </div>
             </div>
             <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -61,7 +61,7 @@
                 <span class="text"><i class="fa icon-calendar text mr-3"></i>Birthday:</span>
               </div>
               <div class="col-md-7">
-                <datetimepicker ctrl="CreateUserCtrl" ng-model="user.bday"></datetimepicker>
+                <datetimepicker ng-model="user.bday"></datetimepicker>
               </div>
             </div>
             <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -81,7 +81,7 @@
                 <span class="text"><i class="fa icon-user-following text mr-3"></i>User group:</span>
               </div>
               <div class="col-md-7">
-                <radio-field attr-name="&#39;user_group&#39;" attr-value="enum" ctrl="CreateUserCtrl" label="enum" ng-checked="{&#39;checked&#39;: $index == 0}" ng-model="user.user_group" ng-repeat="enum in user.enums"></radio-field>
+                <radio-field attr-name="&#39;user_group&#39;" attr-value="enum" label="enum" ng-checked="{&#39;checked&#39;: $index == 0}" ng-model="user.user_group" ng-repeat="enum in user.enums"></radio-field>
               </div>
             </div>
             <div class="line line-dashed b-b line-lg pull-in"></div>

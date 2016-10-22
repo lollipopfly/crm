@@ -1,5 +1,5 @@
 .bg-light.lter.b-b.wrapper-md
-  h1.m-b-sm.font-thin.h3 Create new route
+  h1.m-b-sm.font-thin.h3 Edit route # {{route.id}}
   a.btn.btn-default href="/routes"
     i.fa.fa-long-arrow-left.mr-3 aria-hidden="true"
     | Back
@@ -10,7 +10,7 @@
     .col-lg-8
       .panel.panel-default
         .panel-body
-          form.form-horizontal ng-submit="route.createRoute()"
+          form.form-horizontal ng-submit="route.update()"
             .row ng-if="route.obj.users"
               .col-md-1
               .col-md-3.m-t-xs
@@ -18,11 +18,12 @@
                   i.fa.icon-user.text.mr-3
                   | User:
               .col-md-7 ng-class="{'has-error': route.error.user_id}"
-                select.form-control.m-b name="user_id" ng-model="route.user_id"
+                select.form-control.m-b name="user_id" ng-model="route.obj.user_id"
                   option selected="selected" value=""  Select Driver...
                   option [
                     ng-repeat="user in route.obj.users"
                     value="{{user.id}}"
+                    ng-selected="route.obj.user_id == user.id"
                   ]
                     | {{user.name}} {{user.last_name}}
                 span.help-block ng-if="route.error.user_id"
@@ -38,14 +39,14 @@
                   | Date:
               .col-md-7 ng-class="{'has-error': route.error.date}"
                 datetimepicker [
-                  ng-model="route.date"
+                  ng-model="route.obj.date"
                 ]
                 span.help-block ng-if="route.error.date"
                   strong
                     | {{route.error.date[0]}}
             .line.line-dashed.b-b.line-lg.pull-in
 
-            .row ng-repeat="form in route.pointForms"
+            .row ng-repeat="form in route.obj.points"
               .col-md-6
                 label Store
                 select.form-control.m-b [
@@ -56,6 +57,7 @@
                   option [
                     ng-repeat="store in route.obj.stores"
                     value="{{store.id}}"
+                    ng-selected="store.store_id == store.id"
                   ]
                     | {{store.name}}
 
@@ -90,5 +92,5 @@
               .col-xs-12.col-md-7.text-right
                 input.btn.btn-primary.text-u-c.btn-md [
                   type="submit"
-                  value="Create"
+                  value="Update"
                 ]

@@ -1,6 +1,6 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-b-sm font-thin h3">
-    Create new route
+    Edit route # {{route.id}}
   </h1>
   <a class="btn btn-default" href="/routes"><i aria-hidden="true" class="fa fa-long-arrow-left mr-3"></i>Back</a>
 </div>
@@ -10,18 +10,18 @@
     <div class="col-lg-8">
       <div class="panel panel-default">
         <div class="panel-body">
-          <form class="form-horizontal" ng-submit="route.createRoute()">
+          <form class="form-horizontal" ng-submit="route.update()">
             <div class="row" ng-if="route.obj.users">
               <div class="col-md-1"></div>
               <div class="col-md-3 m-t-xs">
                 <span class="text"><i class="fa icon-user text mr-3"></i>User:</span>
               </div>
               <div class="col-md-7" ng-class="{&#39;has-error&#39;: route.error.user_id}">
-                <select class="form-control m-b" name="user_id" ng-model="route.user_id">
+                <select class="form-control m-b" name="user_id" ng-model="route.obj.user_id">
                   <option selected="selected" value="">
                     Select Driver...
                   </option>
-                  <option ng-repeat="user in route.obj.users" value="{{user.id}}">
+                  <option ng-repeat="user in route.obj.users" ng-selected="route.obj.user_id == user.id" value="{{user.id}}">
                     {{user.name}} {{user.last_name}}
                   </option>
                 </select><span class="help-block" ng-if="route.error.user_id"><strong>{{route.error.user_id[0]}}</strong></span>
@@ -34,17 +34,17 @@
                 <span class="text"><i class="fa icon-calendar text mr-3"></i>Date:</span>
               </div>
               <div class="col-md-7" ng-class="{&#39;has-error&#39;: route.error.date}">
-                <datetimepicker ng-model="route.date"></datetimepicker><span class="help-block" ng-if="route.error.date"><strong>{{route.error.date[0]}}</strong></span>
+                <datetimepicker ng-model="route.obj.date"></datetimepicker><span class="help-block" ng-if="route.error.date"><strong>{{route.error.date[0]}}</strong></span>
               </div>
             </div>
             <div class="line line-dashed b-b line-lg pull-in"></div>
-            <div class="row" ng-repeat="form in route.pointForms">
+            <div class="row" ng-repeat="form in route.obj.points">
               <div class="col-md-6">
                 <label>Store</label><select class="form-control m-b" ng-model="form.store_id" required="">
                   <option selected="selected" value="">
                     Select Store...
                   </option>
-                  <option ng-repeat="store in route.obj.stores" value="{{store.id}}">
+                  <option ng-repeat="store in route.obj.stores" ng-selected="store.store_id == store.id" value="{{store.id}}">
                     {{store.name}}
                   </option>
                 </select><timepicker attr-name="deadline_time_@{{ $index+1 }}" label="&#39;Deadline&#39;" ng-model="form.deadline_time"></timepicker>
@@ -68,7 +68,7 @@
             <div class="row padding-top-10">
               <div class="col-md-4"></div>
               <div class="col-xs-12 col-md-7 text-right">
-                <input class="btn btn-primary text-u-c btn-md" type="submit" value="Create" />
+                <input class="btn btn-primary text-u-c btn-md" type="submit" value="Update" />
               </div>
             </div>
           </form>

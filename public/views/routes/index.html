@@ -1,0 +1,66 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-r-md inline media-middle font-thin h3">
+    Routes
+  </h1>
+  <a class="btn btn-primary" href="/routes/create" ng-if="currentUser.user_group == &#39;admin&#39;"><i class="fa fa-plus m-r-xs"></i>Add new route</a>
+</div>
+<div class="wrapper-md">
+  <div class="row" ng-if="routes.flashSuccess">
+    <div class="col-xs-12">
+      <p class="alert alert-success">
+        <strong> {{ routes.flashSuccess }}</strong>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="panel panel-default">
+        <table class="table table-striped m-b-none table-layout-fixed">
+          <thead>
+            <tr>
+              <th class="sorting v-top">
+                <span class="sort-link c-p" id="id" ng-click="routes.sortBy(&#39;id&#39;)"> Id</span>
+              </th>
+              <th class="sorting v-top">
+                <span class="sort-link c-p" id="driver_name" ng-click="routes.sortBy(&#39;driver_name&#39;)">Driver name</span>
+              </th>
+              <th class="sorting v-top">
+                <span class="sort-link c-p" id="date" ng-click="routes.sortBy(&#39;date&#39;)"> Date</span>
+              </th>
+              <th class="sorting v-top">
+                <span class="sort-link c-p" id="progress" ng-click="routes.sortBy(&#39;progress&#39;)"> Progress</span>
+              </th>
+              <th class="text-right" ng-if="currentUser.user_group == &#39;admin&#39;">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="route in routes.routes">
+              <td>
+                <a class="text-info" href="routes/{{ route.id }}">{{ route.id }}</a>
+              </td>
+              <td>
+                {{ route.user.name }} {{ route.user.last_name}}
+              </td>
+              <td>
+                {{ route.date }}
+              </td>
+              <td>
+                <uib-progressbar animate="false" type="success" value="route.progress"><b> {{ route.progress }} %</b></uib-progressbar>
+              </td>
+              <td class="text-right" ng-if="currentUser.user_group == &#39;admin&#39;">
+                <a class="v-middle mr-5" href="/routes/{{ route.id }}/edit" tooltip-placement="top-right" uib-tooltip="Edit route"><i class="icon-pencil c-p f-z-15 color-green"></i></a><i class="v-middle" ng-click="routes.deleteRoute(route.id, $index)" target="_self" tooltip-placement="top-right" uib-tooltip="Delete route"><i class="fa fa-close c-p f-z-20 color-red"></i></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-xs-12 text-right">
+      <pagination items="routes.routes" pagi-api-url="routes.pagiApiUrl" pagi-arr="routes.pagiArr"></pagination>
+    </div>
+  </div>
+</div>

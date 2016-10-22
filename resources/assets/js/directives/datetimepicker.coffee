@@ -1,19 +1,24 @@
-datetimepicker = () ->
+datetimepicker = ($timeout) ->
   directive = {
     restrict: 'AE'
     templateUrl: '/views/directives/datetimepicker.html'
-    controllerAs: 'vm',
-    controller: '@'
-    name: 'ctrl',
-    bindToController: true
+    require: 'ngModel'
     scope: {
-      ngModel: "=ngModel"
       label: "=?label"
-      attrValue: "=?attrValue"
     }
-    link: (scope, element, attr) ->
-      scope.vm.open = () ->
-        scope.vm.date_opened = true
+    link: (scope, element, attr, ngModel) ->
+      scope.open = () ->
+        scope.date_opened = true
+
+      $timeout(
+        (() ->
+          scope.model = Date.parse(ngModel.$viewValue)
+        ), 400
+      )
+
+      scope.selectDate = ((model) ->
+          ngModel.$setViewValue(model)
+      )
   }
 
   return directive

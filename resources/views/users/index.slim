@@ -37,7 +37,7 @@
                 span#country.sort-link.c-p ng-click="users.sortBy('country')"  Country
               th.sorting.v-top
                 span#city.sort-link.c-p ng-click="users.sortBy('city')"  City
-              th.text-right ng-if="currentUser.user_group == 'admin'" Actions
+              th.text-right.v-top ng-if="currentUser.user_group == 'admin'" Actions
           tbody
             tr ng-repeat="user in users.users"
               td
@@ -51,12 +51,7 @@
               td  {{ user.country }}
               td  {{ user.city }}
               td.text-right ng-if="currentUser.user_group == 'admin'"
-                a.v-middle.mr-5 [
-                  href="/users/{{ user.id }}/edit"
-                  tooltip-placement="top-right"
-                  uib-tooltip="Edit user"
-                ]
-                  i.icon-pencil.c-p.f-z-15.color-green
+
                 i.v-middle [
                   ng-click="users.deleteUser(user.id, $index)"
                   target="_self"
@@ -69,6 +64,5 @@
       pagination [
         pagi-arr="users.pagiArr"
         items="users.users"
-        ctrl="IndexUserCtrl"
         pagi-api-url="users.pagiApiUrl"
       ]
