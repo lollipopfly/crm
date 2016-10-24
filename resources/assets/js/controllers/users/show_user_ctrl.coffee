@@ -13,11 +13,12 @@ ShowUserCtrl = ($http, $stateParams, $state) ->
     animate: 1000
 
   $http.get('api/users/'+vm.id).then((response) ->
-    vm.data = response.data
-    if vm.data.avatar == 'default_avatar.jpg'
-      vm.data.avatar = '/images/' + vm.data.avatar
+    vm.obj = response.data
+    if vm.obj.avatar == 'default_avatar.jpg'
+      vm.obj.avatar = '/images/' + vm.obj.avatar
     else
-      vm.data.avatar = 'uploads/avatars/' + vm.data.avatar
+      vm.obj.avatar = 'uploads/avatars/' + vm.obj.avatar
+    vm.obj.bday = moment(new Date(vm.obj.bday)).format('DD.MM.YYYY')
     return
   , (error) ->
     vm.error = error.data

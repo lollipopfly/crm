@@ -1,0 +1,81 @@
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-b-sm font-thin h3">
+    Route # {{ route.id }}
+  </h1>
+  <a class="btn btn-default mr-3" href="/routes"><i aria-hidden="true" class="fa fa-long-arrow-left mr-3"></i>Back</a><a class="btn btn-primary mr-3" href="routes/{{ route.id }}/edit" ng-if="currentUser.user_group == &#39;admin&#39;">Edit</a><a class="btn btn-danger" href="#" ng-click="route.deleteRoute(route.id)" ng-if="currentUser.user_group == &#39;admin&#39;">Delete</a>
+</div>
+<div class="wrapper-md">
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+              <span class="text"><i class="fa icon-user text mr-3"></i>Driver:</span>
+            </div>
+            <div class="col-md-7">
+              <span class="text" ng-show="route.route.user.name">{{ route.route.user.name }} {{ route.route.user.last_name }}</span>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <div class="row">
+            <div class="col-md-1"></div>
+            <div class="col-md-3">
+              <span class="text"><i class="fa icon-calendar text mr-3"></i>Date:</span>
+            </div>
+            <div class="col-md-7">
+              <span class="text" ng-show="route.route.date">{{ route.route.date }}</span>
+            </div>
+          </div>
+          <div class="line line-dashed b-b line-lg pull-in"></div>
+          <table class="table table-striped b-a" ng-if="route.points">
+            <thead>
+              <tr>
+                <th class="text-u-c">
+                  #
+                </th>
+                <th class="text-u-c">
+                  Store
+                </th>
+                <th class="text-u-c">
+                  Deadline Time
+                </th>
+                <th class="text-u-c">
+                  Products
+                </th>
+                <th class="text-u-c">
+                  Status
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="point in route.points">
+                <td>
+                  {{ index+1 }}
+                </td>
+                <td>
+                  <a class="text-info" ng-click="route.goToPoint($index)">{{ point.store.name }}</a>
+                </td>
+                <td>
+                  <div class="label text-base bg-primary pos-rlt m-r" ng-if="point.deadline_time">
+                    {{ point.deadline_time | amDateFormat:'hh:mm a' }}<i class="arrow right arrow-primary"></i>
+                  </div>
+                </td>
+                <td>
+                  {{ point.products }}
+                </td>
+                <td>
+                  <i class="fa fa-circle m-r-xs m-l-sm" ng-class="{&#39;text-success&#39; : point.status == 1, &#39;text-danger&#39; : point.status == 0}"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-6">
+      <div id="route-map"></div>
+    </div>
+  </div>
+</div>

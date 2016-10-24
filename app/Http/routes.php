@@ -75,7 +75,6 @@ Route::get('routes/{id}/edit/', function() { return view('layouts.layout'); });
     // Route::post('profile/update/{id}',  'Profile\ProfileController@update');
     // Route::put('profile/updatepoints', 'Profile\ProfileController@updatePoints');
 
-
     // // MAP
     // Route::get('map/getallpoints', 'MapController@getAllPoints');
     // Route::get('map/', 'MapController@index');

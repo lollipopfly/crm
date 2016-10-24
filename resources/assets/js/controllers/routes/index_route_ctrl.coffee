@@ -50,7 +50,7 @@ IndexRouteCtrl = ($http, $filter, $rootScope, $stateParams) ->
     return
 
   return
-# IndexRouteCtrl.$inject = ['$http', '$filter', '$rootScope', '$stateParams'];
+
 'use strict'
 angular
   .module('app')

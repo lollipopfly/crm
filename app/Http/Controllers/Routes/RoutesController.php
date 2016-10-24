@@ -106,10 +106,15 @@ class RoutesController extends Controller
      */
     public function show($id)
     {
-        $route = Route::findOrFail($id);
-        $stores = Store::all();
+      $route = Route::with('user')->findOrFail($id);
+      $stores = Store::all();
+      $points = Point::with('store')->where('route_id', $id)->get();
 
-        return view('routes.show', compact(['route', 'stores']));
+      return response()->json([
+        'route' => $route,
+        'stores' => $stores,
+        'points' => $points
+        ]);
     }
 
     /**
@@ -233,11 +238,13 @@ class RoutesController extends Controller
     public function destroy($id)
     {
         $route = Route::findOrFail($id);
+
         Route::destroy($id);
         Point::where('route_id', $id)->delete();
         User::where('id', $route->user_id)->update(['availability' => true]); // update availabillity
 
-        Session::flash('flash_message', 'Route deleted!');
+      return response()->json(true, 200);
+
     }
 
     /**

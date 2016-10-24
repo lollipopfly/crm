@@ -115,9 +115,7 @@ gulp.task('compile-coffee', function() {
               'resources/assets/js/controllers/user/*.coffee',
               'resources/assets/js/controllers/users/*.coffee',
               'resources/assets/js/controllers/stores/*.coffee',
-              'resources/assets/js/controllers/routes/index_route_ctrl.coffee',
-              'resources/assets/js/controllers/routes/create_route_ctrl.coffee',
-              'resources/assets/js/controllers/routes/edit_route_ctrl.coffee',
+              'resources/assets/js/controllers/routes/*.coffee',
 
               'resources/assets/js/directives/pagination.coffee',
               'resources/assets/js/directives/file_field.coffee',

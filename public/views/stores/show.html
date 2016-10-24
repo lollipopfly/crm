@@ -2,7 +2,7 @@
   <h1 class="m-b-sm font-thin h3">
     {{store.data.name}}
   </h1>
-  <a class="btn btn-default mr-3" href="/stores"><i aria-hidden="true" class="fa fa-long-arrow-left mr-3"></i>Back</a><a class="btn btn-primary mr-3" href="/stores/{{store.id}}/edit" ng-if="currentUser.user_group == &#39;admin&#39;">Edit</a><button class="btn btn-danger mr-3" ng-click="store.deleteStore(store.id)" ng-if="currentUser.user_group == &#39;admin&#39;">Delete</button>
+  <a class="btn btn-default mr-3" href="/stores"><i aria-hidden="true" class="fa fa-long-arrow-left mr-3"></i>Back</a><a class="btn btn-primary mr-3" href="/stores/{{store.id}}/edit" ng-if="currentUser.user_group == &#39;admin&#39;">Edit</a><button class="btn btn-danger" ng-click="store.deleteStore(store.id)" ng-if="currentUser.user_group == &#39;admin&#39;">Delete</button>
 </div>
 <div class="wrapper-md">
   <div class="row">

@@ -1,6 +1,6 @@
 <div class="bg-light lter b-b wrapper-md">
   <h1 class="m-b-sm font-thin h3">
-    {{user.data.name}}
+    {{user.obj.name}}
   </h1>
   <a class="btn btn-default" href="/users"><i aria-hidden="true" class="fa fa-long-arrow-left mr-3"></i>Back</a>
 </div>
@@ -14,13 +14,13 @@
             <div class="inline">
               <div class="easyPieChart" easyPieChart="" options="user.settings" percent="75" style="width: 134px; height: 134px; line-height: 134px;">
                 <div class="thumb-xl">
-                  <img class="img-circle w-full" src="{{user.data.avatar}}" />
+                  <img class="img-circle w-full" src="{{user.obj.avatar}}" />
                 </div>
               </div>
               <div class="h4 m-t m-b-xs">
-                {{ user.data.name }}
+                {{ user.obj.name }}
               </div>
-              <small class="text-muted m-b" ng-show="user.data.bday">{{user.data.bday | amDateFormat:'DD.MM.YYYY'}}</small>
+              <small class="text-muted m-b" ng-show="user.obj.bday">{{ user.obj.bday }}</small>
             </div>
           </div>
         </div>
@@ -31,7 +31,7 @@
               <span class="text"><i class="fa icon-user text mr-3"></i>Initials:</span>
             </div>
             <div class="col-md-7">
-              <span class="text" ng-show="user.data.initials">{{user.data.initials}}</span>
+              <span class="text" ng-show="user.obj.initials">{{user.obj.initials}}</span>
             </div>
           </div>
           <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -41,7 +41,7 @@
               <span class="text"><i class="fa icon-bag text mr-3"></i>Job title:</span>
             </div>
             <div class="col-md-7">
-              <span class="text" ng-show="user.data.job_title">{{user.data.job_title}}</span>
+              <span class="text" ng-show="user.obj.job_title">{{user.obj.job_title}}</span>
             </div>
           </div>
           <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -51,7 +51,7 @@
               <span class="text"><i class="fa icon-direction text mr-3"></i>Country:</span>
             </div>
             <div class="col-md-7">
-              <span class="text" ng-show="user.data.country">{{user.data.country}}</span>
+              <span class="text" ng-show="user.obj.country">{{user.obj.country}}</span>
             </div>
           </div>
           <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -61,7 +61,7 @@
               <span class="text"><i class="fa icon-home text mr-3"></i>City:</span>
             </div>
             <div class="col-md-7">
-              <span class="text" ng-show="user.data.city">{{user.data.city}}</span>
+              <span class="text" ng-show="user.obj.city">{{user.obj.city}}</span>
             </div>
           </div>
           <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -71,7 +71,7 @@
               <span class="text"><i class="fa icon-screen-smartphone text mr-3"></i>Phone:</span>
             </div>
             <div class="col-md-7">
-              <span class="text" ng-show="user.data.phone">{{user.data.phone}}</span>
+              <span class="text" ng-show="user.obj.phone">{{user.obj.phone}}</span>
             </div>
           </div>
           <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -81,7 +81,7 @@
               <span class="text"><i class="fa icon-envelope-letter text mr-3"></i>Email:</span>
             </div>
             <div class="col-md-7">
-              <span class="text" ng-show="user.data.email">{{user.data.email}}</span>
+              <span class="text" ng-show="user.obj.email">{{user.obj.email}}</span>
             </div>
           </div>
         </div>

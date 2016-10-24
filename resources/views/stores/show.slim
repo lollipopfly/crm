@@ -8,7 +8,7 @@
     ng-if="currentUser.user_group == 'admin'"
   ]
     | Edit
-  button.btn.btn-danger.mr-3 [
+  button.btn.btn-danger [
     ng-click="store.deleteStore(store.id)"
     ng-if="currentUser.user_group == 'admin'"
   ]

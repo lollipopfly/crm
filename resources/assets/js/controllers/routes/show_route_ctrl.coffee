@@ -1,47 +1,50 @@
-app.controller 'showRouteCtrl', ($scope, $http, $timeout) ->
-  $scope.pointForms = []
-  $scope.pathArr = window.location.pathname.split('/',3)
-  $scope.id = $scope.pathArr[$scope.pathArr.length - 1]
+ShowRouteCtrl = ($http, $stateParams, $timeout, $state) ->
+  vm = this
+  vm.id = $stateParams.id
   geocoder = new google.maps.Geocoder()
-  $scope.markers = []
+  vm.markers = []
 
   # Get points
-  $http(
-    method: 'GET'
-    url: '/routes/getpoints/' + $scope.id).then ((response) ->
-      $scope.points = response.data
-      return
-  )
+  $http.get('/api/routes/' + vm.id)
+    .then (response) ->
+      vm.route = response.data.route
+      vm.stores = response.data.stores
+      vm.points = response.data.points
+      vm.route.date = moment(new Date(vm.route.date)).format('DD.MM.YYYY')
+    , (error) ->
+      vm.error = error.data
+      console.log(error);
 
-  $scope.deleteRoute = (id) ->
+  vm.deleteRoute = (id) ->
     confirmation = confirm('Are you sure?')
 
     if confirmation
-      $http(
-        method: 'DELETE'
-        url: '/routes/' + id).then ((response) ->
-          document.location.href = '/routes/'
-          return
-      )
+      $http.delete('/api/routes/' + id).then ((response) ->
+        $state.go 'routes', { flashSuccess: 'Route Deleted!' }
+
+        return
+      ), (error) ->
+        vm.error = error
 
   # When the window has finished loading create our google map below
   initMap = ->
     # Basic options for a simple Google Map
     mapOptions =
+      # zoom: 5
       zoom: 12
       scrollwheel: false,
       mapTypeControl: false
       streetViewControl: false
       zoomControlOptions: position: google.maps.ControlPosition.LEFT_BOTTOM
       center: new (google.maps.LatLng)(51.500152, -0.126236)
-      styles: $scope.styles
+      styles:vm.styles
 
     mapElement = document.getElementById('route-map')
     map = new (google.maps.Map)(mapElement, mapOptions)
     prevInfoWindow =false;
 
     # Set locations
-    angular.forEach( $scope.points, (value, key) ->
+    angular.forEach(vm.points, (value, key) ->
 
       # Geocode Addresses by address name
       geocoder.geocode { 'address': value.store.address }, (results, status) ->
@@ -52,13 +55,13 @@ app.controller 'showRouteCtrl', ($scope, $http, $timeout) ->
 
           # select icons by status (green or red)
           if parseInt value.status
-            $scope.baloonName = 'images/baloon_shiped.svg'
+           vm.baloonName = 'images/baloon_shiped.svg'
           else
-            $scope.baloonName = 'images/baloon.svg'
+           vm.baloonName = 'images/baloon.svg'
 
           marker = new (google.maps.Marker)(
             map: map
-            icon: $scope.baloonName
+            icon:vm.baloonName
             position: results[0].geometry.location)
 
           # Click by other marker
@@ -80,11 +83,11 @@ app.controller 'showRouteCtrl', ($scope, $http, $timeout) ->
           )
 
           # Add new marker to array for outside map links (ordered by id in backend)
-          $scope.markers.push(marker)
+         vm.markers.push(marker)
     )
     return
 
-  $scope.styles = [
+  vm.styles = [
     {
       'featureType': 'water'
       'elementType': 'geometry'
@@ -198,16 +201,19 @@ app.controller 'showRouteCtrl', ($scope, $http, $timeout) ->
   ]
 
   # Go to point after click outside map link
-  $scope.goToPoint = (id) ->
-    google.maps.event.trigger($scope.markers[id], 'click')
+  vm.goToPoint = (id) ->
+    google.maps.event.trigger(vm.markers[id], 'click')
 
 
   # Init map
   $timeout (()->
-   initMap()
-   return
+    initMap()
+    return
   ), 500
 
+  return
 
-
-
+'use strict'
+angular
+  .module('app')
+  .controller('ShowRouteCtrl', ShowRouteCtrl)

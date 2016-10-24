@@ -1,0 +1,71 @@
+.bg-light.lter.b-b.wrapper-md
+  h1.m-b-sm.font-thin.h3 Route # {{ route.id }}
+  a.btn.btn-default.mr-3 href="/routes"
+    i.fa.fa-long-arrow-left.mr-3 aria-hidden="true"
+    | Back
+
+  a.btn.btn-primary.mr-3 [
+    ng-if="currentUser.user_group == 'admin'"
+    href="routes/{{ route.id }}/edit"
+  ]
+    | Edit
+  a.btn.btn-danger [
+    ng-if="currentUser.user_group == 'admin'"
+    href="#"
+    ng-click="route.deleteRoute(route.id)"
+  ]
+    | Delete
+
+.wrapper-md
+  .row
+    .col-lg-6
+      .panel.panel-default
+        .panel-body
+          .row
+            .col-md-1
+            .col-md-3
+              span.text
+                i.fa.icon-user.text.mr-3
+                | Driver:
+            .col-md-7
+              span.text ng-show="route.route.user.name"
+                | {{ route.route.user.name }} {{ route.route.user.last_name }}
+          .line.line-dashed.b-b.line-lg.pull-in
+
+          .row
+            .col-md-1
+            .col-md-3
+              span.text
+                i.fa.icon-calendar.text.mr-3
+                | Date:
+            .col-md-7
+              span.text ng-show="route.route.date"
+                | {{ route.route.date }}
+          .line.line-dashed.b-b.line-lg.pull-in
+
+          table.table.table-striped.b-a ng-if="route.points"
+            thead
+              tr
+                th.text-u-c #
+                th.text-u-c Store
+                th.text-u-c Deadline Time
+                th.text-u-c Products
+                th.text-u-c Status
+            tbody
+              tr ng-repeat="point in route.points"
+                td {{ index+1 }}
+                td
+                  a.text-info ng-click="route.goToPoint($index)"
+                    | {{ point.store.name }}
+                td
+                  .label.text-base.bg-primary.pos-rlt.m-r ng-if="point.deadline_time"
+                    | {{ point.deadline_time | amDateFormat:'hh:mm a' }}
+                    i.arrow.right.arrow-primary
+                td {{ point.products }}
+                td
+                  i.fa.fa-circle.m-r-xs.m-l-sm [
+                    ng-class="{'text-success' : point.status == 1, 'text-danger' : point.status == 0}"
+                  ]
+
+    .col-lg-6
+      #route-map
