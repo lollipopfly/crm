@@ -1,0 +1,139 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+  <div class="col">
+    <div style="background:url(/images/profile-image.jpg) center center; background-size:cover">
+      <div class="wrapper-lg bg-white-opacity">
+        <div class="row m-t">
+          <div class="col-xs-6">
+            <a class="thumb-lg pull-left m-r"><img class="img-circle" src="{{ profile.user.avatar }}" /></a>
+            <div class="clear m-b">
+              <div class="m-b m-t-sm">
+                <span class="h3 text-black" ng-if="profile.user.initials">{{ profile.user.initials }}</span><small class="m-l" ng-show="profile.user.city">{{ profile.user.city }}</small><small class="m-l" ng-show="profile.user.country">{{ profile.user.country }}</small>
+              </div>
+              <a class="btn btn-sm btn-success btn-rounded" href="profile/edit"> Edit</a><a class="btn btn-sm btn-primary btn-rounded" href="users/create" ng-if="currentUser.user_group == &#39;admin&#39;">Add new user</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="wrapper-md">
+  <div class="row" ng-if="profile.flashSuccess">
+    <div class="col-xs-12">
+      <p class="alert alert-success">
+        <strong> {{ profile.flashSuccess }}</strong>
+      </p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-xs-12">
+      <div class="panel panel-default">
+        <table class="table table-striped m-b-none">
+          <tr>
+            <td>
+              <strong>Name</strong>
+            </td>
+            <td>
+              {{ profile.user.name }}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Last name</strong>
+            </td>
+            <td>
+              {{ profile.user.last_name }}
+            </td>
+          </tr>
+          <tr></tr>
+          <tr>
+            <td>
+              <strong>Job title</strong>
+            </td>
+            <td>
+              {{ profile.user.job_title }}
+            </td>
+          </tr>
+          <td>
+            <strong>Birthday</strong>
+          </td>
+          <td>
+            {{ profile.user.bday }}
+          </td>
+          <tr>
+            <td>
+              <strong>Email</strong>
+            </td>
+            <td>
+              {{ profile.user.email }}
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <strong>Phone</strong>
+            </td>
+            <td>
+              {{ profile.user.phone }}
+            </td>
+          </tr>
+        </table>
+      </div>
+    </div>
+    <div class="col-md-6 col-xs-12">
+      <div class="panel no-border" ng-if="profile.points">
+        <div class="panel-heading wrapper b-b b-light">
+          <a class="pull-right text-info" href="/routes"> Go to route page</a>
+          <h4 class="m-t-none m-b-none">
+            Current routes
+          </h4>
+        </div>
+        <form ng-submit="profile.updatePoints()">
+          <table class="table table-striped m-b-none">
+            <thead>
+              <tr>
+                <th>
+                  #
+                </th>
+                <th>
+                  Store
+                </th>
+                <th>
+                  Address
+                </th>
+                <th class="text-right">
+                  Complete
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="point in profile.points">
+                <td>
+                  {{ point.id }}
+                </td>
+                <td>
+                  {{ point.store.name }}
+                </td>
+                <td>
+                  {{ point.store.address }}
+                </td>
+                <td>
+                  <checkbox_field attr-class="&#39;m-t-none m-b-none&#39;" class="pull-right" model="point.status" ng-checked="{&#39;checked&#39;: point.status == 1}"></checkbox_field>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="panel-footer clearfix">
+            <input class="btn btn-primary pull-right" type="submit" value="Update" />
+          </div>
+        </form>
+      </div>
+      <div class="panel no-border" ng-if="!profile.points">
+        <div class="panel-heading wrapper b-b b-light">
+          <h4 class="m-t-none m-b-none">
+            You have no route...
+          </h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

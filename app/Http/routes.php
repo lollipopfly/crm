@@ -16,6 +16,10 @@ Route::group(['prefix' => 'api'], function()
     Route::post('authenticate/send_reset_code', 'AuthController@sendResetCode');
     Route::post('authenticate/reset_password', 'AuthController@resetPassword');
 
+    // Profile
+    Route::get('profile', 'Profile\ProfileController@index');
+    Route::put('profile/updatepoints', 'Profile\ProfileController@updatePoints');
+
     // Stores
     Route::get('stores', 'Stores\StoresController@index');
     Route::delete('stores/{id}', 'Stores\StoresController@destroy');
@@ -49,6 +53,10 @@ Route::get('user/confirm/{confirmation_code}', function() { return view('layouts
 Route::get('user/forgot_password', function() { return view('layouts.layout'); });
 Route::get('user/reset_password/{reset_password_code}', function() { return view('layouts.auth'); });
 
+// Profile
+Route::get('profile/', function() { return view('layouts.layout'); });
+Route::get('profile/edit', function() { return view('layouts.layout'); });
+
 // stores
 Route::get('stores/', function() { return view('layouts.layout'); });
 Route::get('stores/{id}', function() { return view('layouts.layout'); });
@@ -73,7 +81,6 @@ Route::get('routes/{id}/edit/', function() { return view('layouts.layout'); });
     // Route::get('profile/',  'Profile\ProfileController@index');
     // Route::get('profile/edit',  'Profile\ProfileController@edit');
     // Route::post('profile/update/{id}',  'Profile\ProfileController@update');
-    // Route::put('profile/updatepoints', 'Profile\ProfileController@updatePoints');
 
     // // MAP
     // Route::get('map/getallpoints', 'MapController@getAllPoints');

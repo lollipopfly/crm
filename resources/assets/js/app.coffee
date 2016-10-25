@@ -55,6 +55,18 @@ angular
         controller: 'ConfirmController'
       )
 
+      # Profile
+      .state('profile',
+        url: '/profile'
+        templateUrl: '../views/profile/index.html'
+        controller: 'IndexProfileCtrl as profile'
+      )
+      .state('profile_edit',
+        url: '/profile/edit'
+        templateUrl: '../views/profile/edit.html'
+        controller: 'EditProfileCtrl as profile'
+      )
+
       # Stores
       .state('stores',
         url: '/stores'

@@ -10,7 +10,6 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Image;
 use Hash;
-use Auth;
 use DB;
 
 class UsersController extends Controller

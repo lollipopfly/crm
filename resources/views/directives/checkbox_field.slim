@@ -1,0 +1,10 @@
+div [
+  class="checkbox {{ attrClass }}"
+]
+  label.i-checks
+    input [
+      type="checkbox"
+      ng-model="model"
+    ]
+    i
+    .inline ng-if="label" {{ label }}

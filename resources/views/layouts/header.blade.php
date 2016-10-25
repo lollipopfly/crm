@@ -59,7 +59,7 @@
                                     <div class="col-xs-6">
                                         <ul class="list-unstyled l-h-2x">
                                             <li>
-                                                <a href="{{ url('/profile/') }}"><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Profile</a>
+                                                <a href="{{ url('/profile') }}"><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Profile</a>
                                             </li>
                                             <li>
                                                 <a href="{{ url('/stores/') }}"><i class="fa fa-fw fa-angle-right text-muted m-r-xs"></i>Stores</a>
@@ -233,7 +233,7 @@
                     <!-- dropdown -->
                     <ul class="dropdown-menu animated fadeInRight w">
                         <li>
-                            <a href="/profile/">Profile</a>
+                            <a href="/profile">Profile</a>
                         </li>
                         <li>
                             <a href="/profile/edit">

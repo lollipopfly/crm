@@ -1,0 +1,117 @@
+.hbox.hbox-auto-xs.hbox-auto-sm
+  .col
+    div [
+      style="background:url(/images/profile-image.jpg) center center; background-size:cover"
+    ]
+      .wrapper-lg.bg-white-opacity
+        .row.m-t
+          .col-xs-6
+            a.thumb-lg.pull-left.m-r
+              img.img-circle src="{{ profile.user.avatar }}"
+            .clear.m-b
+              .m-b.m-t-sm
+                span.h3.text-black ng-if="profile.user.initials"
+                  | {{ profile.user.initials }}
+                small.m-l ng-show="profile.user.city" {{ profile.user.city }}
+                small.m-l ng-show="profile.user.country" {{ profile.user.country }}
+              a.btn.btn-sm.btn-success.btn-rounded href="profile/edit"  Edit
+
+              a.btn.btn-sm.btn-primary.btn-rounded [
+                ng-if="currentUser.user_group == 'admin'"
+                href="users/create"
+              ]
+                | Add new user
+
+.wrapper-md
+  .row ng-if="profile.flashSuccess"
+    .col-xs-12
+        p.alert.alert-success
+          strong  {{ profile.flashSuccess }}
+
+  .row
+    .col-md-6.col-xs-12
+      .panel.panel-default
+        table.table.table-striped.m-b-none
+          tr
+            td
+              strong Name
+            td  {{ profile.user.name }}
+          tr
+            td
+              strong Last name
+            td  {{ profile.user.last_name }}
+          tr
+          tr
+            td
+              strong Job title
+            td  {{ profile.user.job_title }}
+          td
+            strong Birthday
+          td  {{ profile.user.bday }}
+          tr
+            td
+              strong Email
+            td  {{ profile.user.email }}
+          tr
+            td
+              strong Phone
+            td  {{ profile.user.phone }}
+
+    .col-md-6.col-xs-12
+      .panel.no-border ng-if="profile.points"
+        .panel-heading.wrapper.b-b.b-light
+          a.pull-right.text-info href="/routes"  Go to route page
+          h4.m-t-none.m-b-none Current routes
+        form ng-submit="profile.updatePoints()"
+          table.table.table-striped.m-b-none
+            thead
+              tr
+                th #
+                th Store
+                th Address
+                th.text-right Complete
+            tbody
+              tr ng-repeat="point in profile.points"
+                td  {{ point.id }}
+                td  {{ point.store.name }}
+                td  {{ point.store.address }}
+                td
+                  checkbox_field.pull-right [
+                    model="point.status"
+                    attr-class="'m-t-none m-b-none'"
+                    ng-checked="{'checked': point.status == 1}"
+                  ]
+
+          .panel-footer.clearfix
+            input.btn.btn-primary.pull-right [
+              type="submit"
+              value="Update"
+            ]
+
+      .panel.no-border ng-if="!profile.points"
+        .panel-heading.wrapper.b-b.b-light
+          h4.m-t-none.m-b-none You have no route...
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

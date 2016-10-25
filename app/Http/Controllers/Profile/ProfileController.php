@@ -10,7 +10,7 @@ use App\User;
 use App\Point;
 use App\Store;
 use App\Http\Requests;
-use Auth;
+use JWTAuth;
 use Image;
 use File;
 use Session;
@@ -21,15 +21,20 @@ class ProfileController extends Controller
     public $upload_path = 'uploads/avatars/';
     public $default_avatar = 'default.jpg';
 
+    public function __construct()
+    {
+      $this->user = JWTAuth::parseToken()->authenticate();
+      $this->middleware('jwt.auth')->only('index');
+    }
 
     /**
      * @return view
      */
     public function index() {
-        $user = Auth::user();
-        $points = Point::where('user_id', $user->id)->get();
 
-        return view('profile.index')->withUser($user)->withPoints($points);
+      $points = Point::where('user_id', $this->user->id)->with('store')->get();
+
+      return response()->json(['user' => $this->user, 'points' => $points]);
     }
 
 
@@ -49,7 +54,7 @@ class ProfileController extends Controller
      * @return view
      */
     public function update(ProfileUpdateRequest $request, $id) {
-        $current_user = User::findOrFail($id);
+        $this->user = User::findOrFail($id);
         $data = $request->all();
 
         // Update avatar image
@@ -60,7 +65,7 @@ class ProfileController extends Controller
             $data['avatar'] = $filename;
 
             // Delete old file if exist
-            $this->deleteAvatarIfExist($current_user->avatar);
+            $this->deleteAvatarIfExist($this->user->avatar);
         }
 
         // Remove avatar if it was removed by directive
@@ -68,13 +73,15 @@ class ProfileController extends Controller
             $data['avatar'] = $this->default_avatar;
 
             // Delete old file if exist
-            $this->deleteAvatarIfExist($current_user->avatar);
+            $this->deleteAvatarIfExist($this->user->avatar);
         }
 
-        $current_user->update($data);
+        $this->user->update($data);
         Session::flash('flash_message', 'Profile updated.');
 
-        return redirect('profile/');
+        return response()->json(true, 200);
+
+        // return redirect('profile/');
     }
 
 
@@ -98,24 +105,13 @@ class ProfileController extends Controller
      * @return view
      */
     public function updatePoints(Request $request) {
-        $user_id = Auth::user()->id;
-        $points = Point::select('id')->where('user_id', $user_id)->get();
+      $user_id = $this->user->id;
+      $points = $request->all();
 
-        $collection = collect($request->all());
-        $collection->forget(['_token', '_method']); // except this keys
-        $collection->all();
+      foreach ($points as $point) {
+        Point::where(['user_id' => $user_id, 'id' => $point['id']])->update(['status' => $point['status']]);
+      }
 
-        foreach ($points as $key => $point) {
-            if(!$collection->has('point_' . $point->id)) {
-                $status = 0;
-            } else {
-                $status = true;
-            }
-            Point::where(['user_id' => $user_id, 'id' => $point->id])->update(['status' => $status]);
-        }
-
-        Session::flash('flash_message', 'Points updated!');
-
-        return redirect('profile');
+      return response()->json(true, 200);
     }
 }
