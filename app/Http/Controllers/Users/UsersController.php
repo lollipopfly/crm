@@ -27,7 +27,6 @@ class UsersController extends Controller
         $this->middleware('role', ['only' => 'create|destroy|store|update|edit']);
     }
 
-
     /**
      * Display a listing of the resource.
      *

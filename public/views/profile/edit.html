@@ -1,3 +1,64 @@
-<div>
-  tset
+<div class="bg-light lter b-b wrapper-md">
+  <h1 class="m-b-sm font-thin h3">
+    Edit  {{ profile.user.name }}'s Profile
+  </h1>
+  <a class="btn btn-default" href="/profile"><i aria-hidden="true" class="fa fa-long-arrow-left"></i>Back</a>
+</div>
+<div class="wrapper-md">
+  <div class="row">
+    <form enctype="multipart/form-data" ng-submit="profile.update()">
+      <div class="col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-xs-8 col-sm-6 col-md-8">
+                <div class="form-group">
+                  <label>Avatar</label>
+                  <div attr-id="&#39;filestyle-avatar&#39;" file-field="" ng-model="profile.user.avatar" removed-avatar="profile.user.remove_avatar"></div>
+                </div>
+              </div>
+              <div class="col-xs-4 col-sm-6 col-md-4">
+                <delete_avatar img-name="{{profile.user.avatar}}" ng-model="profile.user.remove_avatar"></delete_avatar>
+              </div>
+            </div>
+            <div class="form-group" ng-class="{&#39;has-error&#39;: profile.error.name}">
+              <label>Name</label><input class="form-control" ng-model="profile.user.name" type="text" /><span class="help-block" ng-if="profile.error.name"><strong>{{profile.error.name[0]}}</strong></span>
+            </div>
+            <div class="form-group">
+              <label>Last name</label><input class="form-control" ng-model="profile.user.last_name" type="text" />
+            </div>
+            <div class="form-group" ng-class="{&#39;has-error&#39;: profile.error.initials}">
+              <label>Initials</label><input class="form-control" ng-model="profile.user.initials" type="text" /><span class="help-block" ng-if="profile.error.initials"><strong>{{profile.error.initials[0]}}</strong></span>
+            </div>
+            <div class="form-group">
+              <label>Birthday</label><datetimepicker ng-model="profile.user.bday"></datetimepicker>
+            </div>
+            <div class="form-group" ng-class="{&#39;has-error&#39;: profile.error.email}">
+              <label>Email</label><input class="form-control" ng-model="profile.user.email" type="text" /><span class="help-block" ng-if="profile.error.email"><strong>{{profile.error.email[0]}}</strong></span>
+            </div>
+            <div class="form-group">
+              <label>Phone</label><input class="form-control" ng-model="profile.user.phone" type="text" />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-6">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="form-group">
+              <label>Job title</label><input class="form-control" ng-model="profile.user.job_title" type="text" />
+            </div>
+            <div class="form-group">
+              <label>Country</label><input class="form-control" ng-model="profile.user.country" type="text" />
+            </div>
+            <div class="form-group">
+              <label>City</label><input class="form-control" ng-model="profile.user.city" type="text" />
+            </div>
+            <div class="text-right"></div>
+            <input class="btn btn-primary" type="submit" value="Update" />
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

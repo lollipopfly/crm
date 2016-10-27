@@ -1,2 +1,69 @@
-div
-  | tset
+.bg-light.lter.b-b.wrapper-md
+  h1.m-b-sm.font-thin.h3 Edit  {{ profile.user.name }}'s Profile
+  a.btn.btn-default href="/profile"
+    i.fa.fa-long-arrow-left aria-hidden="true"
+    | Back
+.wrapper-md
+  .row
+    form ng-submit="profile.update()" enctype="multipart/form-data"
+      .col-sm-6
+        .panel.panel-default
+          .panel-body
+            .row
+              .col-xs-8.col-sm-6.col-md-8
+                .form-group
+                  label Avatar
+                  div [
+                    attr-id="'filestyle-avatar'"
+                    file-field=""
+                    ng-model="profile.user.avatar"
+                    removed-avatar="profile.user.remove_avatar"
+                  ]
+              .col-xs-4.col-sm-6.col-md-4
+                delete_avatar [
+                  img-name="{{profile.user.avatar}}"
+                  ng-model="profile.user.remove_avatar"
+                ]
+            .form-group ng-class="{'has-error': profile.error.name}"
+              label Name
+              input.form-control ng-model="profile.user.name" type="text"
+              span.help-block ng-if="profile.error.name"
+                strong
+                  | {{profile.error.name[0]}}
+            .form-group
+              label Last name
+              input.form-control ng-model="profile.user.last_name" type="text"
+            .form-group ng-class="{'has-error': profile.error.initials}"
+              label Initials
+              input.form-control ng-model="profile.user.initials" type="text"
+              span.help-block ng-if="profile.error.initials"
+                strong
+                  | {{profile.error.initials[0]}}
+            .form-group
+              label Birthday
+              datetimepicker [
+                ng-model="profile.user.bday"
+              ]
+            .form-group ng-class="{'has-error': profile.error.email}"
+              label Email
+              input.form-control ng-model="profile.user.email" type="text"
+              span.help-block ng-if="profile.error.email"
+                strong
+                  | {{profile.error.email[0]}}
+            .form-group
+              label Phone
+              input.form-control ng-model="profile.user.phone" type="text"
+      .col-sm-6
+        .panel.panel-default
+          .panel-body
+            .form-group
+              label Job title
+              input.form-control ng-model="profile.user.job_title" type="text"
+            .form-group
+              label Country
+              input.form-control ng-model="profile.user.country" type="text"
+            .form-group
+              label City
+              input.form-control ng-model="profile.user.city" type="text"
+            .text-right
+            input.btn.btn-primary type="submit" value="Update"

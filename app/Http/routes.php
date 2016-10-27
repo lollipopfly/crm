@@ -18,7 +18,9 @@ Route::group(['prefix' => 'api'], function()
 
     // Profile
     Route::get('profile', 'Profile\ProfileController@index');
+    Route::get('profile/edit', 'Profile\ProfileController@edit');
     Route::put('profile/updatepoints', 'Profile\ProfileController@updatePoints');
+    Route::post('profile/{id}', 'Profile\ProfileController@update');
 
     // Stores
     Route::get('stores', 'Stores\StoresController@index');
@@ -76,12 +78,6 @@ Route::get('routes/create', function() { return view('layouts.layout'); });
 Route::get('routes/{id}/edit/', function() { return view('layouts.layout'); });
 
 // Route::group(['middleware' => 'auth'], function () {
-
-    // // PROFILE
-    // Route::get('profile/',  'Profile\ProfileController@index');
-    // Route::get('profile/edit',  'Profile\ProfileController@edit');
-    // Route::post('profile/update/{id}',  'Profile\ProfileController@update');
-
     // // MAP
     // Route::get('map/getallpoints', 'MapController@getAllPoints');
     // Route::get('map/', 'MapController@index');

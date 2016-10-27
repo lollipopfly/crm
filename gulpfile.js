@@ -116,16 +116,10 @@ gulp.task('compile-coffee', function() {
               'resources/assets/js/controllers/users/*.coffee',
               'resources/assets/js/controllers/stores/*.coffee',
               'resources/assets/js/controllers/routes/*.coffee',
-
               'resources/assets/js/controllers/profile/index_profile_ctrl.coffee',
               'resources/assets/js/controllers/profile/edit_profile_ctrl.coffee',
 
-              'resources/assets/js/directives/pagination.coffee',
-              'resources/assets/js/directives/file_field.coffee',
-              'resources/assets/js/directives/datetimepicker.coffee',
-              'resources/assets/js/directives/timepicker.coffee',
-              'resources/assets/js/directives/radio_field.coffee',
-              'resources/assets/js/directives/checkbox_field.coffee',
+              'resources/assets/js/directives/**/*.coffee'
         ])
         .pipe(sourcemaps.init())
         .pipe(coffee({bare: true}).on('error', gutil.log))

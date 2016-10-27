@@ -1,5 +1,3 @@
 <div class="thumb-md avatar pull-right margin-top-10">
-    <img src="/uploads/avatars/{{ imgName }}" class="img-circle">
-    <span ng-click="remove()" class="glyphicon glyphicon-remove c-p avatar-remove top right"></span>
-    <input type="hidden" name="remove_avatar">
+  <img class="img-circle" src="{{ imgName }}" /><span class="glyphicon glyphicon-remove c-p avatar-remove top right" ng-click="remove()"></span><input ng-model="remove_avatar" type="hidden" />
 </div>

@@ -5,7 +5,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
 use App\Route;
-use App\Http\Requests\ProfileUpdateRequest;
 use App\User;
 use App\Point;
 use App\Store;
@@ -19,7 +18,7 @@ class ProfileController extends Controller
 {
 
     public $upload_path = 'uploads/avatars/';
-    public $default_avatar = 'default.jpg';
+    public $default_avatar = 'default_avatar.jpg';
 
     public function __construct()
     {
@@ -28,7 +27,7 @@ class ProfileController extends Controller
     }
 
     /**
-     * @return view
+     * @return response
      */
     public function index() {
 
@@ -39,53 +38,55 @@ class ProfileController extends Controller
 
 
     /**
-     * @return view
+     * @return response
      */
     public function edit()
     {
-        $user = Auth::user();
-        return view('profile.edit')->with('user', $user);
+      return response()->json($this->user, 200);
     }
 
 
     /**
      * @param  Request
      * @param  int
-     * @return view
+     * @return response
      */
-    public function update(ProfileUpdateRequest $request, $id) {
-        $this->user = User::findOrFail($id);
-        $data = $request->all();
+    public function update(Request $request, $id) {
+      $this->validate($request, [
+        'name' => 'required',
+        'initials' => 'required|unique:users,initials,' . $this->user->id,
+        'email' => 'required|email|unique:users,email,'. $this->user->id,
+        'phone' => 'unique:users,phone,' . $this->user->id,
+      ]);
 
-        // Update avatar image
-        if($request->hasFile('avatar')) {
-            $avatar = $request->file('avatar');
-            $filename = time() . '.' .   $avatar->getClientOriginalExtension();
-            Image::make($avatar)->resize('125', '125')->save(public_path($this->upload_path . $filename));
-            $data['avatar'] = $filename;
+      $data = $request->all();
+      // Update avatar image
+      if($request->hasFile('avatar')) {
+          $avatar = $request->file('avatar')[0];
+          $filename = time() . '.' .   $avatar->getClientOriginalExtension();
+          Image::make($avatar)->resize('125', '125')->save(public_path($this->upload_path . $filename));
+          $data['avatar'] = $filename;
 
-            // Delete old file if exist
-            $this->deleteAvatarIfExist($this->user->avatar);
-        }
+          // Delete old file if exist
+          $this->deleteAvatarIfExist($this->user->avatar);
+      }
 
-        // Remove avatar if it was removed by directive
-        if($data['remove_avatar']) {
-            $data['avatar'] = $this->default_avatar;
+      // Remove avatar if it was removed by directive
+      if($data['remove_avatar'] == 'true') {
+          $data['avatar'] = $this->default_avatar;
 
-            // Delete old file if exist
-            $this->deleteAvatarIfExist($this->user->avatar);
-        }
+          // Delete old file if exist
+          $this->deleteAvatarIfExist($this->user->avatar);
+      }
 
-        $this->user->update($data);
-        Session::flash('flash_message', 'Profile updated.');
+      $this->user->update($data);
 
-        return response()->json(true, 200);
-
-        // return redirect('profile/');
+      return response()->json(true, 200);
     }
 
 
     /**
+     * Delete Avatar
      * @param  string
      * @return true
      */
@@ -102,7 +103,7 @@ class ProfileController extends Controller
      * Update points from profile
      *
      * @param Request
-     * @return view
+     * @return response
      */
     public function updatePoints(Request $request) {
       $user_id = $this->user->id;
