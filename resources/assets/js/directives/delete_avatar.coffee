@@ -5,11 +5,14 @@ deleteAvatar = ($timeout) ->
     scope:
       removeAvatar: '=ngModel'
     link: (scope, element, attrs) ->
-      $timeout(()->
-        scope.imgName = attrs.imgName
-      ,150)
+      attrs.$observe 'imgName', (value) ->
+        scope.imgName = value
+        return
+
       scope.remove = () ->
-        scope.imgName = 'images/default_avatar.jpg'
+        $timeout(()->
+          scope.imgName = 'images/default_avatar.jpg'
+        )
         # If removeAvatar = false, we have new image. If null - initial val
         if scope.removeAvatar == null
           scope.removeAvatar = true

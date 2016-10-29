@@ -8,13 +8,18 @@ EditProfileCtrl = ($http, $state, Upload) ->
       if vm.user.avatar == 'default_avatar.jpg'
         vm.user.avatar = '/images/' + vm.user.avatar
       else
-        vm.user.avatar = 'uploads/avatars/' + vm.user.avatar
+        vm.user.avatar = '/uploads/avatars/' + vm.user.avatar
+      vm.avatar = vm.user.avatar # for delete_avatar directive
     , (error) ->
       vm.error = error.data
 
   vm.update = () ->
+    avatar = vm.user.avatar
+    if vm.user.avatar == '/images/default_avatar.jpg'
+      vm.user.avatar = 'default_avatar.jpg'
+      avatar = 'default_avatar.jpg'
     vm.data =
-      avatar: vm.user.avatar
+      avatar: avatar
       remove_avatar: vm.user.remove_avatar
       name: vm.user.name
       last_name: vm.user.last_name
@@ -31,27 +36,12 @@ EditProfileCtrl = ($http, $state, Upload) ->
       method: 'Post'
       data: vm.data
     ).then ((resp) ->
-      console.log(vm.user.avatar);
-      # $state.go 'profile', { flashSuccess: 'Profile updated!' }
+      $state.go 'profile', { flashSuccess: 'Profile updated!' }
     ), ((error) ->
       vm.error = error.data
       console.log(vm.error);
       return
     )
-
-
-
-
-    # $http.patch('/api/profile/update/' + vm.user.id, user)
-    #   .then (response) ->
-    #     vm.data = response.data
-    #     # $state.go 'profile', { flashSuccess: 'Profile updated!' }
-
-    #     console.log(response);
-    #   , (error) ->
-    #     vm.error = error.data
-    #     console.log(error);
-
 
   return
 

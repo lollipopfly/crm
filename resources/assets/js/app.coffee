@@ -134,6 +134,15 @@ angular
         controller: 'ShowRouteCtrl as route'
       )
 
+      # Map
+      .state('map',
+        url: '/map'
+        templateUrl: '../views/map/index.html'
+        controller: 'IndexMapCtrl as map'
+        params:
+          flashSuccess: null
+      )
+
     return
   ).run ($q, $rootScope, $state, $auth, $location, $timeout) ->
     publicRoutes = [
