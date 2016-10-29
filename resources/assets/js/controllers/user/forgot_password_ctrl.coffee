@@ -1,4 +1,4 @@
-ForgotPasswordController = ($scope, $http) ->
+ForgotPasswordController = ($http) ->
   vm = this
 
   vm.restorePassword = ()->
@@ -6,7 +6,6 @@ ForgotPasswordController = ($scope, $http) ->
     data = {
       email: vm.email
     }
-    console.log(data);
     $http.post('api/authenticate/send_reset_code', data).success((data, status, headers, config) ->
       vm.spinnerDone = false
       if(data)

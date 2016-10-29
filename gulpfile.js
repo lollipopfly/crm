@@ -111,15 +111,15 @@ gulp.task('compress', function() {
 });
 
 gulp.task('compile-coffee', function() {
-    gulp.src(['resources/assets/js/app.coffee',
-              'resources/assets/js/controllers/user/*.coffee',
-              'resources/assets/js/controllers/users/*.coffee',
-              'resources/assets/js/controllers/stores/*.coffee',
-              'resources/assets/js/controllers/routes/*.coffee',
-              'resources/assets/js/controllers/profile/index_profile_ctrl.coffee',
-              'resources/assets/js/controllers/profile/edit_profile_ctrl.coffee',
+    gulp.src(['resources/assets/js/**/*.coffee',
+              // 'resources/assets/js/controllers/user/*.coffee',
+              // 'resources/assets/js/controllers/users/*.coffee',
+              // 'resources/assets/js/controllers/stores/*.coffee',
+              // 'resources/assets/js/controllers/routes/*.coffee',
+              // 'resources/assets/js/controllers/profile/*.coffee',
+              // 'resources/assets/js/controllers/profile/*.coffee',
 
-              'resources/assets/js/directives/**/*.coffee'
+              // 'resources/assets/js/directives/**/*.coffee'
         ])
         .pipe(sourcemaps.init())
         .pipe(coffee({bare: true}).on('error', gutil.log))

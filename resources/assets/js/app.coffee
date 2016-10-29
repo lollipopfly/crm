@@ -139,8 +139,6 @@ angular
         url: '/map'
         templateUrl: '../views/map/index.html'
         controller: 'IndexMapCtrl as map'
-        params:
-          flashSuccess: null
       )
 
     return

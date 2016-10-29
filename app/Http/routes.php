@@ -45,6 +45,8 @@ Route::group(['prefix' => 'api'], function()
     Route::patch('routes/{id}', 'Routes\RoutesController@update');
     Route::post('routes/getUsersAndStores', 'Routes\RoutesController@getUsersAndStores');
 
+    // Map
+    Route::get('map/', 'MapController@index');
 });
 
 // PUBLIC
@@ -59,26 +61,23 @@ Route::get('user/reset_password/{reset_password_code}', function() { return view
 Route::get('profile/', function() { return view('layouts.layout'); });
 Route::get('profile/edit', function() { return view('layouts.layout'); });
 
-// stores
+// Stores
 Route::get('stores/', function() { return view('layouts.layout'); });
 Route::get('stores/{id}', function() { return view('layouts.layout'); });
 Route::get('stores/create', function() { return view('layouts.layout'); });
 Route::get('stores/{id}/edit/', function() { return view('layouts.layout'); });
 
-// users
+// Users
 Route::get('users/', function() { return view('layouts.layout'); });
 Route::get('users/{id}', function() { return view('layouts.layout'); });
 Route::get('users/create', function() { return view('layouts.layout'); });
 Route::get('users/{id}/edit/', function() { return view('layouts.layout'); });
 
-// routes
+// Routes
 Route::get('routes/', function() { return view('layouts.layout'); });
 Route::get('routes/{id}', function() { return view('layouts.layout'); });
 Route::get('routes/create', function() { return view('layouts.layout'); });
 Route::get('routes/{id}/edit/', function() { return view('layouts.layout'); });
 
-// Route::group(['middleware' => 'auth'], function () {
-    // // MAP
-    // Route::get('map/getallpoints', 'MapController@getAllPoints');
-    // Route::get('map/', 'MapController@index');
-// });
+// Map
+Route::get('map/', function() { return view('layouts.layout'); });
