@@ -9,7 +9,7 @@
       <p>Thanks for creating an account.</p>
       <p>Please follow the link below to verify your email address</p>
       <p>
-        {{ URL::to('user/confirm/' . $confirmation_code) }}.<br/>
+        <a href="{{ URL::to('user/confirm/' . $confirmation_code) }}">{{ URL::to('user/confirm/' . $confirmation_code) }}</a><br/>
       </p>
 
       <p>

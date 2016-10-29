@@ -1,9 +1,9 @@
-ConfirmController = ($scope, $auth, $state, $http, $rootScope, $stateParams) ->
+ConfirmController = ($auth, $state, $http, $rootScope, $stateParams) ->
   vm = this
-  $scope.data = {
+  vm.data =
     confirmation_code: $stateParams.confirmation_code
-  }
-  $http.post('api/authenticate/confirm', $scope.data).success((data, status, headers, config) ->
+
+  $http.post('api/authenticate/confirm', vm.data).success((data, status, headers, config) ->
     # Save token
     $auth.setToken(data.token)
 
@@ -13,7 +13,7 @@ ConfirmController = ($scope, $auth, $state, $http, $rootScope, $stateParams) ->
     $rootScope.authenticated = true
     $rootScope.currentUser = data
 
-    $state.go 'users'
+    $state.go '/'
   ).error (data, status, header, config) ->
   return
 

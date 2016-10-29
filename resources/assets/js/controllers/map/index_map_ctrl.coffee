@@ -1,15 +1,17 @@
-app.controller 'indexMapCtrl', ($scope, $http, $timeout) ->
-  $scope.pointForms = []
-  $scope.pathArr = window.location.pathname.split('/',3)
-  $scope.id = $scope.pathArr[$scope.pathArr.length - 1]
+IndexMapCtrl = ($http, $timeout) ->
+  vm = this
+  vm.pointForms = []
+  vm.pathArr = window.location.pathname.split('/',3)
+  vm.id = vm.pathArr[vm.pathArr.length - 1]
   geocoder = new google.maps.Geocoder()
-  $scope.markers = []
+  vm.markers = []
 
   # Get points JSON
   $http(
     method: 'GET'
-    url: 'map/getallpoints').then ((response) ->
-      $scope.points = response.data
+    url: '/api/map').then ((response) ->
+      vm.points = response.data
+      console.log(vm.points);
       return
   )
 
@@ -21,14 +23,14 @@ app.controller 'indexMapCtrl', ($scope, $http, $timeout) ->
       streetViewControl: false
       zoomControlOptions: position: google.maps.ControlPosition.LEFT_BOTTOM
       center: new (google.maps.LatLng)(51.500152, -0.126236)
-      styles: $scope.styles
+      styles: vm.styles
 
     mapElement = document.getElementById('map')
     map = new (google.maps.Map)(mapElement, mapOptions)
     prevInfoWindow =false;
 
     # Set locations
-    angular.forEach( $scope.points, (value, key) ->
+    angular.forEach( vm.points, (value, key) ->
       # Geocode Addresses by address name
       geocoder.geocode { 'address': value.store.address }, (results, status) ->
         if (status == google.maps.GeocoderStatus.OK)
@@ -38,13 +40,13 @@ app.controller 'indexMapCtrl', ($scope, $http, $timeout) ->
 
           # select icons by status (green or red)
           if parseInt value.status
-            $scope.baloonName = 'images/baloon_shiped.svg'
+            vm.baloonName = 'images/baloon_shiped.svg'
           else
-            $scope.baloonName = 'images/baloon.svg'
+            vm.baloonName = 'images/baloon.svg'
 
           marker = new (google.maps.Marker)(
             map: map
-            icon: $scope.baloonName
+            icon: vm.baloonName
             position: results[0].geometry.location)
 
           # Click by other marker
@@ -66,11 +68,11 @@ app.controller 'indexMapCtrl', ($scope, $http, $timeout) ->
           )
 
           # Add new marker to array for outside map links (ordered by id in backend)
-          $scope.markers.push(marker)
+          vm.markers.push(marker)
     )
     return
 
-  $scope.styles = [
+  vm.styles = [
     {
       'featureType': 'water'
       'elementType': 'geometry'
@@ -184,14 +186,22 @@ app.controller 'indexMapCtrl', ($scope, $http, $timeout) ->
   ]
 
   # Go to point after click outside map link
-  $scope.goToPoint = (id) ->
-    google.maps.event.trigger($scope.markers[id], 'click')
+  vm.goToPoint = (id) ->
+    google.maps.event.trigger(vm.markers[id], 'click')
 
   # Init map
   $timeout (()->
     initMap()
     return
   ), 500
+
+
+  return
+
+'use strict'
+angular
+  .module('app')
+  .controller('IndexMapCtrl', IndexMapCtrl)
 
 
 
