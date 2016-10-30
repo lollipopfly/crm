@@ -3,9 +3,9 @@ ForgotPasswordController = ($http) ->
 
   vm.restorePassword = ()->
     vm.spinnerDone = true
-    data = {
+    data =
       email: vm.email
-    }
+
     $http.post('api/authenticate/send_reset_code', data).success((data, status, headers, config) ->
       vm.spinnerDone = false
       if(data)

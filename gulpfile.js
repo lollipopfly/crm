@@ -15,7 +15,6 @@ var gulp          = require('gulp'),
     selectors     = require('postcss-custom-selectors'),
     plumber       = require('gulp-plumber'),
     notify        = require("gulp-notify"),
-    changed       = require('gulp-changed'),
     debug         = require('gulp-debug'),
     gutil         = require('gulp-util'),
     elixir        = require('laravel-elixir');

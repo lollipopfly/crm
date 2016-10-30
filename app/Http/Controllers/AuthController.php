@@ -185,6 +185,7 @@ class AuthController extends Controller
       $this->validate($request, [
         'password' => 'required|min:8|confirmed',
       ]);
+
       $user = User::where('reset_password_code', $request->reset_password_code)->first();
 
       if($user) {

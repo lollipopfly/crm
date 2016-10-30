@@ -19,6 +19,7 @@ SignInController = ($auth, $state, $http, $rootScope) ->
         return
     ), (error) ->
       vm.error = error.data
+      console.log(vm.error);
       return
   return
 

@@ -5,7 +5,7 @@
         h3.panel-heading Login
         .panel-body
           form.form-horizontal ng-submit="auth.login()"
-            .form-group ng-class="{'has-error': auth.error.email}"
+            .form-group ng-class="{'has-error': auth.error.email || auth.error.error}"
               label.col-md-4.control-label E-Mail Address
               .col-md-6
                 input.form-control [
@@ -17,7 +17,7 @@
                   strong
                     | {{auth.error.email[0]}}
 
-            .form-group ng-class="{'has-error': auth.error.password}"
+            .form-group ng-class="{'has-error': auth.error.password || auth.error.error}"
               label.col-md-4.control-label Password
               .col-md-6
                 input.form-control [
@@ -29,9 +29,11 @@
                   strong
                     | {{auth.error.password[0]}}
 
-            .form-group ng-if="auth.error.error"
+            .form-group ng-if="auth.error.error" ng-class="{'has-error': auth.error.error}"
               .col-md-6.col-md-offset-4
-                .alert.alert-danger  {{auth.error.error}}
+                span.help-block
+                  strong
+                    | {{auth.error.error}}
 
             .form-group
               .col-md-6.col-md-offset-4
