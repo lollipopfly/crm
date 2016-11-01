@@ -44,7 +44,7 @@
                 {{ route.user.name }} {{ route.user.last_name}}
               </td>
               <td>
-                {{ route.date }}
+                {{ route.date | amDateFormat:'MM.DD.YYYY' }}
               </td>
               <td>
                 <uib-progressbar animate="false" type="success" value="route.progress"><b> {{ route.progress }} %</b></uib-progressbar>
