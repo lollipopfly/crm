@@ -15,6 +15,8 @@ ConfirmController = ($auth, $state, $http, $rootScope, $stateParams) ->
 
     $state.go '/'
   ).error (data, status, header, config) ->
+    $state.go 'sign_in'
+
   return
 
 'use strict'
