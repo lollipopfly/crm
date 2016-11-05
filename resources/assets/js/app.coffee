@@ -23,6 +23,7 @@ angular
       .state('/',
         url: '/'
         templateUrl: '../views/pages/home.html'
+        controller: 'IndexHomeCtrl as home'
       )
 
       # USER

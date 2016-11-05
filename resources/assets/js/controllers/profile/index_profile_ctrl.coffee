@@ -5,7 +5,6 @@ IndexProfileCtrl = ($http) ->
     .then (response) ->
       vm.user = response.data.user
       vm.points = response.data.points
-
       if vm.user.avatar == 'default_avatar.jpg'
         vm.user.avatar = '/images/' + vm.user.avatar
       else

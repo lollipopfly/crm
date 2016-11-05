@@ -1,0 +1,82 @@
+.bg-light.lter.b-b.wrapper-md.ng-scope
+  h1.m-r-md.inline.media-middle.font-thin.h3
+    | Dashboard
+
+.wrapper-md
+  .row ng-if="currentUser.user_group == 'admin'"
+    .col-xs-12
+      .panel.panel-default
+        table.table.table-striped.m-b-none.table-layout-fixed
+          thead
+            tr
+              th.sorting.v-top
+                span#id.sort-link.c-p ng-click="home.sortBy('id')"  Id
+              th.sorting.v-top
+                span#driver_name.sort-link.c-p ng-click="home.sortBy('driver_name')" Driver name
+              th.sorting.v-top
+                span#date.sort-link.c-p ng-click="home.sortBy('date')"  Date
+              th.sorting.v-top
+                span#progress.sort-link.c-p ng-click="home.sortBy('progress')"  Progress
+              th.text-right Actions
+          tbody
+            tr ng-repeat="route in home.routes"
+              td
+                a.text-info href="routes/{{ route.id }}" {{ route.id }}
+              td  {{ route.user.name }} {{ route.user.last_name}}
+              td  {{ route.date | amDateFormat:'MM.DD.YYYY' }}
+              td
+                uib-progressbar [
+                  type="success"
+                  value="route.progress"
+                  animate="false"
+                ]
+                  b  {{ route.progress }} %
+
+              td.text-right
+                a.v-middle.mr-5 [
+                  href="/routes/{{ route.id }}/edit"
+                  tooltip-placement="top-right"
+                  uib-tooltip="Edit route"
+                ]
+                  i.icon-pencil.c-p.f-z-15.color-green
+
+  .row ng-if="currentUser.user_group != 'admin'"
+    .col-xs-12
+      .panel.no-border ng-if="home.points.length"
+        .panel-heading.wrapper.b-b.b-light
+          a.pull-right.text-info href="/routes"  Go to routes page
+          h4.m-t-none.m-b-none Current routes
+        div
+          table.table.table-striped.m-b-none
+            thead
+              tr
+                th #
+                th Store
+                th Address
+                th Status
+            tbody
+              tr ng-repeat="point in home.points"
+                td  {{ point.id }}
+                td  {{ point.store.name }}
+                td  {{ point.store.address }}
+                td
+                  i.fa.fa-circle.m-r-xs.m-l-sm [
+                    ng-class="{'text-success' : point.status == 1, 'text-danger' : point.status == 0}"
+                  ]
+
+      .panel.no-border ng-if="!home.points.length"
+        .panel-heading.wrapper.b-b.b-light
+          h4.m-t-none.m-b-none You have no route...
+
+  .row
+    .col-xs-12.text-right
+      pagination [
+        pagi-arr="home.pagiArr"
+        items="home.routes"
+        pagi-api-url="home.pagiApiUrl"
+      ]
+  .panel.b-a
+    .panel-heading.b-b.b-light
+      span.text-u-c Map
+    .panel-body
+      #map

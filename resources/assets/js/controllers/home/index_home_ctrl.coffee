@@ -1,13 +1,52 @@
-IndexMapCtrl = ($http, $timeout) ->
+IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
   vm = this
+
+  # Routes
+  vm.sortReverse = null
+  vm.pagiApiUrl = '/api/home'
+  orderBy = $filter('orderBy')
+
+  # Map
   geocoder = new google.maps.Geocoder()
   vm.markers = []
 
+
+  ###  ROUTES  ###
+  if $rootScope.currentUser.user_group == 'admin'
+    $http.get('/api/home').then((response) ->
+      vm.routes = response.data.data
+      vm.pagiArr = response.data
+
+      return
+    , (error) ->
+      vm.error = error.data
+
+      return
+    )
+
+  vm.sortBy = (predicate) ->
+    vm.sortReverse = !vm.sortReverse
+    $('.sort-link').each () ->
+      $(this).removeClass().addClass('sort-link c-p')
+
+    if vm.sortReverse
+      $('#'+predicate).removeClass('active-asc').addClass('active-desc')
+    else
+      $('#'+predicate).removeClass('active-desc').addClass('active-asc')
+
+    vm.predicate = predicate
+    vm.reverse = if (vm.predicate == predicate) then !vm.reverse else false
+    vm.routes = orderBy(vm.routes, predicate, vm.reverse)
+
+    return
+
+  ###  MAP  ###
   # Get points JSON
   $http(
     method: 'GET'
-    url: '/api/map').then ((response) ->
+    url: '/api/home/getpoints').then ((response) ->
       vm.points = response.data
+
       return
   )
 
@@ -23,7 +62,7 @@ IndexMapCtrl = ($http, $timeout) ->
 
     mapElement = document.getElementById('map')
     map = new (google.maps.Map)(mapElement, mapOptions)
-    prevInfoWindow =false;
+    prevInfoWindow =false
 
     # Set locations
     angular.forEach( vm.points, (value, key) ->
@@ -197,4 +236,4 @@ IndexMapCtrl = ($http, $timeout) ->
 'use strict'
 angular
   .module('app')
-  .controller('IndexMapCtrl', IndexMapCtrl)
+  .controller('IndexHomeCtrl', IndexHomeCtrl)

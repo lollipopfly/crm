@@ -28,6 +28,7 @@ pagination = ($http) ->
         if pageNumber == undefined
           pageNumber = '1'
         $http.get(scope.pagiApiUrl+'?page=' + pageNumber).success (response) ->
+          console.log(response);
           scope.items = response.data
           scope.totalPages = response.last_page
           scope.currentPage = response.current_page

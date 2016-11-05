@@ -29,7 +29,7 @@
           strong  {{ profile.flashSuccess }}
 
   .row
-    .col-md-6.col-xs-12
+    .col-xs-12 ng-class="currentUser.user_group == 'admin' || !profile.points.length ? 'col-md-12' : 'col-md-6'"
       .panel.panel-default
         table.table.table-striped.m-b-none
           tr
@@ -57,10 +57,10 @@
               strong Phone
             td  {{ profile.user.phone }}
 
-    .col-md-6.col-xs-12
-      .panel.no-border ng-if="profile.points"
+    .col-md-6.col-xs-12 ng-if="currentUser.user_group != 'admin' && profile.points.length"
+      .panel.no-border
         .panel-heading.wrapper.b-b.b-light
-          a.pull-right.text-info href="/routes"  Go to route page
+          a.pull-right.text-info href="/routes"  Go to routes page
           h4.m-t-none.m-b-none Current routes
         form ng-submit="profile.updatePoints()"
           table.table.table-striped.m-b-none

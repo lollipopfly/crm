@@ -37,10 +37,10 @@ gulp.task('slim', function(){
     .pipe(gulp.dest("public/views/"));
 });
 
+
 /*------------------------------------*\
  Sass
 \*------------------------------------*/
-
 gulp.task('sass', function() {
     var processors = [
         autoprefixer({ browsers: ['last 20 versions'] }),

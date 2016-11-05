@@ -10,16 +10,15 @@ use App\Point;
 class MapController extends Controller
 {
   /**
-   * Get all points of route in JSON Format by route id
+   * Get all points of route in JSON Format
    *
    * @return JSON
    */
   public function index() {
     $points = Point::select('id', 'status', 'store_id')->with(['store' => function($query) {
        $query->select('id', 'address');
-   }])->get();
+    }])->get();
 
-   return $points->toJSON();
    return response()->json($points, 200);
   }
 }

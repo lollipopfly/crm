@@ -27,7 +27,7 @@ IndexRouteCtrl = ($http, $filter, $rootScope, $stateParams) ->
     if vm.sortReverse
       $('#'+predicate).removeClass('active-asc').addClass('active-desc')
     else
-      $('#'+predicate).removeClass('active-desc').addClass('active-asc');
+      $('#'+predicate).removeClass('active-desc').addClass('active-asc')
 
     vm.predicate = predicate
     vm.reverse = if (vm.predicate == predicate) then !vm.reverse else false
