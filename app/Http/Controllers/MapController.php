@@ -17,7 +17,7 @@ class MapController extends Controller
   public function index() {
     $points = Point::select('id', 'status', 'store_id')->with(['store' => function($query) {
        $query->select('id', 'address');
-    }])->get();
+   }])->get();
 
    return response()->json($points, 200);
   }

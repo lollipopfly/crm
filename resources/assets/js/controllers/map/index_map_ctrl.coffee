@@ -1,5 +1,6 @@
 IndexMapCtrl = ($http, $timeout) ->
   vm = this
+
   geocoder = new google.maps.Geocoder()
   vm.markers = []
 
@@ -8,6 +9,7 @@ IndexMapCtrl = ($http, $timeout) ->
     method: 'GET'
     url: '/api/map').then ((response) ->
       vm.points = response.data
+
       return
   )
 
