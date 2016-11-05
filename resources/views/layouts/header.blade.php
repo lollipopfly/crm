@@ -23,8 +23,8 @@
             </button>
             <!-- brand -->
             <a href="/" class="navbar-brand text-lt">
-                <i class="fa fa-btc"></i>
-                <span class="hidden-folded m-l-xs">CRM</span>
+                <div class="logo"></div>
+                <span class="hidden-folded m-l-xs logo-text">Ice Road</span>
             </a>
             <!-- / brand -->
         </div>

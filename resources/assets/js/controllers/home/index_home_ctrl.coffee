@@ -75,9 +75,9 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
 
           # select icons by status (green or red)
           if parseInt value.status
-            vm.baloonName = 'images/baloon_shiped.svg'
+            vm.baloonName = 'images/balloon_shiped.png'
           else
-            vm.baloonName = 'images/baloon.svg'
+            vm.baloonName = 'images/balloon.png'
 
           marker = new (google.maps.Marker)(
             map: map
@@ -90,6 +90,7 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
               prevInfoWindow.close()
 
             prevInfoWindow = infoWindow
+            map.panTo(marker.getPosition()) # animate move between markers
             infoWindow.open map, marker
 
             return
@@ -229,7 +230,6 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
     initMap()
     return
   ), 500
-
 
   return
 

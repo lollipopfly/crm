@@ -38,9 +38,9 @@ IndexMapCtrl = ($http, $timeout) ->
 
           # select icons by status (green or red)
           if parseInt value.status
-            vm.baloonName = 'images/baloon_shiped.svg'
+            vm.baloonName = 'images/balloon_shiped.png'
           else
-            vm.baloonName = 'images/baloon.svg'
+            vm.baloonName = 'images/balloon.png'
 
           marker = new (google.maps.Marker)(
             map: map
@@ -53,6 +53,7 @@ IndexMapCtrl = ($http, $timeout) ->
               prevInfoWindow.close()
 
             prevInfoWindow = infoWindow
+            map.panTo(marker.getPosition()) # animate move between markers
             infoWindow.open map, marker
 
             return

@@ -30,7 +30,6 @@ ShowRouteCtrl = ($http, $stateParams, $timeout, $state) ->
   initMap = ->
     # Basic options for a simple Google Map
     mapOptions =
-      # zoom: 5
       zoom: 12
       scrollwheel: false,
       mapTypeControl: false
@@ -55,9 +54,9 @@ ShowRouteCtrl = ($http, $stateParams, $timeout, $state) ->
 
           # select icons by status (green or red)
           if parseInt value.status
-           vm.baloonName = 'images/baloon_shiped.svg'
+           vm.baloonName = 'images/balloon_shiped.png'
           else
-           vm.baloonName = 'images/baloon.svg'
+           vm.baloonName = 'images/balloon.png'
 
           marker = new (google.maps.Marker)(
             map: map
@@ -70,8 +69,8 @@ ShowRouteCtrl = ($http, $stateParams, $timeout, $state) ->
               prevInfoWindow.close()
 
             prevInfoWindow = infoWindow;
+            map.panTo(marker.getPosition()) # animate move between markers
             infoWindow.open map, marker
-
             return
           )
 
@@ -83,7 +82,7 @@ ShowRouteCtrl = ($http, $stateParams, $timeout, $state) ->
           )
 
           # Add new marker to array for outside map links (ordered by id in backend)
-         vm.markers.push(marker)
+          vm.markers.push(marker)
     )
     return
 
@@ -203,7 +202,6 @@ ShowRouteCtrl = ($http, $stateParams, $timeout, $state) ->
   # Go to point after click outside map link
   vm.goToPoint = (id) ->
     google.maps.event.trigger(vm.markers[id], 'click')
-
 
   # Init map
   $timeout (()->
