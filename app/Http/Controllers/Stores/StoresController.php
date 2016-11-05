@@ -19,10 +19,11 @@ class StoresController extends Controller
     $this->middleware('role', ['only' => 'destroy|store|update|edit']);
   }
 
+
   /**
    * Display a listing of the resource.
    *
-   * @return void
+   * @return Object
    */
   public function index(Request $request)
   {
@@ -31,10 +32,11 @@ class StoresController extends Controller
     return $stores;
   }
 
+
   /**
    * Store a newly created resource in storage.
    *
-   * @return void
+   * @return True
    */
   public function store(Request $request)
   {
@@ -50,26 +52,28 @@ class StoresController extends Controller
     return response()->json(true);
   }
 
+
   /**
    * Display the specified resource.
    *
    * @param  int  $id
    *
-   * @return void
+   * @return Object
    */
   public function show($id)
   {
-      $store = Store::findOrFail($id);
+    $store = Store::findOrFail($id);
 
-      return $store;
+    return $store;
   }
+
 
   /**
    * Update the specified resource in storage.
    *
    * @param  int  $id
    *
-   * @return void
+   * @return True
    */
   public function update($id, Request $request)
   {
@@ -92,7 +96,7 @@ class StoresController extends Controller
    *
    * @param  int  $id
    *
-   * @return void
+   * @return True
    */
   public function destroy($id)
   {

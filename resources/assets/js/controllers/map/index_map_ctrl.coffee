@@ -193,7 +193,6 @@ IndexMapCtrl = ($http, $timeout) ->
     return
   ), 500
 
-
   return
 
 'use strict'

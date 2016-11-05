@@ -17,13 +17,15 @@ class HomeController extends Controller
    */
   public function __construct()
   {
+    $this->middleware('role', ['only' => 'index']);
     $this->user = JWTAuth::parseToken()->authenticate();
   }
 
+
   /**
-   * Show the application dashboard.
+   * Get Routes
    *
-   * @return \Illuminate\Http\Response
+   * @return JSON
    */
   public function index()
   {
@@ -63,6 +65,7 @@ class HomeController extends Controller
 
     return response()->json($routes, 200);
   }
+
 
   /**
    * Get all points of route in JSON Format
