@@ -42,36 +42,36 @@ gulp.task('slim', function(){
  Sass
 \*------------------------------------*/
 gulp.task('sass', function() {
-    var processors = [
-        autoprefixer({ browsers: ['last 20 versions'] }),
-        selectors,
-        postcssExtend,
-        size,
-        colorFunction,
-        //pxtorem({
-        //    replace: true
-        //})
-    ];
+  var processors = [
+      autoprefixer({ browsers: ['last 20 versions'] }),
+      selectors,
+      postcssExtend,
+      size,
+      colorFunction,
+      //pxtorem({
+      //    replace: true
+      //})
+  ];
 
-    return gulp.src([
-            'public/theme/libs/assets/animate.css/animate.css',
-            'public/theme/libs/assets/font-awesome/css/font-awesome.min.css',
-            'public/theme/libs/assets/simple-line-icons/css/simple-line-icons.css',
-            'public/theme/libs/jquery/bootstrap/dist/css/bootstrap.css',
-            'public/theme/css/font.css',
-            'public/theme/css/app.css',
-            'resources/assets/sass/app.scss'
-        ])
-        .pipe(concat('style.css'))
-        .pipe(sass().on('error', error))
-        .pipe(sass(
-			{
-                //outputStyle: 'compressed'
-			}
-        ))
-        .pipe(postcss(processors))
-        .pipe(debug({title: 'sass:'}))
-        .pipe(gulp.dest('public/build/css/'));
+  return gulp.src([
+          'public/theme/libs/assets/animate.css/animate.css',
+          'public/theme/libs/assets/font-awesome/css/font-awesome.min.css',
+          'public/theme/libs/assets/simple-line-icons/css/simple-line-icons.css',
+          'public/theme/libs/jquery/bootstrap/dist/css/bootstrap.css',
+          'public/theme/css/font.css',
+          'public/theme/css/app.css',
+          'resources/assets/sass/app.scss'
+      ])
+      .pipe(concat('style.css'))
+      .pipe(sass().on('error', error))
+      .pipe(sass(
+		{
+              //outputStyle: 'compressed'
+		}
+      ))
+      .pipe(postcss(processors))
+      .pipe(debug({title: 'sass:'}))
+      .pipe(gulp.dest('public/build/css/'));
 });
 
 /*------------------------------------*\
@@ -79,76 +79,67 @@ gulp.task('sass', function() {
 \*------------------------------------*/
 
 gulp.task('compress', function() {
-    return gulp.src([
-        'public/theme/libs/jquery/jquery/dist/jquery.js',
-        'public/theme/libs/jquery/bootstrap/dist/js/bootstrap.js',
-        'public/theme/js/ui-load.js',
-        'public/theme/js/ui-jp.config.js',
-        'public/theme/js/ui-jp.js',
-        'public/theme/js/ui-nav.js',
-        'public/theme/js/ui-toggle.js',
-        'public/theme/js/ui-client.js',
+  return gulp.src([
+    'public/theme/libs/jquery/jquery/dist/jquery.js',
+    'public/theme/libs/jquery/bootstrap/dist/js/bootstrap.js',
+    'public/theme/js/ui-load.js',
+    'public/theme/js/ui-jp.config.js',
+    'public/theme/js/ui-jp.js',
+    'public/theme/js/ui-nav.js',
+    'public/theme/js/ui-toggle.js',
+    'public/theme/js/ui-client.js',
 
-        'node_modules/angular/angular.js',
-        'node_modules/angular-ui-router/release/angular-ui-router.js',
-        'node_modules/satellizer/dist/satellizer.js',
-        'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
-        'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
-        'node_modules/easy-pie-chart/dist/angular.easypiechart.js',
-        'node_modules/ng-lodash/build/ng-lodash.js',
-        "node_modules/ng-mask/dist/ngMask.js",
-        "node_modules/moment/moment.js",
-        "node_modules/angular-moment/angular-moment.js",
-        "node_modules/ng-file-upload/dist/ng-file-upload-shim.js",
-        "node_modules/ng-file-upload/dist/ng-file-upload.js"
-    ])
-        .pipe(plumber())
-        .pipe(concat('global.min.js'))
-        //.pipe(uglify())
-        .pipe(debug({title: 'compress-js:'}))
-        .pipe(gulp.dest('public/build/js/'));
+    'node_modules/angular/angular.js',
+    'node_modules/angular-ui-router/release/angular-ui-router.js',
+    'node_modules/satellizer/dist/satellizer.js',
+    'node_modules/angular-ui-bootstrap/dist/ui-bootstrap.js',
+    'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
+    'node_modules/easy-pie-chart/dist/angular.easypiechart.js',
+    'node_modules/ng-lodash/build/ng-lodash.js',
+    "node_modules/ng-mask/dist/ngMask.js",
+    "node_modules/moment/moment.js",
+    "node_modules/angular-moment/angular-moment.js",
+    "node_modules/ng-file-upload/dist/ng-file-upload-shim.js",
+    "node_modules/ng-file-upload/dist/ng-file-upload.js"
+  ])
+    .pipe(plumber())
+    .pipe(concat('global.min.js'))
+    //.pipe(uglify())
+    .pipe(debug({title: 'compress-js:'}))
+    .pipe(gulp.dest('public/build/js/'));
 });
 
 gulp.task('compile-coffee', function() {
-    gulp.src(['resources/assets/js/**/*.coffee',
-              // 'resources/assets/js/controllers/user/*.coffee',
-              // 'resources/assets/js/controllers/users/*.coffee',
-              // 'resources/assets/js/controllers/stores/*.coffee',
-              // 'resources/assets/js/controllers/routes/*.coffee',
-              // 'resources/assets/js/controllers/profile/*.coffee',
-              // 'resources/assets/js/controllers/profile/*.coffee',
-
-              // 'resources/assets/js/directives/**/*.coffee'
-        ])
-        .pipe(sourcemaps.init())
-        .pipe(coffee({bare: true}).on('error', gutil.log))
-        .pipe(plumber())
-        .pipe(concat('app.js'))
-        .pipe(sourcemaps.write())
-        .pipe(debug({title: 'compile-coffee:'}))
-        .pipe(gulp.dest('public/build/js'));
+  gulp.src('resources/assets/js/**/*.coffee')
+      .pipe(sourcemaps.init())
+      .pipe(coffee({bare: true}).on('error', gutil.log))
+      .pipe(plumber())
+      .pipe(concat('app.js'))
+      .pipe(sourcemaps.write())
+      .pipe(debug({title: 'compile-coffee:'}))
+      .pipe(gulp.dest('public/build/js'));
 });
 
 gulp.task('copy-theme-libs', function() {
-    return gulp
-        .src([
-            'public/theme/libs/**/*',
-        ])
-        .pipe(changed('public/libs'))
-        .pipe(debug({title: 'copy-theme-libs:'}))
-        .pipe(gulp.dest('public/libs'));
+  return gulp
+    .src([
+        'public/theme/libs/**/*',
+    ])
+    .pipe(changed('public/libs'))
+    .pipe(debug({title: 'copy-theme-libs:'}))
+    .pipe(gulp.dest('public/libs'));
 });
 
 gulp.task('copy-theme-fonts', function() {
-    return gulp
-        .src([
-            'public/theme/fonts/**/*',
-            'public/theme/libs/assets/font-awesome/fonts/**/*',
-            'public/theme/libs/assets/simple-line-icons/fonts/**/*',
-        ])
-        .pipe(changed('public/build/fonts'))
-        .pipe(debug({title: 'copy-theme-fonts:'}))
-        .pipe(gulp.dest('public/build/fonts'));
+  return gulp
+    .src([
+        'public/theme/fonts/**/*',
+        'public/theme/libs/assets/font-awesome/fonts/**/*',
+        'public/theme/libs/assets/simple-line-icons/fonts/**/*',
+    ])
+    .pipe(changed('public/build/fonts'))
+    .pipe(debug({title: 'copy-theme-fonts:'}))
+    .pipe(gulp.dest('public/build/fonts'));
 });
 
 /*------------------------------------*\
@@ -166,9 +157,9 @@ gulp.task('watch', function() {
 \*------------------------------------*/
 
 gulp.task('notify', function(a) {
-    var date = new Date();
-    gulp.src("public/build/css/style.css")
-        .pipe(notify("Css was compiled! at " + date));
+  var date = new Date();
+  gulp.src("public/build/css/style.css")
+    .pipe(notify("Css was compiled! at " + date));
 });
 
 /*------------------------------------*\
@@ -176,13 +167,13 @@ gulp.task('notify', function(a) {
  \*------------------------------------*/
 
 gulp.task('default', [
-    'slim',
-    'copy-theme-libs',
-    'copy-theme-fonts',
-    'sass',
-    'compress',
-    'compile-coffee',
-    'watch'
+  'slim',
+  'copy-theme-libs',
+  'copy-theme-fonts',
+  'sass',
+  'compress',
+  'compile-coffee',
+  'watch'
 ]);
 
 
@@ -194,6 +185,6 @@ gulp.task('default', [
 
 // function like a plumber js
 function error(error) {
-    console.log(error.toString());
-    this.emit('end');
+  console.log(error.toString());
+  this.emit('end');
 }
