@@ -207,6 +207,7 @@ class RoutesController extends Controller
       }
     }
 
+
     // If have new routes, create them
     if(!empty($pointArrIds)) {
       $n = 1;
@@ -216,10 +217,11 @@ class RoutesController extends Controller
             'route_id'      => $id,
             'user_id'       => $request->user_id,
             'store_id'      => $value['store_id'],
-            'deadline_time' => $value['deadline_time'],
             'products'      => $value['products'],
+                        // 'deadline_time' => $value['deadline_time'],
           ];
-        Point::create($newPointArr);
+          if(isset($value['deadline_time'])) $newPointArr["deadline_time"] = $value['deadline_time'];
+          Point::create($newPointArr);
           $n++;
         }
       }
