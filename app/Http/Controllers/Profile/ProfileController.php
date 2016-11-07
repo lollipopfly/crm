@@ -65,24 +65,26 @@ class ProfileController extends Controller
     $data = $request->all();
     // Update avatar image
     if($request->hasFile('avatar')) {
-        $avatar = $request->file('avatar')[0];
-        $filename = time() . '.' .   $avatar->getClientOriginalExtension();
-        Image::make($avatar)->resize('125', '125')->save(public_path($this->upload_path . $filename));
-        $data['avatar'] = $filename;
+      $avatar = $request->file('avatar')[0];
+      $filename = time() . '.' .   $avatar->getClientOriginalExtension();
+      Image::make($avatar)->resize('125', '125')->save(public_path($this->upload_path . $filename));
+      $data['avatar'] = $filename;
 
-        // Delete old file if exist
-        $this->deleteAvatarIfExist($this->user->avatar);
+      // Delete old file if exist
+      $this->deleteAvatarIfExist($this->user->avatar);
     }
 
     // Remove avatar if it was removed by directive
-    if($data['remove_avatar'] == 'true') {
-        $data['avatar'] = $this->default_avatar;
+  if($data['remove_avatar'] == 'true') {
+      $data['avatar'] = $this->default_avatar;
 
-        // Delete old file if exist
-        $this->deleteAvatarIfExist($this->user->avatar);
+      // Delete old file if exist
+      $this->deleteAvatarIfExist($this->user->avatar);
     }
 
     $this->user->update($data);
+
+    if(isset($filename)) return response()->json($filename, 200);
 
     return response()->json(true, 200);
   }

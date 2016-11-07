@@ -4,6 +4,7 @@ deleteAvatar = ($timeout) ->
     templateUrl: '/views/directives/delete_avatar.html'
     scope:
       removeAvatar: '=ngModel'
+      file: "=file"
     link: (scope, element, attrs) ->
       attrs.$observe 'imgName', (value) ->
         scope.imgName = value
@@ -13,8 +14,8 @@ deleteAvatar = ($timeout) ->
         $timeout(()->
           scope.imgName = 'images/default_avatar.jpg'
         )
-        # If removeAvatar = false, we have new image. If null - initial val
-        if scope.removeAvatar == null
+
+        if scope.file != 'default_avatar.jpg'
           scope.removeAvatar = true
   }
 

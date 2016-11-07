@@ -42,6 +42,9 @@
 .arrow.right {
   right: -5px;
 }
+table.table td {
+  word-wrap: break-word;
+}
 textarea {
   resize: none;
 }
