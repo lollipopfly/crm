@@ -3,7 +3,7 @@
     | Dashboard
 
 .wrapper-md
-  .row ng-if="currentUser.user_group == 'admin'"
+  .row ng-if="currentUser.user_group == 'admin' && home.routes.length"
     .col-xs-12
       .panel.panel-default
         table.table.table-striped.m-b-none.table-layout-fixed

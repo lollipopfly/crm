@@ -37,7 +37,7 @@
               <label>Email</label><input class="form-control" ng-model="profile.user.email" type="text" /><span class="help-block" ng-if="profile.error.email"><strong>{{profile.error.email[0]}}</strong></span>
             </div>
             <div class="form-group">
-              <label>Phone</label><input class="form-control" ng-model="profile.user.phone" type="text" />
+              <label>Phone</label><input class="form-control" mask="+9999 9999 9999" ng-model="profile.user.phone" type="text" />
             </div>
           </div>
         </div>

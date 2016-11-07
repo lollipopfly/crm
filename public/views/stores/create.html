@@ -47,7 +47,7 @@
                 <span class="text"><i class="fa icon-screen-smartphone text mr-3"></i>Phone:</span>
               </div>
               <div class="col-md-7" ng-class="{&#39;has-error&#39;: store.error.phone}">
-                <input class="form-control" mask="9999-999-999" ng-model="store.phone" type="text" /><span class="help-block" ng-if="store.error.phone"><strong>{{store.error.phone[0]}}</strong></span>
+                <input class="form-control" mask="+9999 9999 9999" ng-model="store.phone" ng-value="+4420" type="text" /><span class="help-block" ng-if="store.error.phone"><strong>{{store.error.phone[0]}}</strong></span>
               </div>
             </div>
             <div class="line line-dashed b-b line-lg pull-in"></div>

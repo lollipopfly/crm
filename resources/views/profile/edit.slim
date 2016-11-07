@@ -52,7 +52,11 @@
                   | {{profile.error.email[0]}}
             .form-group
               label Phone
-              input.form-control ng-model="profile.user.phone" type="text"
+              input.form-control [
+                type="text"
+                ng-model="profile.user.phone"
+                mask="+9999 9999 9999"
+              ]
       .col-sm-6
         .panel.panel-default
           .panel-body
