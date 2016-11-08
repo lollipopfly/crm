@@ -9,12 +9,11 @@ CreateRouteCtrl = ($http, $state) ->
       vm.error = error.data
 
   vm.createRoute = () ->
-    if vm.date != undefined
-      vm.newData = moment(vm.date).format('DD.MM.YYYY')
+    console.log(vm.date)
 
     vm.route =
       user_id: vm.user_id
-      date: vm.newData
+      date: vm.date
       points: vm.pointForms
 
     $http.post('/api/routes', vm.route)
