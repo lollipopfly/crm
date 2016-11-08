@@ -2,9 +2,23 @@
   .row
     .col-md-8.col-md-offset-2
       .panel.panel-default
-        h3.panel-heading Login
+        h3.panel-heading.text-u-c Login
         .panel-body
+
           form.form-horizontal ng-submit="auth.login()"
+            .form-group
+              label.col-md-4.control-label
+                b.text-u-c Demo Log In:
+              .col-md-6
+                .div
+                  span
+                    | Username:
+                    b.text-info  admin@iceroad.com
+                .div
+                  span
+                    | Password:
+                    b.text-info  adminpassword
+
             .form-group ng-class="{'has-error': auth.error.email || auth.error.error}"
               label.col-md-4.control-label E-Mail Address
               .col-md-6

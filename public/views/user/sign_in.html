@@ -2,11 +2,22 @@
   <div class="row">
     <div class="col-md-8 col-md-offset-2">
       <div class="panel panel-default">
-        <h3 class="panel-heading">
+        <h3 class="panel-heading text-u-c">
           Login
         </h3>
         <div class="panel-body">
           <form class="form-horizontal" ng-submit="auth.login()">
+            <div class="form-group">
+              <label class="col-md-4 control-label"><b class="text-u-c">Demo Log In:</b></label>
+              <div class="col-md-6">
+                <div class="div">
+                  <span>Username:<b class="text-info"> admin@iceroad.com</b></span>
+                </div>
+                <div class="div">
+                  <span>Password:<b class="text-info"> adminpassword</b></span>
+                </div>
+              </div>
+            </div>
             <div class="form-group" ng-class="{&#39;has-error&#39;: auth.error.email || auth.error.error}">
               <label class="col-md-4 control-label">E-Mail Address</label>
               <div class="col-md-6">
