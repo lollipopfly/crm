@@ -12,8 +12,8 @@
               .m-b.m-t-sm
                 span.h3.text-black ng-if="profile.user.initials"
                   | {{ profile.user.initials }}
-                small.m-l ng-show="profile.user.city" {{ profile.user.city }}
-                small.m-l ng-show="profile.user.country" {{ profile.user.country }}
+                small.m-l.color-black ng-show="profile.user.city" {{ profile.user.city }}
+                small.m-l.color-black ng-show="profile.user.country" {{ profile.user.country }}
               a.btn.btn-sm.btn-success.btn-rounded href="profile/edit"  Edit
 
               a.btn.btn-sm.btn-primary.btn-rounded [

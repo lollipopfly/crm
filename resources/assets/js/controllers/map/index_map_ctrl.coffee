@@ -1,7 +1,8 @@
 IndexMapCtrl = ($http, $timeout) ->
   vm = this
 
-  geocoder = new google.maps.Geocoder()
+  # Map
+  apiKey = 'a303d3a44a01c9f8a5cb0107b033efbe';
   vm.markers = []
 
   # Get points JSON
@@ -20,7 +21,7 @@ IndexMapCtrl = ($http, $timeout) ->
       mapTypeControl: false
       streetViewControl: false
       zoomControlOptions: position: google.maps.ControlPosition.LEFT_BOTTOM
-      center: new (google.maps.LatLng)(51.500152, -0.126236)
+      center: new (google.maps.LatLng)(51.5073509, -0.1277583)
       styles: vm.styles
 
     mapElement = document.getElementById('map')
@@ -29,45 +30,55 @@ IndexMapCtrl = ($http, $timeout) ->
 
     # Set locations
     angular.forEach( vm.points, (value, key) ->
+      address = value.store.address
       # Geocode Addresses by address name
-      geocoder.geocode { 'address': value.store.address }, (results, status) ->
-        if (status == google.maps.GeocoderStatus.OK)
-          contentString = '<div class="marker-content ">' + value.store.address + '</div>'
-          infoWindow = new (google.maps.InfoWindow)(content: contentString) # popup
-          map.setCenter results[0].geometry.location
+      apiUrl = "https://api.opencagedata.com/geocode/v1/json?q="+address+"&pretty=1&key=" + apiKey;
+      req = new XMLHttpRequest();
 
-          # select icons by status (green or red)
-          if parseInt value.status
-            vm.baloonName = 'images/balloon_shiped.png'
-          else
-            vm.baloonName = 'images/balloon.png'
+      req.onload = () ->
+       if (req.readyState == 4 && req.status == 200)
+         response = JSON.parse(this.responseText)
+         position = response.results[0].geometry
 
-          marker = new (google.maps.Marker)(
-            map: map
-            icon: vm.baloonName
-            position: results[0].geometry.location)
+         if (response.status.code == 200)
+           contentString = '<div class="marker-content">' + value.store.address + '</div>'
+           infoWindow = new (google.maps.InfoWindow)(content: contentString) # popup
 
-          # Click by other marker
-          google.maps.event.addListener(marker, 'click', ->
-            if( prevInfoWindow )
-              prevInfoWindow.close()
+           # select icons by status (green or red)
+           if parseInt value.status
+             vm.baloonName = 'images/balloon_shiped.png'
+           else
+             vm.baloonName = 'images/balloon.png'
 
-            prevInfoWindow = infoWindow
-            map.panTo(marker.getPosition()) # animate move between markers
-            infoWindow.open map, marker
+           marker = new (google.maps.Marker)(
+             map: map
+             icon: vm.baloonName
+             position: position
+           )
 
-            return
-          )
+           # Click by other marker
+           google.maps.event.addListener(marker, 'click', ->
+             if( prevInfoWindow )
+               prevInfoWindow.close()
 
-          # Click by empty map area
-          google.maps.event.addListener(map, 'click', ->
-            infoWindow.close()
+             prevInfoWindow = infoWindow
+             map.panTo(marker.getPosition()) # animate move between markers
+             infoWindow.open map, marker
 
-            return
-          )
+             return
+           )
 
-          # Add new marker to array for outside map links (ordered by id in backend)
-          vm.markers.push(marker)
+           # Click by empty map area
+           google.maps.event.addListener(map, 'click', ->
+             infoWindow.close()
+
+             return
+           )
+
+           # Add new marker to array for outside map links (ordered by id in backend)
+           vm.markers.push(marker)
+      req.open("GET", apiUrl, true);
+      req.send();
     )
     return
 

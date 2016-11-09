@@ -35,7 +35,6 @@ EditProfileCtrl = ($http, $state, Upload, $rootScope) ->
       data: vm.data
     ).then ((response) ->
       fileName = response.data
-      console.log(fileName, vm.user.remove_avatar);
       storage = localStorage.getItem('user')
       storage = JSON.parse(storage)
 

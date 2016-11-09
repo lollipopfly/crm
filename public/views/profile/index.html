@@ -7,7 +7,7 @@
             <a class="thumb-lg pull-left m-r"><img class="img-circle" src="{{ profile.user.avatar }}" /></a>
             <div class="clear m-b">
               <div class="m-b m-t-sm">
-                <span class="h3 text-black" ng-if="profile.user.initials">{{ profile.user.initials }}</span><small class="m-l" ng-show="profile.user.city">{{ profile.user.city }}</small><small class="m-l" ng-show="profile.user.country">{{ profile.user.country }}</small>
+                <span class="h3 text-black" ng-if="profile.user.initials">{{ profile.user.initials }}</span><small class="m-l color-black" ng-show="profile.user.city">{{ profile.user.city }}</small><small class="m-l color-black" ng-show="profile.user.country">{{ profile.user.country }}</small>
               </div>
               <a class="btn btn-sm btn-success btn-rounded" href="profile/edit"> Edit</a><a class="btn btn-sm btn-primary btn-rounded" href="users/create" ng-if="currentUser.user_group == &#39;admin&#39;">Add new user</a>
             </div>
