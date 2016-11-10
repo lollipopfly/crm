@@ -27,15 +27,9 @@
                         <li>
                             <a href="{{ url('/profile/edit/') }}">Edit</a>
                         </li>
-                        <li>
-                            <a href>
-                                <span class="badge bg-danger pull-right">3</span>
-                                Notifications
-                            </a>
-                        </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="{{ url('/logout/') }}">Logout</a>
+                            <a href="#" ng-click="logout()">Logout</a>
                         </li>
                     </ul>
                     <!-- / dropdown -->
