@@ -22,14 +22,14 @@
                     <!-- dropdown -->
                     <ul class="dropdown-menu animated fadeInRight w hidden-folded">
                         <li>
-                            <a href="{{ url('/profile/') }}">Profile</a>
+                          <a href="{{ url('/profile/') }}">Profile</a>
                         </li>
                         <li>
                             <a href="{{ url('/profile/edit/') }}">Edit</a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="#" ng-click="logout()">Logout</a>
+                          <a href="#" ng-click="logout()">Logout</a>
                         </li>
                     </ul>
                     <!-- / dropdown -->
