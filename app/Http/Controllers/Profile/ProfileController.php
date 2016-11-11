@@ -67,6 +67,12 @@ class ProfileController extends Controller
     if($request->hasFile('avatar')) {
       $avatar = $request->file('avatar')[0];
       $filename = time() . '.' .   $avatar->getClientOriginalExtension();
+
+      // Create uploads/avatar folder if not exists
+      if( !File::exists(public_path($this->upload_path)) ) {
+        File::makeDirectory(public_path($this->upload_path),  $mode = 0775, $recursive = true);
+      }
+
       Image::make($avatar)->resize('125', '125')->save(public_path($this->upload_path . $filename));
       $data['avatar'] = $filename;
 
@@ -75,7 +81,7 @@ class ProfileController extends Controller
     }
 
     // Remove avatar if it was removed by directive
-  if($data['remove_avatar'] == 'true') {
+    if($data['remove_avatar'] == 'true') {
       $data['avatar'] = $this->default_avatar;
 
       // Delete old file if exist

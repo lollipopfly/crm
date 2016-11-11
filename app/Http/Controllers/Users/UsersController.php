@@ -11,6 +11,7 @@ use App\User;
 use Image;
 use Hash;
 use DB;
+use File;
 
 class UsersController extends Controller
 {
@@ -73,6 +74,12 @@ class UsersController extends Controller
     if($request->hasFile('avatar')) {
       $avatar = $request->file('avatar')[0];
       $filename = time() . '.' .   $avatar->getClientOriginalExtension();
+
+      // Create uploads/avatar folder if not exists
+      if( !File::exists(public_path($this->upload_path)) ) {
+        File::makeDirectory(public_path($this->upload_path),  $mode = 0775, $recursive = true);
+      }
+
       Image::make($avatar)->resize('125', '125')->save(public_path($this->upload_path . $filename));
       $data['avatar'] = $filename;
     }
