@@ -1,6 +1,5 @@
 {
   "private": true,
-  "name": "gulp",
   "version": "1.0.0",
   "description": "",
   "main": "gulpfile.js",
@@ -47,7 +46,7 @@
     "remove": "*"
   },
   "scripts": {
-    "postinstall": "gulp production"
+    "postinstall": "gulp productiongul"
   },
   "author": "lollipop.fly",
   "license": "ISC"
