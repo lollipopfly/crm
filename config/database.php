@@ -1,17 +1,5 @@
 <?php
 
-// for Heroku
-$url = parse_url(getenv("CLEARDB_DATABASE_URL"));
-
-if (getenv('CLEARDB_DATABASE_URL')) {
-    $url = parse_url(getenv('CLEARDB_DATABASE_URL'));
-    putenv("DB_HOST={$url['host']}");
-    putenv("DB_USERNAME={$url['user']}");
-    putenv("DB_PASSWORD={$url['pass']}");
-    $db = substr($url['path'],1);
-    putenv("DB_DATABASE={$db}");
-}
-
 return [
 
     /*

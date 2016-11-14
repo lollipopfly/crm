@@ -1,10 +1,9 @@
 {
-  "private": true,
+  "name": "gulp",
   "version": "1.0.0",
   "description": "",
   "main": "gulpfile.js",
   "dependencies": {
-    "gulp": "^3.9.1",
     "angular": "^1.5.7",
     "angular-moment": "^1.0.0-beta.6",
     "angular-ui-bootstrap": "^1.3.3",
@@ -16,7 +15,10 @@
     "ng-file-upload": "^12.2.12",
     "ng-lodash": "^0.2.3",
     "ng-mask": "^3.1.1",
-    "satellizer": "^0.15.5",
+    "satellizer": "^0.15.5"
+  },
+  "devDependencies": {
+    "gulp": "*",
     "gulp-changed": "^1.3.2",
     "gulp-coffee": "^2.3.2",
     "gulp-concat": "*",
@@ -43,11 +45,8 @@
     "postcss-size": "*",
     "remove": "*"
   },
-  "devDependencies": {
-
-  },
   "scripts": {
-    "postinstall": "gulp production"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "lollipop.fly",
   "license": "ISC"

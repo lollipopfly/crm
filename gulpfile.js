@@ -54,12 +54,12 @@ gulp.task('sass', function() {
   ];
 
   return gulp.src([
-          // 'public/theme/libs/assets/animate.css/animate.css',
-          // 'public/theme/libs/assets/font-awesome/css/font-awesome.min.css',
-          // 'public/theme/libs/assets/simple-line-icons/css/simple-line-icons.css',
-          // 'public/theme/libs/jquery/bootstrap/dist/css/bootstrap.css',
-          // 'public/theme/css/font.css',
-          // 'public/theme/css/app.css',
+          'public/theme/libs/assets/animate.css/animate.css',
+          'public/theme/libs/assets/font-awesome/css/font-awesome.min.css',
+          'public/theme/libs/assets/simple-line-icons/css/simple-line-icons.css',
+          'public/theme/libs/jquery/bootstrap/dist/css/bootstrap.css',
+          'public/theme/css/font.css',
+          'public/theme/css/app.css',
           'resources/assets/sass/app.scss'
       ])
       .pipe(concat('style.css'))
@@ -174,18 +174,6 @@ gulp.task('default', [
   'compress',
   'compile-coffee',
   'watch'
-]);
-
-/*------------------------------------*\
- Run default gulp tasks
- \*------------------------------------*/
-gulp.task('production', [
-  'slim',
-  'copy-theme-libs',
-  // 'copy-theme-fonts',
-  'sass',
-  'compress',
-  'compile-coffee',
 ]);
 
 
