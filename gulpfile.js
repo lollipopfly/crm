@@ -176,6 +176,18 @@ gulp.task('default', [
   'watch'
 ]);
 
+/*------------------------------------*\
+ Run default gulp tasks
+ \*------------------------------------*/
+gulp.task('production', [
+  'slim',
+  'copy-theme-libs',
+  'copy-theme-fonts',
+  'sass',
+  'compress',
+  'compile-coffee',
+]);
+
 
 /**
  ***************************************************************
