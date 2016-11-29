@@ -1,6 +1,6 @@
 IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
   vm = this
-  console.log('index');
+
   # Routes
   vm.sortReverse = null
   vm.pagiApiUrl = '/api/home'
@@ -66,6 +66,7 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
 
     # Set locations
     angular.forEach( vm.points, (value, key) ->
+      console.log(value);
       address = value.store.address
       # Geocode Addresses by address name
       apiUrl = "https://api.opencagedata.com/geocode/v1/json?q="+address+"&pretty=1&key=" + apiKey;
@@ -239,8 +240,9 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
   # Init map
   $timeout (()->
     initMap()
+    console.log('init');
     return
-  ), 500
+  ), 300
 
   return
 
