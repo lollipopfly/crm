@@ -24,6 +24,17 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
       return
     )
 
+  ###  MAP  ###
+  # Get points JSON
+  $http(
+    method: 'GET'
+    url: '/api/home/getpoints').then ((response) ->
+      vm.points = response.data
+      initMap()
+
+      return
+  )
+
   vm.sortBy = (predicate) ->
     vm.sortReverse = !vm.sortReverse
     $('.sort-link').each () ->
@@ -40,15 +51,6 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
 
     return
 
-  ###  MAP  ###
-  # Get points JSON
-  $http(
-    method: 'GET'
-    url: '/api/home/getpoints').then ((response) ->
-      vm.points = response.data
-
-      return
-  )
 
   initMap = ->
     mapOptions =
@@ -66,7 +68,6 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
 
     # Set locations
     angular.forEach( vm.points, (value, key) ->
-      console.log(value);
       address = value.store.address
       # Geocode Addresses by address name
       apiUrl = "https://api.opencagedata.com/geocode/v1/json?q="+address+"&pretty=1&key=" + apiKey;
@@ -236,13 +237,6 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
   # Go to point after click outside map link
   vm.goToPoint = (id) ->
     google.maps.event.trigger(vm.markers[id], 'click')
-
-  # Init map
-  $timeout (()->
-    initMap()
-    console.log('init');
-    return
-  ), 300
 
   return
 

@@ -10,7 +10,8 @@ IndexMapCtrl = ($http, $timeout) ->
     method: 'GET'
     url: '/api/map').then ((response) ->
       vm.points = response.data
-
+      # Init map
+      initMap()
       return
   )
 
@@ -198,12 +199,6 @@ IndexMapCtrl = ($http, $timeout) ->
   # Go to point after click outside map link
   vm.goToPoint = (id) ->
     google.maps.event.trigger(vm.markers[id], 'click')
-
-  # Init map
-  $timeout (()->
-    initMap()
-    return
-  ), 500
 
   return
 
