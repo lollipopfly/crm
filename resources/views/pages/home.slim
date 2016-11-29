@@ -22,7 +22,7 @@
             tr ng-repeat="route in home.routes"
               td
                 a.text-info href="routes/{{ route.id }}" {{ route.id }}
-              td  {{ route.user.name }} {{ route.user.last_name}}
+              td  {{ route.user.name }} {{ route.user.last_name }}
               td  {{ route.date | amDateFormat:'MM.DD.YYYY' }}
               td
                 uib-progressbar [
