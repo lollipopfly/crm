@@ -1,6 +1,6 @@
 IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
   vm = this
-
+  console.log('index');
   # Routes
   vm.sortReverse = null
   vm.pagiApiUrl = '/api/home'

@@ -152,12 +152,10 @@ angular
     ]
 
     # if not logged
-    $timeout(() ->
-      $rootScope.currentState = $state.current.name
+    $rootScope.currentState = $state.current.name
 
-      if !$auth.isAuthenticated() && publicRoutes.indexOf($rootScope.currentState) == -1
-        $location.path 'user/sign_in'
-    )
+    if !$auth.isAuthenticated() && publicRoutes.indexOf($rootScope.currentState) == -1
+      $location.path 'user/sign_in'
 
     $rootScope.$on '$stateChangeStart', (event, toState) ->
       user = JSON.parse(localStorage.getItem('user'))
