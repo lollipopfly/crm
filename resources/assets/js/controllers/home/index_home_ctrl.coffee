@@ -79,7 +79,14 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
           position = response.results[0].geometry
 
           if (response.status.code == 200)
-            contentString = '<div class="marker-content">' + value.store.address + '</div>'
+            contentString =
+              '<div class="marker-content">' +
+                '<div><span class="maker-content__title">' +
+                  'Address:</span> ' + value.store.address + '</div>' +
+                '<div><span class="maker-content__title">' +
+                  'Phone:</span> ' + value.store.phone + '</div>' +
+              '</div>'
+
             infoWindow = new (google.maps.InfoWindow)(content: contentString) # popup
 
             # select icons by status (green or red)

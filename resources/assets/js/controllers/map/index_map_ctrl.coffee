@@ -37,47 +37,54 @@ IndexMapCtrl = ($http, $timeout) ->
       req = new XMLHttpRequest();
 
       req.onload = () ->
-       if (req.readyState == 4 && req.status == 200)
-         response = JSON.parse(this.responseText)
-         position = response.results[0].geometry
+        if (req.readyState == 4 && req.status == 200)
+          response = JSON.parse(this.responseText)
+          position = response.results[0].geometry
 
-         if (response.status.code == 200)
-           contentString = '<div class="marker-content">' + value.store.address + '</div>'
-           infoWindow = new (google.maps.InfoWindow)(content: contentString) # popup
+          if (response.status.code == 200)
+            contentString =
+              '<div class="marker-content">' +
+                '<div><span class="maker-content__title">' +
+                  'Address:</span> ' + value.store.address + '</div>' +
+                '<div><span class="maker-content__title">' +
+                  'Phone:</span> ' + value.store.phone + '</div>' +
+              '</div>'
 
-           # select icons by status (green or red)
-           if parseInt value.status
-             vm.baloonName = 'images/balloon_shiped.png'
-           else
-             vm.baloonName = 'images/balloon.png'
+            infoWindow = new (google.maps.InfoWindow)(content: contentString) # popup
 
-           marker = new (google.maps.Marker)(
-             map: map
-             icon: vm.baloonName
-             position: position
-           )
+          # select icons by status (green or red)
+          if parseInt value.status
+            vm.baloonName = 'images/balloon_shiped.png'
+          else
+            vm.baloonName = 'images/balloon.png'
 
-           # Click by other marker
-           google.maps.event.addListener(marker, 'click', ->
-             if( prevInfoWindow )
-               prevInfoWindow.close()
+          marker = new (google.maps.Marker)(
+            map: map
+            icon: vm.baloonName
+            position: position
+          )
 
-             prevInfoWindow = infoWindow
-             map.panTo(marker.getPosition()) # animate move between markers
-             infoWindow.open map, marker
+          # Click by other marker
+          google.maps.event.addListener(marker, 'click', ->
+            if( prevInfoWindow )
+              prevInfoWindow.close()
 
-             return
-           )
+            prevInfoWindow = infoWindow
+            map.panTo(marker.getPosition()) # animate move between markers
+            infoWindow.open map, marker
 
-           # Click by empty map area
-           google.maps.event.addListener(map, 'click', ->
-             infoWindow.close()
+            return
+          )
 
-             return
-           )
+          # Click by empty map area
+          google.maps.event.addListener(map, 'click', ->
+            infoWindow.close()
 
-           # Add new marker to array for outside map links (ordered by id in backend)
-           vm.markers.push(marker)
+            return
+          )
+
+          # Add new marker to array for outside map links (ordered by id in backend)
+          vm.markers.push(marker)
       req.open("GET", apiUrl, true);
       req.send();
     )

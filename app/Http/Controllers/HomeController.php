@@ -81,7 +81,7 @@ class HomeController extends Controller
     }
 
     $points = Point::select('id', 'status', 'store_id')->with(['store' => function($query) {
-       $query->select('id', 'name', 'address');
+       $query->select('id', 'address', 'phone');
     }])->where($where)->get();
 
    return response()->json($points, 200);

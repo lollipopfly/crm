@@ -13,6 +13,11 @@ ShowRouteCtrl = ($http, $stateParams, $timeout, $state) ->
       vm.stores = response.data.stores
       vm.points = response.data.points
       vm.route.date = moment(new Date(vm.route.date)).format('DD.MM.YYYY')
+
+      # Init map
+      initMap()
+
+      return
     , (error) ->
       vm.error = error.data
       console.log(error);
@@ -57,7 +62,13 @@ ShowRouteCtrl = ($http, $stateParams, $timeout, $state) ->
           position = response.results[0].geometry
 
           if (response.status.code == 200)
-            contentString = '<div class="marker-content">' + value.store.address + '</div>'
+            contentString =
+              '<div class="marker-content">' +
+                '<div><span class="maker-content__title">' +
+                  'Address:</span> ' + value.store.address + '</div>' +
+                '<div><span class="maker-content__title">' +
+                  'Phone:</span> ' + value.store.phone + '</div>' +
+              '</div>'
             infoWindow = new (google.maps.InfoWindow)(content: contentString) # popup
 
             # select icons by status (green or red)
@@ -214,12 +225,6 @@ ShowRouteCtrl = ($http, $stateParams, $timeout, $state) ->
   # Go to point after click outside map link
   vm.goToPoint = (id) ->
     google.maps.event.trigger(vm.markers[id], 'click')
-
-  # Init map
-  $timeout (()->
-    initMap()
-    return
-  ), 500
 
   return
 

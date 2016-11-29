@@ -15046,7 +15046,9 @@ button i {
   height: 500px; }
 
 .marker-content {
-  font-size: 16px;
+  font-size: 16px; }
+
+.maker-content__title {
   font-weight: bold; }
 
 .forgot-password__spinner {
