@@ -16,6 +16,7 @@ use File;
 class UsersController extends Controller
 {
   public $upload_path = 'uploads/avatars/';
+  public $default_avatar = 'default_avatar.jpg';
 
   /**
    * Role Middleware
@@ -115,8 +116,13 @@ class UsersController extends Controller
    */
   public function destroy($id)
   {
-    User::destroy($id);
+    $user = User::findOrFail($id);
 
+    if ($user->avatar !== $this->default_avatar) {
+      File::delete($this->upload_path . $user->avatar);
+    }
+
+    User::destroy($id);
     return response()->json(true, 200);
   }
 
