@@ -143,7 +143,7 @@ angular
       )
 
     return
-  ).run ($q, $rootScope, $state, $auth, $location, $timeout) ->
+  ).run ($auth, $http, $location, $q, $rootScope, $state, $timeout) ->
     publicRoutes = [
       'sign_up'
       'confirm'
@@ -159,6 +159,11 @@ angular
 
     $rootScope.$on '$stateChangeStart', (event, toState) ->
       user = JSON.parse(localStorage.getItem('user'))
+
+      # If localStorage of user deleted
+      if !user
+        $location.path 'user/sign_in'
+
 
       if user && $auth.isAuthenticated()
         $rootScope.authenticated = true
