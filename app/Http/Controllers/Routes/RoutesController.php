@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Routes;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
+use App\Events\NewRoute;
 use App\Route;
 use App\User;
 use App\Store;
@@ -22,7 +23,9 @@ class RoutesController extends Controller
    * @return \Illuminate\Http\Response
    */
   public function __construct() {
-    $this->middleware('role', ['only' => 'getUsersAndStores|destroy|store|update|edit']);
+    $this->middleware('role', [
+      'only' => 'getUsersAndStores|destroy|store|update|edit'
+    ]);
   }
 
 
@@ -81,7 +84,10 @@ class RoutesController extends Controller
     $pointArr = $request->points;
 
     // Create New Route
-    $route = Route::create(['user_id' => $request->user_id, 'date' => $request->date]);
+    $route = Route::create([
+      'user_id' => $request->user_id,
+      'date' => $request->date
+    ]);
 
     // After create new route, add new route id to the points
     foreach ($pointArr as $key => &$value) {
@@ -94,6 +100,9 @@ class RoutesController extends Controller
 
     // Update availability of Driver
     User::where('id', $request->user_id)->update(['availability' => false]);
+
+    // Send Push Notification to user
+    event(new NewRoute($request->user_id));
 
     return response()->json(true, 200);
   }

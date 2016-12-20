@@ -7,7 +7,7 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
   orderBy = $filter('orderBy')
 
   # Map
-  apiKey = 'a303d3a44a01c9f8a5cb0107b033efbe';
+  apiKey = 'a303d3a44a01c9f8a5cb0107b033efbe'
   vm.markers = []
 
 

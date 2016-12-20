@@ -54,13 +54,14 @@ gulp.task('sass', function() {
   ];
 
   return gulp.src([
-          'public/theme/libs/assets/animate.css/animate.css',
-          'public/theme/libs/assets/font-awesome/css/font-awesome.min.css',
-          'public/theme/libs/assets/simple-line-icons/css/simple-line-icons.css',
-          'public/theme/libs/jquery/bootstrap/dist/css/bootstrap.css',
+          'public/libs/assets/animate.css/animate.css',
+          'public/libs/assets/font-awesome/css/font-awesome.min.css',
+          'public/libs/assets/simple-line-icons/css/simple-line-icons.css',
+          'public/libs/jquery/bootstrap/dist/css/bootstrap.css',
+          // 'node_modules/angular-atomic-notify/dist/angular-atomic-notify.min.css',
           'public/theme/css/font.css',
           'public/theme/css/app.css',
-          'resources/assets/sass/app.scss'
+          'resources/assets/sass/app.scss',
       ])
       .pipe(concat('style.css'))
       .pipe(sass().on('error', error))
@@ -80,8 +81,9 @@ gulp.task('sass', function() {
 
 gulp.task('compress', function() {
   return gulp.src([
-    'public/theme/libs/jquery/jquery/dist/jquery.js',
-    'public/theme/libs/jquery/bootstrap/dist/js/bootstrap.js',
+    'public/libs/jquery/jquery/dist/jquery.js',
+    'public/libs/jquery/bootstrap/dist/js/bootstrap.js',
+
     'public/theme/js/ui-load.js',
     'public/theme/js/ui-jp.config.js',
     'public/theme/js/ui-jp.js',
@@ -96,11 +98,13 @@ gulp.task('compress', function() {
     'node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
     'node_modules/easy-pie-chart/dist/angular.easypiechart.js',
     'node_modules/ng-lodash/build/ng-lodash.js',
-    "node_modules/ng-mask/dist/ngMask.js",
-    "node_modules/moment/moment.js",
-    "node_modules/angular-moment/angular-moment.js",
-    "node_modules/ng-file-upload/dist/ng-file-upload-shim.js",
-    "node_modules/ng-file-upload/dist/ng-file-upload.js"
+    'node_modules/ng-mask/dist/ngMask.js',
+    'node_modules/angular-notification/angular-notification.js',
+    'node_modules/pusher-js/dist/web/pusher.js',
+    'node_modules/moment/moment.js',
+    'node_modules/angular-moment/angular-moment.js',
+    'node_modules/ng-file-upload/dist/ng-file-upload-shim.js',
+    'node_modules/ng-file-upload/dist/ng-file-upload.js',
   ])
     .pipe(plumber())
     .pipe(concat('global.min.js'))

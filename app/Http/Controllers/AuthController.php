@@ -93,7 +93,7 @@ class AuthController extends Controller
         "password" => $request->get('password'),
         "confirmation_code" => $confirmation_code
       );
-      $email = Mail::queue('email.verify', $emailUser, function($message) use($emailUser){
+      $email = Mail::send('email.verify', $emailUser, function($message) use($emailUser) {
           $message->to($emailUser['email'], $emailUser['name'])
                   ->subject('Verify your email address');
       });
@@ -189,7 +189,7 @@ class AuthController extends Controller
          "reset_password_code" => $reset_password_code
        );
 
-      $email = Mail::queue('email.reset_password', $emailUser, function($message) use($emailUser) {
+      $email = Mail::send('email.reset_password', $emailUser, function($message) use($emailUser) {
           $message->to($emailUser['email'], $emailUser['name'])
                   ->subject('Verify your email address');
       });

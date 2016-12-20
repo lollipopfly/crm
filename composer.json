@@ -10,7 +10,8 @@
         "tymon/jwt-auth": "0.5.*",
         "barryvdh/laravel-ide-helper": "^2.1",
         "intervention/image": "^2.3",
-        "doctrine/dbal": "^2.5"
+        "doctrine/dbal": "^2.5",
+        "pusher/pusher-php-server": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

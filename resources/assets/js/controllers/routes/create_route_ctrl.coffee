@@ -9,8 +9,6 @@ CreateRouteCtrl = ($http, $state) ->
       vm.error = error.data
 
   vm.createRoute = () ->
-    console.log(vm.date)
-
     vm.route =
       user_id: vm.user_id
       date: vm.date

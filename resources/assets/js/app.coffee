@@ -2,15 +2,21 @@
 
 angular
   .module('app', [
-    'ui.router'
-    'satellizer'
-    "ui.bootstrap"
-    "ngLodash"
-    "ngMask"
-    "angularMoment"
-    "easypiechart"
-    "ngFileUpload"
-  ]).config(($stateProvider, $urlRouterProvider, $authProvider, $locationProvider) ->
+    'app.pusherNotifications',
+    'ui.router',
+    'satellizer',
+    'ui.bootstrap',
+    'ngLodash',
+    'ngMask',
+    'angularMoment',
+    'easypiechart',
+    'ngFileUpload',
+  ]).config((
+    $stateProvider,
+    $urlRouterProvider,
+    $authProvider,
+    $locationProvider
+  ) ->
     $locationProvider.html5Mode true
 
     # Satellizer configuration that specifies which API
@@ -161,9 +167,9 @@ angular
       user = JSON.parse(localStorage.getItem('user'))
 
       # If localStorage of user deleted
-      if !user
-        $location.path 'user/sign_in'
-
+      # if !user || user == null
+      #   console.log(user);
+      #   $location.path 'user/sign_in'
 
       if user && $auth.isAuthenticated()
         $rootScope.authenticated = true
