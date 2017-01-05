@@ -7,8 +7,9 @@ Homestead.yaml
 Homestead.json
 
 config/jwt.php
-.env
+config/database.php
 config/mail.php
+.env
 
 _ide_helper.php
 .idea/
