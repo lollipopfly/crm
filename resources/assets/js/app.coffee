@@ -155,17 +155,18 @@ angular
       'sign_up',
       'confirm',
       'forgot_password',
-      'reset_password'
+      'reset_password',
     ]
 
-    # if not logged
     $timeout(()->
       $rootScope.currentState = $state.current.name
 
+      # if not logged
       if !$auth.isAuthenticated() &&
       publicRoutes.indexOf($rootScope.currentState) == -1
         $location.path 'user/sign_in'
 
+      # if logged
       if $auth.isAuthenticated &&
       (publicRoutes.indexOf($rootScope.currentState) == 0 ||
       $rootScope.currentState == 'sign_in')
