@@ -149,20 +149,27 @@ angular
       )
 
     return
+
   ).run ($auth, $http, $location, $q, $rootScope, $state, $timeout) ->
     publicRoutes = [
-      'sign_up'
-      'confirm'
-      'forgot_password'
-      'reset_password',
+      'sign_up',
+      'confirm',
+      'forgot_password',
+      'reset_password'
     ]
 
     # if not logged
     $timeout(()->
       $rootScope.currentState = $state.current.name
 
-      if !$auth.isAuthenticated() && publicRoutes.indexOf($rootScope.currentState) == -1
+      if !$auth.isAuthenticated() &&
+      publicRoutes.indexOf($rootScope.currentState) == -1
         $location.path 'user/sign_in'
+
+      if $auth.isAuthenticated &&
+      (publicRoutes.indexOf($rootScope.currentState) == 0 ||
+      $rootScope.currentState == 'sign_in')
+        $location.path '/'
     , 0)
 
     $rootScope.$on '$stateChangeStart', (event, toState) ->
@@ -171,6 +178,7 @@ angular
       if user && $auth.isAuthenticated()
         $rootScope.authenticated = true
         $rootScope.currentUser = user
+
         if $rootScope.currentUser.avatar == 'default_avatar.jpg'
           $rootScope.currentUser.avatar = '/images/' + $rootScope.currentUser.avatar
         else
@@ -181,7 +189,11 @@ angular
           localStorage.removeItem 'user'
           $rootScope.authenticated = false
           $rootScope.currentUser = null
+
           $state.go 'sign_in'
+
           return
+
         return
+
     return
