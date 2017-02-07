@@ -3,6 +3,7 @@ IndexUserCtrl = ($http, $filter, $rootScope, $stateParams) ->
   vm.sortReverse = null
   vm.pagiApiUrl = '/api/users'
   orderBy = $filter('orderBy')
+
   # Flash from others pages
   if $stateParams.flashSuccess
     vm.flashSuccess = $stateParams.flashSuccess

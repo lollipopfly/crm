@@ -16,11 +16,15 @@ SignInController = ($auth, $state, $http, $rootScope) ->
         $rootScope.currentUser = response.data.user
 
         $state.go '/'
+
         return
+
     ), (error) ->
       vm.error = error.data
       console.log(vm.error);
+
       return
+
   return
 
 'use strict'

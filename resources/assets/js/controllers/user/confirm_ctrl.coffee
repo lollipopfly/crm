@@ -23,3 +23,4 @@ ConfirmController = ($auth, $state, $http, $rootScope, $stateParams) ->
 angular
   .module('app')
   .controller('ConfirmController', ConfirmController)
+

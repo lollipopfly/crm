@@ -20,3 +20,4 @@ ForgotPasswordController = ($http) ->
 angular
   .module('app')
   .controller('ForgotPasswordController', ForgotPasswordController)
+

@@ -22,6 +22,7 @@ UserController = ($http, $state, $auth, $rootScope) ->
       # Remove the current user info from rootscope
       $rootScope.currentUser = null
       $state.go 'sign_in'
+
       return
     return
 

@@ -5,9 +5,6 @@ angular
     'notification'
   ])
   .run ($notification, $rootScope) ->
-    # console.log('run');
-    # Pusher.log = (msg) ->
-    #   console.log(msg)
     newRouteMessage = 'YOU HAVE A NEW ROUTE.'
     redTruckIcon = 'images/balloon.png'
 

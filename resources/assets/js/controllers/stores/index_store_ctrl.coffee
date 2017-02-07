@@ -49,6 +49,7 @@ IndexStoreCtrl = ($http, $filter, $rootScope, $stateParams) ->
     return
 
   return
+
 'use strict'
 angular
   .module('app')

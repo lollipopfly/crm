@@ -22,6 +22,7 @@ SignUpController = ($auth, $state) ->
   return
 
 'use strict'
+
 angular
   .module('app')
   .controller('SignUpController', SignUpController)

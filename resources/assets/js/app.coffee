@@ -17,8 +17,6 @@ angular
     $locationProvider
   ) ->
     $locationProvider.html5Mode true
-    console.log(12);
-
     # Satellizer configuration that specifies which API
     # route the JWT should be retrieved from
     $authProvider.loginUrl = '/api/authenticate'
@@ -158,22 +156,17 @@ angular
       'reset_password',
     ]
 
-    $timeout(()->
-      $rootScope.currentState = $state.current.name
-
-      # if not logged
+    $rootScope.$on '$stateChangeStart', (event, toState) ->
       if !$auth.isAuthenticated() &&
-      publicRoutes.indexOf($rootScope.currentState) == -1
+      publicRoutes.indexOf(toState.name) == -1
         $location.path 'user/sign_in'
+        return false;
 
-      # if logged
-      if $auth.isAuthenticated &&
-      (publicRoutes.indexOf($rootScope.currentState) == 0 ||
+      if $auth.isAuthenticated() &&
+      (publicRoutes.indexOf(toState.name) == 0 ||
       $rootScope.currentState == 'sign_in')
         $location.path '/'
-    , 0)
 
-    $rootScope.$on '$stateChangeStart', (event, toState) ->
       user = JSON.parse(localStorage.getItem('user'))
 
       if user && $auth.isAuthenticated()

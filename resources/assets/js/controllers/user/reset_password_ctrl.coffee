@@ -22,3 +22,4 @@ ResetPasswordController = ($auth, $state, $http, $stateParams) ->
 angular
   .module('app')
   .controller('ResetPasswordController', ResetPasswordController)
+
