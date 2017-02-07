@@ -1,5 +1,4 @@
 'use strict'
-
 angular
   .module('app', [
     'app.pusherNotifications',
@@ -18,6 +17,7 @@ angular
     $locationProvider
   ) ->
     $locationProvider.html5Mode true
+    console.log(12);
 
     # Satellizer configuration that specifies which API
     # route the JWT should be retrieved from
