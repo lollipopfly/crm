@@ -1,4 +1,4 @@
-IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
+IndexHomeCtrl = ($http, $filter, $rootScope) ->
   vm = this
 
   # Routes
@@ -10,10 +10,10 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
   apiKey = 'a303d3a44a01c9f8a5cb0107b033efbe'
   vm.markers = []
 
-
   ###  ROUTES  ###
   if $rootScope.currentUser.user_group == 'admin'
     $http.get('/api/home').then((response) ->
+      console.log(response.data);
       vm.routes = response.data.data
       vm.pagiArr = response.data
 
@@ -27,7 +27,7 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
   ###  MAP  ###
   # Get points JSON
   $http(
-    method: 'GET'
+    method: 'GET',
     url: '/api/home/getpoints').then ((response) ->
       vm.points = response.data
       initMap()
@@ -37,6 +37,7 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
 
   vm.sortBy = (predicate) ->
     vm.sortReverse = !vm.sortReverse
+
     $('.sort-link').each () ->
       $(this).removeClass().addClass('sort-link c-p')
 
@@ -51,16 +52,18 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
 
     return
 
-
-  initMap = ->
-    mapOptions =
-      zoom: 12
+  initMap = () ->
+    mapOptions = {
+      zoom: 12,
       scrollwheel: false,
-      mapTypeControl: false
-      streetViewControl: false
-      zoomControlOptions: position: google.maps.ControlPosition.LEFT_BOTTOM
-      center: new (google.maps.LatLng)(51.5073509, -0.1277583)
-      styles: vm.styles
+      mapTypeControl: false,
+      streetViewControl: false,
+      zoomControlOptions: {
+        position: google.maps.ControlPosition.LEFT_BOTTOM,
+      },
+      center: new (google.maps.LatLng)(51.5073509, -0.1277583),
+      styles: vm.styles,
+    }
 
     mapElement = document.getElementById('map')
     map = new (google.maps.Map)(mapElement, mapOptions)
@@ -70,8 +73,9 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
     angular.forEach( vm.points, (value, key) ->
       address = value.store.address
       # Geocode Addresses by address name
-      apiUrl = "https://api.opencagedata.com/geocode/v1/json?q="+address+"&pretty=1&key=" + apiKey;
-      req = new XMLHttpRequest();
+      apiUrl = "https://api.opencagedata.com/geocode/v1/json?q=" + address +
+        "&pretty=1&key=" + apiKey;
+      req = new XMLHttpRequest()
 
       req.onload = () ->
         if (req.readyState == 4 && req.status == 200)
@@ -87,7 +91,8 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
                   'Phone:</span> ' + value.store.phone + '</div>' +
               '</div>'
 
-            infoWindow = new (google.maps.InfoWindow)(content: contentString) # popup
+            # popup
+            infoWindow = new (google.maps.InfoWindow)(content: contentString)
 
             # select icons by status (green or red)
             if parseInt value.status
@@ -96,14 +101,14 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
               vm.baloonName = 'images/balloon.png'
 
             marker = new (google.maps.Marker)(
-              map: map
-              icon: vm.baloonName
-              position: position
+              map: map,
+              icon: vm.baloonName,
+              position: position,
             )
 
             # Click by other marker
-            google.maps.event.addListener(marker, 'click', ->
-              if( prevInfoWindow )
+            google.maps.event.addListener(marker, 'click', () ->
+              if prevInfoWindow
                 prevInfoWindow.close()
 
               prevInfoWindow = infoWindow
@@ -114,76 +119,78 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
             )
 
             # Click by empty map area
-            google.maps.event.addListener(map, 'click', ->
+            google.maps.event.addListener(map, 'click', () ->
               infoWindow.close()
 
               return
             )
 
-            # Add new marker to array for outside map links (ordered by id in backend)
+            # Add new marker to array for outside map links -
+            # -(ordered by id in backend)
             vm.markers.push(marker)
-      req.open("GET", apiUrl, true);
-      req.send();
+
+      req.open("GET", apiUrl, true)
+      req.send()
     )
 
     return
 
   vm.styles = [
     {
-      'featureType': 'water'
-      'elementType': 'geometry'
+      'featureType': 'water',
+      'elementType': 'geometry',
       'stylers': [
-        { 'color': '#e9e9e9' }
-        { 'lightness': 17 }
+        { 'color': '#e9e9e9' },
+        { 'lightness': 17 },
       ]
-    }
+    },
     {
-      'featureType': 'landscape'
-      'elementType': 'geometry'
+      'featureType': 'landscape',
+      'elementType': 'geometry',
       'stylers': [
-        { 'color': '#f5f5f5' }
+        { 'color': '#f5f5f5' },
         { 'lightness': 20 }
       ]
-    }
+    },
     {
-      'featureType': 'road.highway'
-      'elementType': 'geometry.fill'
+      'featureType': 'road.highway',
+      'elementType': 'geometry.fill',
       'stylers': [
-        { 'color': '#ffffff' }
+        { 'color': '#ffffff' },
         { 'lightness': 17 }
       ]
-    }
+    },
     {
-      'featureType': 'road.highway'
-      'elementType': 'geometry.stroke'
+      'featureType': 'road.highway',
+      'elementType': 'geometry.stroke',
       'stylers': [
-        { 'color': '#ffffff' }
-        { 'lightness': 29 }
-        { 'weight': 0.2 }
+        { 'color': '#ffffff' },
+        { 'lightness': 29 },
+        { 'weight': 0.2 },
       ]
-    }
+    },
     {
-      'featureType': 'road.arterial'
-      'elementType': 'geometry'
+      'featureType': 'road.arterial',
+      'elementType': 'geometry',
       'stylers': [
-        { 'color': '#ffffff' }
-        { 'lightness': 18 }
+        { 'color': '#ffffff' },
+        { 'lightness': 18 },
       ]
-    }
+    },
     {
-      'featureType': 'road.local'
-      'elementType': 'geometry'
+      'featureType': 'road.local',
+      'elementType': 'geometry',
       'stylers': [
-        { 'color': '#ffffff' }
-        { 'lightness': 16 }
+        { 'color': '#ffffff' },
+        { 'lightness': 16 },
       ]
-    }
+    },
     {
-      'featureType': 'poi'
-      'elementType': 'geometry'
+      'featureType': 'poi',
+      'elementType': 'geometry',
       'stylers': [
-        { 'color': '#f5f5f5' }
-        { 'lightness': 21 }
+        { 'color': '#f5f5f5' },
+        { 'lightness': 21 },
       ]
     }
     {
@@ -248,6 +255,7 @@ IndexHomeCtrl = ($http, $timeout, $filter, $rootScope) ->
   return
 
 'use strict'
+
 angular
   .module('app')
   .controller('IndexHomeCtrl', IndexHomeCtrl)

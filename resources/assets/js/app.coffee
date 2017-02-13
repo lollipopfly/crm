@@ -1,4 +1,5 @@
 'use strict'
+
 angular
   .module('app', [
     'app.pusherNotifications',
@@ -148,7 +149,7 @@ angular
 
     return
 
-  ).run ($auth, $http, $location, $q, $rootScope, $state, $timeout) ->
+  ).run ($auth, $http, $location, $q, $rootScope, $state) ->
     publicRoutes = [
       'sign_up',
       'confirm',
@@ -160,6 +161,7 @@ angular
       if !$auth.isAuthenticated() &&
       publicRoutes.indexOf(toState.name) == -1
         $location.path 'user/sign_in'
+
         return false;
 
       if $auth.isAuthenticated() &&
@@ -174,9 +176,11 @@ angular
         $rootScope.currentUser = user
 
         if $rootScope.currentUser.avatar == 'default_avatar.jpg'
-          $rootScope.currentUser.avatar = '/images/' + $rootScope.currentUser.avatar
+          $rootScope.currentUser.avatar = '/images/' +
+            $rootScope.currentUser.avatar
         else
-          $rootScope.currentUser.avatar = 'uploads/avatars/' + $rootScope.currentUser.avatar
+          $rootScope.currentUser.avatar = 'uploads/avatars/' +
+            $rootScope.currentUser.avatar
 
       $rootScope.logout = ->
         $auth.logout().then ->

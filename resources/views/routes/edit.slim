@@ -18,14 +18,13 @@
                   i.fa.icon-user.text.mr-3
                   | User:
               .col-md-7 ng-class="{'has-error': route.error.user_id}"
-                select.form-control.m-b name="user_id" ng-model="route.obj.user_id"
-                  option selected="selected" value=""  Select Driver...
-                  option [
-                    ng-repeat="user in route.obj.users"
-                    value="{{user.id}}"
-                    ng-selected="route.obj.user_id == user.id"
-                  ]
-                    | {{user.name}} {{user.last_name}}
+                select [
+                  class="form-control m-b"
+                  ng-model="route.obj.user_id"
+                  ng-init="route.obj.user_id"
+                  ng-options="user.id as user.name + ' ' + user.last_name for user in route.obj.users"
+                ]
+
                 span.help-block ng-if="route.error.user_id"
                   strong
                     | {{route.error.user_id[0]}}
@@ -49,17 +48,12 @@
             .row ng-repeat="form in route.obj.points"
               .col-md-6
                 label Store
-                select.form-control.m-b [
+                select [
+                  class="form-control m-b"
                   ng-model="form.store_id"
-                  required
+                  ng-init="form.store_id"
+                  ng-options="store.id as store.name for store in route.obj.stores"
                 ]
-                  option selected="selected" value="" Select Store...
-                  option [
-                    ng-repeat="store in route.obj.stores"
-                    value="{{store.id}}"
-                    ng-selected="store.store_id == store.id"
-                  ]
-                    | {{store.name}}
 
                 timepicker [
                   label="'Deadline'"

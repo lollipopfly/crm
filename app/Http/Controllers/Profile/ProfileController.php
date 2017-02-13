@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Profile;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+use App;
 use App\Route;
 use App\User;
 use App\Point;
@@ -21,10 +22,11 @@ class ProfileController extends Controller
 
   public function __construct()
   {
-    $this->user = JWTAuth::parseToken()->authenticate();
-    $this->middleware('jwt.auth')->only('index');
+    if(!App::runningInConsole()) {
+      $this->user = JWTAuth::parseToken()->authenticate();
+      $this->middleware('jwt.auth')->only('index');
+    }
   }
-
 
   /**
    * Get users and points to main profile page

@@ -157,8 +157,9 @@ class AuthController extends Controller
 
     // Get JWT token
     if (!$token=JWTAuth::fromUser($user)) {
-        return response()->json(['error' => 'invalid_credentials'], 401);
+      return response()->json(['error' => 'invalid_credentials'], 401);
     }
+
     $user = collect($user)->except(['confirmed', 'confirmation_code', 'reset_password_code']);
     $user['token'] = $token;
 
@@ -220,9 +221,11 @@ class AuthController extends Controller
 
     if($user) {
       $hashad_password = Hash::make($request->password);
+
       if (Hash::needsRehash($hashad_password)) {
           $hashad_password = Hash::make($request->password);
       }
+
       $user->password = $hashad_password;
       $user->reset_password_code = Null;
       $user->update();

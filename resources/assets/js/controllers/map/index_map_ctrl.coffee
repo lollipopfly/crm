@@ -1,47 +1,53 @@
-IndexMapCtrl = ($http, $timeout) ->
+IndexMapCtrl = ($http) ->
   vm = this
 
   # Map
-  apiKey = 'a303d3a44a01c9f8a5cb0107b033efbe';
+  apiKey = 'a303d3a44a01c9f8a5cb0107b033efbe'
   vm.markers = []
 
   # Get points JSON
   $http(
-    method: 'GET'
+    method: 'GET',
     url: '/api/map').then ((response) ->
       vm.points = response.data
+
       # Init map
       initMap()
+
       return
   )
 
-  initMap = ->
-    mapOptions =
-      zoom: 12
+  initMap = () ->
+    mapOptions = {
+      zoom: 12,
       scrollwheel: false,
-      mapTypeControl: false
-      streetViewControl: false
-      zoomControlOptions: position: google.maps.ControlPosition.LEFT_BOTTOM
-      center: new (google.maps.LatLng)(51.5073509, -0.1277583)
+      mapTypeControl: false,
+      streetViewControl: false,
+      zoomControlOptions: {
+        position: google.maps.ControlPosition.LEFT_BOTTOM,
+      }
+      center: new (google.maps.LatLng)(51.5073509, -0.1277583),
       styles: vm.styles
+    }
 
     mapElement = document.getElementById('map')
     map = new (google.maps.Map)(mapElement, mapOptions)
-    prevInfoWindow =false;
+    prevInfoWindow =false
 
     # Set locations
     angular.forEach( vm.points, (value, key) ->
       address = value.store.address
       # Geocode Addresses by address name
-      apiUrl = "https://api.opencagedata.com/geocode/v1/json?q="+address+"&pretty=1&key=" + apiKey;
-      req = new XMLHttpRequest();
+      apiUrl = "https://api.opencagedata.com/geocode/v1/json?q=" + address +
+        "&pretty=1&key=" + apiKey
+      req = new XMLHttpRequest()
 
       req.onload = () ->
         if (req.readyState == 4 && req.status == 200)
           response = JSON.parse(this.responseText)
           position = response.results[0].geometry
 
-          if (response.status.code == 200)
+          if response.status.code == 200
             contentString =
               '<div class="marker-content">' +
                 '<div><span class="maker-content__title">' +
@@ -50,7 +56,8 @@ IndexMapCtrl = ($http, $timeout) ->
                   'Phone:</span> ' + value.store.phone + '</div>' +
               '</div>'
 
-            infoWindow = new (google.maps.InfoWindow)(content: contentString) # popup
+            # popup
+            infoWindow = new (google.maps.InfoWindow)(content: contentString)
 
           # select icons by status (green or red)
           if parseInt value.status
@@ -59,17 +66,18 @@ IndexMapCtrl = ($http, $timeout) ->
             vm.baloonName = 'images/balloon.png'
 
           marker = new (google.maps.Marker)(
-            map: map
-            icon: vm.baloonName
-            position: position
+            map: map,
+            icon: vm.baloonName,
+            position: position,
           )
 
           # Click by other marker
-          google.maps.event.addListener(marker, 'click', ->
-            if( prevInfoWindow )
+          google.maps.event.addListener(marker, 'click', () ->
+            if prevInfoWindow
               prevInfoWindow.close()
 
             prevInfoWindow = infoWindow
+
             map.panTo(marker.getPosition()) # animate move between markers
             infoWindow.open map, marker
 
@@ -77,128 +85,131 @@ IndexMapCtrl = ($http, $timeout) ->
           )
 
           # Click by empty map area
-          google.maps.event.addListener(map, 'click', ->
+          google.maps.event.addListener(map, 'click', () ->
             infoWindow.close()
 
             return
           )
 
-          # Add new marker to array for outside map links (ordered by id in backend)
+          # Add new marker to array for outside map links -
+          # - (ordered by id in backend)
           vm.markers.push(marker)
-      req.open("GET", apiUrl, true);
-      req.send();
+
+      req.open("GET", apiUrl, true)
+      req.send()
     )
+
     return
 
   vm.styles = [
     {
-      'featureType': 'water'
-      'elementType': 'geometry'
+      'featureType': 'water',
+      'elementType': 'geometry',
       'stylers': [
-        { 'color': '#e9e9e9' }
-        { 'lightness': 17 }
+        { 'color': '#e9e9e9' },
+        { 'lightness': 17 },
       ]
-    }
+    },
     {
-      'featureType': 'landscape'
-      'elementType': 'geometry'
+      'featureType': 'landscape',
+      'elementType': 'geometry',
       'stylers': [
-        { 'color': '#f5f5f5' }
-        { 'lightness': 20 }
+        { 'color': '#f5f5f5' },
+        { 'lightness': 20 },
       ]
-    }
+    },
     {
-      'featureType': 'road.highway'
-      'elementType': 'geometry.fill'
+      'featureType': 'road.highway',
+      'elementType': 'geometry.fill',
       'stylers': [
-        { 'color': '#ffffff' }
-        { 'lightness': 17 }
+        { 'color': '#ffffff' },
+        { 'lightness': 17 },
       ]
-    }
+    },
     {
-      'featureType': 'road.highway'
-      'elementType': 'geometry.stroke'
+      'featureType': 'road.highway',
+      'elementType': 'geometry.stroke',
       'stylers': [
-        { 'color': '#ffffff' }
-        { 'lightness': 29 }
-        { 'weight': 0.2 }
+        { 'color': '#ffffff' },
+        { 'lightness': 29 },
+        { 'weight': 0.2 },
       ]
-    }
+    },
     {
-      'featureType': 'road.arterial'
-      'elementType': 'geometry'
+      'featureType': 'road.arterial',
+      'elementType': 'geometry',
       'stylers': [
-        { 'color': '#ffffff' }
-        { 'lightness': 18 }
+        { 'color': '#ffffff' },
+        { 'lightness': 18 },
       ]
-    }
+    },
     {
-      'featureType': 'road.local'
-      'elementType': 'geometry'
+      'featureType': 'road.local',
+      'elementType': 'geometry',
       'stylers': [
-        { 'color': '#ffffff' }
-        { 'lightness': 16 }
+        { 'color': '#ffffff' },
+        { 'lightness': 16 },
       ]
-    }
+    },
     {
-      'featureType': 'poi'
-      'elementType': 'geometry'
+      'featureType': 'poi',
+      'elementType': 'geometry',
       'stylers': [
-        { 'color': '#f5f5f5' }
-        { 'lightness': 21 }
+        { 'color': '#f5f5f5' },
+        { 'lightness': 21 },
       ]
-    }
+    },
     {
-      'featureType': 'poi.park'
-      'elementType': 'geometry'
+      'featureType': 'poi.park',
+      'elementType': 'geometry',
       'stylers': [
-        { 'color': '#dedede' }
-        { 'lightness': 21 }
+        { 'color': '#dedede' },
+        { 'lightness': 21 },
       ]
-    }
+    },
     {
-      'elementType': 'labels.text.stroke'
+      'elementType': 'labels.text.stroke',
       'stylers': [
-        { 'visibility': 'on' }
-        { 'color': '#ffffff' }
-        { 'lightness': 16 }
+        { 'visibility': 'on' },
+        { 'color': '#ffffff' },
+        { 'lightness': 16 },
       ]
-    }
+    },
     {
-      'elementType': 'labels.text.fill'
+      'elementType': 'labels.text.fill',
       'stylers': [
-        { 'saturation': 36 }
-        { 'color': '#333333' }
-        { 'lightness': 40 }
+        { 'saturation': 36 },
+        { 'color': '#333333' },
+        { 'lightness': 40 },
       ]
-    }
+    },
     {
-      'elementType': 'labels.icon'
+      'elementType': 'labels.icon',
       'stylers': [ { 'visibility': 'off' } ]
-    }
+    },
     {
-      'featureType': 'transit'
-      'elementType': 'geometry'
+      'featureType': 'transit',
+      'elementType': 'geometry',
       'stylers': [
-        { 'color': '#f2f2f2' }
-        { 'lightness': 19 }
+        { 'color': '#f2f2f2' },
+        { 'lightness': 19 },
       ]
-    }
+    },
     {
-      'featureType': 'administrative'
-      'elementType': 'geometry.fill'
+      'featureType': 'administrative',
+      'elementType': 'geometry.fill',
       'stylers': [
-        { 'color': '#fefefe' }
-        { 'lightness': 20 }
+        { 'color': '#fefefe' },
+        { 'lightness': 20 },
       ]
-    }
+    },
     {
-      'featureType': 'administrative'
-      'elementType': 'geometry.stroke'
+      'featureType': 'administrative',
+      'elementType': 'geometry.stroke',
       'stylers': [
-        { 'color': '#fefefe' }
-        { 'lightness': 17 }
-        { 'weight': 1.2 }
+        { 'color': '#fefefe' },
+        { 'lightness': 17 },
+        { 'weight': 1.2 },
       ]
     }
   ]
@@ -210,6 +221,7 @@ IndexMapCtrl = ($http, $timeout) ->
   return
 
 'use strict'
+
 angular
   .module('app')
   .controller('IndexMapCtrl', IndexMapCtrl)

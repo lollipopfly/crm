@@ -7,21 +7,20 @@ angular
   .run ($notification, $rootScope) ->
     newRouteMessage = 'YOU HAVE A NEW ROUTE.'
     redTruckIcon = 'images/balloon.png'
-
     pusher = new Pusher('6b58c1243df82028a788', {
       cluster: 'eu',
-      encrypted: true
-    });
+      encrypted: true,
+    })
+    channel = pusher.subscribe('new-route-channel')
 
-    channel = pusher.subscribe('new-route-channel');
+    channel.bind('App\\Events\\NewRoute', (data) ->
 
-    channel.bind('App\\Events\\NewRoute', (data)->
-      if ($rootScope.currentUser.id == data.userId)
+      if $rootScope.currentUser.id == parseInt(data.userId)
         $notification('New message!', {
-          body: newRouteMessage
-          icon: redTruckIcon
-          vibrate: [200, 100, 200]
+          body: newRouteMessage,
+          icon: redTruckIcon,
+          vibrate: [200, 100, 200],
         })
-    );
+    )
 
     return

@@ -1,12 +1,12 @@
 timepicker = () ->
   directive = {
-    restrict: 'AE'
-    templateUrl: '/views/directives/timepicker.html'
+    restrict: 'AE',
+    templateUrl: '/views/directives/timepicker.html',
     scope: {
-      model: "=ngModel"
-      label: "=?label"
-      attrName: "@"
-    }
+      model: "=ngModel",
+      label: "=?label",
+      attrName: "@",
+    },
     link: (scope, element, attr) ->
       scope.hstep = 1
       scope.mstep = 5
@@ -16,6 +16,7 @@ timepicker = () ->
   return directive
 
 'use strict'
+
 angular
   .module('app')
   .directive 'timepicker', timepicker

@@ -1,18 +1,18 @@
 radioField = ($http) ->
   directive = {
-    restrict: 'EA'
-    templateUrl: '/views/directives/radio_field.html'
+    restrict: 'EA',
+    templateUrl: '/views/directives/radio_field.html',
     scope: {
-      ngModel: "=ngModel"
-      label: '=label'
-      attrName: '=attrName'
-      attrValue: '=attrValue'
-      ngChecked: '=?ngChecked'
-    }
-    link: (scope, element, attr)->
+      ngModel: "=ngModel",
+      label: '=label',
+      attrName: '=attrName',
+      attrValue: '=attrValue',
+      ngChecked: '=?ngChecked',
+    },
+    link: (scope, element, attr) ->
       scope.ngModel = scope.attrValue
 
-      element.bind('change', ()->
+      element.bind('change', () ->
         scope.ngModel = scope.attrValue
       )
   }
@@ -20,6 +20,7 @@ radioField = ($http) ->
   return directive
 
 'use strict'
+
 angular
   .module('app')
   .directive 'radioField', radioField

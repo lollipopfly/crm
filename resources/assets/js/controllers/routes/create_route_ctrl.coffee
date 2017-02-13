@@ -9,18 +9,20 @@ CreateRouteCtrl = ($http, $state) ->
       vm.error = error.data
 
   vm.createRoute = () ->
-    vm.route =
-      user_id: vm.user_id
-      date: vm.date
-      points: vm.pointForms
+    vm.route = {
+      user_id: vm.user_id,
+      date: vm.date,
+      points: vm.pointForms,
+    }
 
     $http.post('/api/routes', vm.route)
       .then (response) ->
         vm.data = response.data
+
         $state.go 'routes', { flashSuccess: 'New route has been added!' }
       , (error) ->
         vm.error = error.data
-        console.log(vm.error);
+        console.log(vm.error)
 
     return
 
@@ -33,6 +35,7 @@ CreateRouteCtrl = ($http, $state) ->
   return
 
 'use strict'
+
 angular
   .module('app')
   .controller('CreateRouteCtrl', CreateRouteCtrl)

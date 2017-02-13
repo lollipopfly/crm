@@ -65,11 +65,6 @@ gulp.task('sass', function() {
       ])
       .pipe(concat('style.css'))
       .pipe(sass().on('error', error))
-      .pipe(sass(
-		{
-              //outputStyle: 'compressed'
-		}
-      ))
       .pipe(postcss(processors))
       .pipe(debug({title: 'sass:'}))
       .pipe(gulp.dest('public/build/css/'));

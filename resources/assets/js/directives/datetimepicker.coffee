@@ -1,11 +1,11 @@
 datetimepicker = ($timeout) ->
   directive = {
-    restrict: 'AE'
-    templateUrl: '/views/directives/datetimepicker.html'
-    require: 'ngModel'
+    restrict: 'AE',
+    templateUrl: '/views/directives/datetimepicker.html',
+    require: 'ngModel',
     scope: {
-      label: "=?label"
-    }
+      label: "=?label",
+    },
     link: (scope, element, attr, ngModel) ->
       scope.open = () ->
         scope.date_opened = true
@@ -17,13 +17,14 @@ datetimepicker = ($timeout) ->
       )
 
       scope.selectDate = ((model) ->
-          ngModel.$setViewValue(model)
+        ngModel.$setViewValue(model)
       )
   }
 
   return directive
 
 'use strict'
+
 angular
   .module('app')
   .directive 'datetimepicker', datetimepicker

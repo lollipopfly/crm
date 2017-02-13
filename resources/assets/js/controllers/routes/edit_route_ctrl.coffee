@@ -6,15 +6,17 @@ EditRouteCtrl = ($http, $state, $stateParams) ->
   $http.get('/api/routes/edit/'+ vm.id)
     .then (response) ->
       vm.obj = response.data
+
       return
     , (error) ->
       vm.error = error.data
 
   vm.update = () ->
-    route =
-      user_id: vm.obj.user_id
-      date: vm.obj.date
-      points: vm.obj.points
+    route = {
+      user_id: vm.obj.user_id,
+      date: vm.obj.date,
+      points: vm.obj.points,
+    }
 
     $http.patch('/api/routes/' + vm.id, route)
       .then (response) ->
@@ -23,12 +25,13 @@ EditRouteCtrl = ($http, $state, $stateParams) ->
         vm.error = error.data
         console.log(vm.error)
 
-
   vm.addPoint = () ->
     vm.obj.points.push({
       id: vm.count + '_new'
     })
+
     vm.count++
+
     return
 
   vm.removePoint = (index) ->
@@ -37,6 +40,7 @@ EditRouteCtrl = ($http, $state, $stateParams) ->
   return
 
 'use strict'
+
 angular
   .module('app')
   .controller('EditRouteCtrl', EditRouteCtrl)

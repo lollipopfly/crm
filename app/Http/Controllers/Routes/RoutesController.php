@@ -281,6 +281,7 @@ class RoutesController extends Controller
       ['availability', '!=', false],
       ['user_group', '!=', 'admin']
     ])->get();
+
     $stores = Store::select('id', 'name')->get();
 
     return response()->json(['users' => $users, 'stores' => $stores]);

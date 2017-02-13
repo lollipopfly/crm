@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App;
 use App\Http\Requests;
-use Illuminate\Http\Request;
-use JWTAuth;
 use App\Route;
 use App\Point;
+use JWTAuth;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -17,10 +18,11 @@ class HomeController extends Controller
    */
   public function __construct()
   {
-    $this->middleware('role', ['only' => 'index']);
-    $this->user = JWTAuth::parseToken()->authenticate();
+    if(!App::runningInConsole()) {
+      $this->middleware('role', ['only' => 'index']);
+      $this->user = JWTAuth::parseToken()->authenticate();
+    }
   }
-
 
   /**
    * Get Routes

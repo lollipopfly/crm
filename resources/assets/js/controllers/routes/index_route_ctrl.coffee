@@ -1,4 +1,4 @@
-IndexRouteCtrl = ($http, $filter, $rootScope, $stateParams) ->
+IndexRouteCtrl = ($http, $filter, $stateParams) ->
   vm = this
   vm.sortReverse = null
   vm.pagiApiUrl = '/api/routes'
@@ -21,6 +21,7 @@ IndexRouteCtrl = ($http, $filter, $rootScope, $stateParams) ->
 
   vm.sortBy = (predicate) ->
     vm.sortReverse = !vm.sortReverse
+
     $('.sort-link').each () ->
       $(this).removeClass().addClass('sort-link c-p')
 
@@ -52,6 +53,7 @@ IndexRouteCtrl = ($http, $filter, $rootScope, $stateParams) ->
   return
 
 'use strict'
+
 angular
   .module('app')
   .controller('IndexRouteCtrl', IndexRouteCtrl)
