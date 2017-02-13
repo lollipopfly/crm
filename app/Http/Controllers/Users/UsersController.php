@@ -30,7 +30,7 @@ class UsersController extends Controller
    */
   public function index(Request $request)
   {
-    $users = User::latest('created_at')->paginate(15);
+    $users = User::latest('created_at')->where('confirmed', 1)->paginate(15);
 
     return response()->json($users, 200);
   }

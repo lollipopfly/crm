@@ -17,7 +17,7 @@
                 <span class="text"><i class="fa icon-user text mr-3"></i>User:</span>
               </div>
               <div class="col-md-7" ng-class="{&#39;has-error&#39;: route.error.user_id}">
-                <select class="form-control m-b" ng-model="route.obj.user_id" ng-options="user.id as user.name + &#39; &#39; + user.last_name for user in route.obj.users"></select><span class="help-block" ng-if="route.error.user_id"><strong>{{route.error.user_id[0]}}</strong></span>
+                <select class="form-control m-b" name="user_id" ng-model="route.obj.user_id" ng-options="user.id as user.name + &#39; &#39; + user.last_name for user in route.obj.users"></select><span class="help-block" ng-if="route.error.user_id"><strong>{{route.error.user_id[0]}}</strong></span>
               </div>
             </div>
             <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -33,7 +33,11 @@
             <div class="line line-dashed b-b line-lg pull-in"></div>
             <div class="row" ng-repeat="form in route.obj.points">
               <div class="col-md-6">
-                <label>Store</label><select class="form-control m-b" ng-model="form.store_id" ng-options="store.id as store.name for store in route.obj.stores"></select><timepicker attr-name="deadline_time_@{{ $index+1 }}" label="&#39;Deadline&#39;" ng-model="form.deadline_time"></timepicker>
+                <label>Store</label><select class="form-control m-b" name="user_ide" ng-model="form.store_id" ng-options="store.id as store.name for store in route.obj.stores" ng-required="true">
+                  <option value="">
+                    Select store...
+                  </option>
+                </select><timepicker attr-name="deadline_time_@{{ $index+1 }}" label="&#39;Deadline&#39;" ng-model="form.deadline_time"></timepicker>
               </div>
               <div class="col-md-6">
                 <label>Orders</label><textarea class="form-control m-b-sm" cols="50" ng-model="form.products" required="" rows="7"></textarea>

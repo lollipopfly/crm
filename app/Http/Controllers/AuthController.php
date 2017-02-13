@@ -42,19 +42,13 @@ class AuthController extends Controller
 
   /**
    * Sign in
-   * @param  Request $request
+   * @param  SignInRequest $request
    * @return Response
    */
   public function authenticate(Request $request)
   {
-    // Validate first
-    $this->validate($request, [
-      'email' => 'required',
-      'password' => 'required',
-    ]);
-
     // grab credentials from the request
-    $credentials = $request->only('email', 'password');
+    $credentials = $request->only('email', 'password', 'confirmed');
 
     try {
       // attempt to verify the credentials and create a token for the user
@@ -148,7 +142,7 @@ class AuthController extends Controller
   {
     if (!$request->confirmation_code) {
       return response()->json([
-        'error' => 'Url do not has confirmation code!'
+        'error' => 'Url does not has confirmation code!'
       ], 500);
     }
 

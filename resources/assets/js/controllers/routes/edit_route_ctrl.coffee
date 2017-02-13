@@ -6,6 +6,7 @@ EditRouteCtrl = ($http, $state, $stateParams) ->
   $http.get('/api/routes/edit/'+ vm.id)
     .then (response) ->
       vm.obj = response.data
+      console.log(vm.obj);
 
       return
     , (error) ->

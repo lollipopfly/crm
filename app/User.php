@@ -19,6 +19,7 @@ class User extends Authenticatable
     'bday',
     'email',
     'password',
+    'confirmed',
     'initials',
     'job_title',
     'user_group',
@@ -27,7 +28,7 @@ class User extends Authenticatable
     'phone',
     'avatar',
     'confirmation_code',
-    'reset_password_code'
+    'reset_password_code',
   ];
 
   /**

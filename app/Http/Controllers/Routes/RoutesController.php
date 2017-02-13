@@ -146,7 +146,8 @@ class RoutesController extends Controller
       }])->orderBy('id', 'asc')->get();
 
     $users = User::select('id', 'name', 'last_name')->where([
-      ['user_group', '!=', 'admin']
+      ['user_group', '!=', 'admin'],
+      ['confirmed', '=', 1],
     ])->get();
 
     $stores = Store::all();
@@ -273,7 +274,8 @@ class RoutesController extends Controller
   {
     $users = User::select('id', 'name', 'last_name')->where([
       ['availability', '!=', false],
-      ['user_group', '!=', 'admin']
+      ['user_group', '!=', 'admin'],
+      ['confirmed', '=', 1]
     ])->get();
 
     $stores = Store::select('id', 'name')->get();

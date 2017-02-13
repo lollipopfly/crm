@@ -19,6 +19,7 @@
                   | User:
               .col-md-7 ng-class="{'has-error': route.error.user_id}"
                 select [
+                  name="user_id"
                   class="form-control m-b"
                   ng-model="route.obj.user_id"
                   ng-options="user.id as user.name + ' ' + user.last_name for user in route.obj.users"
@@ -48,10 +49,14 @@
               .col-md-6
                 label Store
                 select [
+                  name="user_ide"
+                  ng-required="true"
                   class="form-control m-b"
                   ng-model="form.store_id"
                   ng-options="store.id as store.name for store in route.obj.stores"
                 ]
+                  option value=""
+                    | Select store...
 
                 timepicker [
                   label="'Deadline'"

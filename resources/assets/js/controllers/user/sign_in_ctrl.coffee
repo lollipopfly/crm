@@ -5,9 +5,10 @@ SignInController = ($auth, $state, $http, $rootScope) ->
     credentials = {
       email: vm.email,
       password: vm.password,
+      confirmed: 1,
     }
 
-    $auth.login(credentials).then (() ->
+    $auth.login(credentials).then ((coco) ->
       # Return an $http request for the now authenticated
       # user so that we can flatten the promise chain
       $http.get('api/authenticate/get_user').then (response) ->

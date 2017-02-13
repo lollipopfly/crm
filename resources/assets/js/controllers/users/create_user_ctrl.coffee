@@ -22,6 +22,7 @@ CreateUserCtrl = ($http, $state, Upload, lodash) ->
       phone: vm.phone,
       email: vm.email,
       password: vm.password,
+      confirmed: 1
     }
 
     Upload.upload(

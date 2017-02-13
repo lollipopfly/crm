@@ -155,6 +155,7 @@ angular
       'confirm',
       'forgot_password',
       'reset_password',
+      'sign_up_success',
     ]
 
     $rootScope.$on '$stateChangeStart', (event, toState) ->
