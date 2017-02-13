@@ -13,7 +13,6 @@ IndexHomeCtrl = ($http, $filter, $rootScope) ->
   ###  ROUTES  ###
   if $rootScope.currentUser.user_group == 'admin'
     $http.get('/api/home').then((response) ->
-      console.log(response.data);
       vm.routes = response.data.data
       vm.pagiArr = response.data
 

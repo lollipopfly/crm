@@ -134,7 +134,7 @@ class RoutesController extends Controller
    *
    * @param  int  $id
    *
-   * @return JSON
+   * @return Response
    */
   public function edit($id)
   {
@@ -161,7 +161,8 @@ class RoutesController extends Controller
     $route['points'] = $points;
     $route['stores'] = $stores;
 
-    return response()->json($route, 200);
+
+    return response()->json($route, 200, [], JSON_NUMERIC_CHECK);
   }
 
 

@@ -21,7 +21,6 @@
                 select [
                   class="form-control m-b"
                   ng-model="route.obj.user_id"
-                  ng-init="route.obj.user_id"
                   ng-options="user.id as user.name + ' ' + user.last_name for user in route.obj.users"
                 ]
 
@@ -51,7 +50,6 @@
                 select [
                   class="form-control m-b"
                   ng-model="form.store_id"
-                  ng-init="form.store_id"
                   ng-options="store.id as store.name for store in route.obj.stores"
                 ]
 
