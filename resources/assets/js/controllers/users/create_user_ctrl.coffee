@@ -27,7 +27,7 @@ CreateUserCtrl = ($http, $state, Upload, lodash) ->
     Upload.upload(
       url: '/api/users',
       method: 'Post',
-      data: vm.data,
+      data: vm.data
     ).then ((resp) ->
       $state.go 'users', { flashSuccess: 'New user has been added!' }
 

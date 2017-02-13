@@ -4,9 +4,11 @@ ShowStoreCtrl = ($http, $stateParams, $state) ->
 
   $http.get('api/stores/'+vm.id).then((response) ->
     vm.data = response.data
+
     return
   , (error) ->
     vm.error = error.data
+
     return
   )
 
@@ -16,13 +18,16 @@ ShowStoreCtrl = ($http, $stateParams, $state) ->
     if confirmation
       $http.delete('api/stores/' + id).then ((response) ->
         $state.go 'stores', { flashSuccess: 'Store deleted!' }
+
         return
       )
 
     return
+
   return
 
 'use strict'
+
 angular
   .module('app')
   .controller('ShowStoreCtrl', ShowStoreCtrl)

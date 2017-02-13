@@ -6,14 +6,17 @@ UserController = ($http, $state, $auth, $rootScope) ->
     # on the Laravel side and will return the list of users
     $http.get('api/authenticate').success((users) ->
       vm.users = users
+
       return
     ).error (error) ->
       vm.error = error
+
       return
+
     return
 
   vm.logout = ->
-    $auth.logout().then ->
+    $auth.logout().then () ->
       # Remove the authenticated user from local storage
       localStorage.removeItem 'user'
       # Flip authenticated to false so that we no longer
@@ -24,11 +27,13 @@ UserController = ($http, $state, $auth, $rootScope) ->
       $state.go 'sign_in'
 
       return
+
     return
 
   return
 
 'use strict'
+
 angular
   .module('app')
   .controller('UserController', UserController)

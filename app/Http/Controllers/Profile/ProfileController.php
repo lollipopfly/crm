@@ -1,18 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\Profile;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 use App;
-use App\Route;
-use App\User;
-use App\Point;
-use App\Store;
+use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use JWTAuth;
-use Image;
+use App\Point;
+use App\Route;
+use App\Store;
+use App\User;
 use File;
+use Illuminate\Http\Request;
+use Image;
+use JWTAuth;
 use Session;
 
 class ProfileController extends Controller
@@ -32,13 +32,12 @@ class ProfileController extends Controller
    * Get users and points to main profile page
    * @return JSON
    */
-  public function index() {
-
+  public function index()
+  {
     $points = Point::where('user_id', $this->user->id)->with('store')->get();
 
     return response()->json(['user' => $this->user, 'points' => $points]);
   }
-
 
   /**
    * Get current user to update profile page
@@ -49,14 +48,14 @@ class ProfileController extends Controller
     return response()->json($this->user, 200);
   }
 
-
   /**
    * Update profile
    * @param  Request
    * @param  int
    * @return True
    */
-  public function update(Request $request, $id) {
+  public function update(Request $request, $id)
+  {
     $this->validate($request, [
       'name' => 'required',
       'initials' => 'required|unique:users,initials,' . $this->user->id,
@@ -97,7 +96,6 @@ class ProfileController extends Controller
     return response()->json(true, 200);
   }
 
-
   /**
    * Delete Avatar
    * @param  string
@@ -112,14 +110,14 @@ class ProfileController extends Controller
     return true;
   }
 
-
   /**
    * Update points from profile
    *
    * @param Request
    * @return True
    */
-  public function updatePoints(Request $request) {
+  public function updatePoints(Request $request)
+  {
     $user_id = $this->user->id;
     $points = $request->all();
 

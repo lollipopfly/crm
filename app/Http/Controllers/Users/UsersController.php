@@ -3,15 +3,13 @@
 namespace App\Http\Controllers\Users;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
-
+use App\Http\Requests;
 use App\User;
-use Image;
-use Hash;
 use DB;
 use File;
+use Hash;
+use Image;
 
 class UsersController extends Controller
 {
@@ -22,14 +20,13 @@ class UsersController extends Controller
    * Role Middleware
    */
   public function __construct() {
-    $this->middleware('role', ['only' => 'create|destroy|store|update|edit|getPossibleEnumValues']);
+    $this->middleware('role',
+      ['only' => 'create|destroy|store|update|edit|getPossibleEnumValues']);
   }
-
 
   /**
    * Display a listing of the resource.
-   *
-   * @return JSON
+   * @return Response
    */
   public function index(Request $request)
   {
@@ -38,11 +35,9 @@ class UsersController extends Controller
     return response()->json($users, 200);
   }
 
-
   /**
    * Show the form for creating a new resource.
-   *
-   * @return JSON
+   * @return Response
    */
   public function create()
   {
@@ -54,7 +49,6 @@ class UsersController extends Controller
 
   /**
    * Store a newly created resource in storage.
-   *
    * @param  \Illuminate\Http\Request  $request
    * @return Response
    */
@@ -62,10 +56,10 @@ class UsersController extends Controller
   {
     // Validation
     $this->validate($request, [
-        'name' => 'required',
-        'initials' => 'required|unique:users',
-        'email' => 'required|email|unique:users',
-        'password' => 'required|min:8'
+      'name' => 'required',
+      'initials' => 'required|unique:users',
+      'email' => 'required|email|unique:users',
+      'password' => 'required|min:8'
     ]);
 
     $user = new User;
@@ -78,10 +72,15 @@ class UsersController extends Controller
 
       // Create uploads/avatar folder if not exists
       if( !File::exists(public_path($this->upload_path)) ) {
-        File::makeDirectory(public_path($this->upload_path),  $mode = 0775, $recursive = true);
+        File::makeDirectory(public_path($this->upload_path),
+          $mode = 0775,
+          $recursive = true);
       }
 
-      Image::make($avatar)->resize('125', '125')->save(public_path($this->upload_path . $filename));
+      Image::make($avatar)
+           ->resize('125', '125')
+           ->save(public_path($this->upload_path . $filename));
+
       $data['avatar'] = $filename;
     }
 
@@ -93,10 +92,8 @@ class UsersController extends Controller
     return response()->json(true, 200);
   }
 
-
   /**
    * Display the specified resource.
-   *
    * @param  int  $id
    * @return Obejct
    */
@@ -110,9 +107,8 @@ class UsersController extends Controller
 
   /**
    * Remove the specified resource from storage.
-   *
    * @param  int  $id
-   * @return True
+   * @return Response
    */
   public function destroy($id)
   {
@@ -123,25 +119,30 @@ class UsersController extends Controller
     }
 
     User::destroy($id);
+
     return response()->json(true, 200);
   }
 
-
   /**
    * Get enum field values of table
-   *
    * @param string $name
    * @return array
    */
-  public function getPossibleEnumValues($name){
-      $user = new User;
-      $type = DB::select( DB::raw('SHOW COLUMNS FROM '.$user->getTable().' WHERE Field = "'.$name.'"') )[0]->Type;
-      preg_match('/^enum\((.*)\)$/', $type, $matches);
-      $enum = array();
-      foreach(explode(',', $matches[1]) as $value){
-          $v = trim( $value, "'" );
-          $enum[] = $v;
-      }
-      return $enum;
+  public function getPossibleEnumValues($name)
+  {
+    $user = new User;
+    $type = DB::select( DB::raw('SHOW COLUMNS FROM ' . $user->getTable() .
+      ' WHERE Field = "'.$name.'"') )[0]->Type;
+
+    preg_match('/^enum\((.*)\)$/', $type, $matches);
+
+    $enum = array();
+
+    foreach(explode(',', $matches[1]) as $value) {
+      $v = trim( $value, "'" );
+      $enum[] = $v;
+    }
+
+    return $enum;
   }
 }

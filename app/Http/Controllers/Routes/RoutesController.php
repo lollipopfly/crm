@@ -3,16 +3,15 @@
 namespace App\Http\Controllers\Routes;
 
 use App\Http\Requests;
+use App\Http\Requests\RoutesCreateRequest;
 use App\Http\Controllers\Controller;
-
 use App\Events\NewRoute;
 use App\Route;
 use App\User;
 use App\Store;
 use App\Point;
-use Illuminate\Http\Request;
-use App\Http\Requests\RoutesCreateRequest;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Session;
 
 class RoutesController extends Controller
@@ -22,17 +21,17 @@ class RoutesController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function __construct() {
+  public function __construct()
+  {
     $this->middleware('role', [
       'only' => 'getUsersAndStores|destroy|store|update|edit'
     ]);
   }
 
-
   /**
    * Display a listing of the resource.
    *
-   * @return JSON
+   * @return Response
    */
   public function index()
   {
@@ -42,8 +41,8 @@ class RoutesController extends Controller
     // GET PROGRESS OF ROUTE
     foreach ($routes as &$route) {
       // Filter points by route id
-      $filteredPoints = $points->filter(function ($value, $key) use ($route){
-          return $value->route_id == $route->id;
+      $filteredPoints = $points->filter(function ($value, $key) use ($route) {
+        return $value->route_id == $route->id;
       });
 
       $filteredPoints->all();
@@ -53,12 +52,13 @@ class RoutesController extends Controller
 
       // Get count of completed routes
       foreach ($filteredPoints as $point) {
-          $statusArr[] = $point->status;
+        $statusArr[] = $point->status;
 
-          if($point->status == 1) {
-              $percentCount++;
-          }
+        if($point->status == 1) {
+          $percentCount++;
+        }
       }
+
       $statusArrCount = count($statusArr);
 
       // Calculate percentage & Add progress to Route
@@ -73,11 +73,10 @@ class RoutesController extends Controller
     return response()->json($routes, 200);
   }
 
-
   /**
    * Store a newly created resource in storage.
-   *
-   * @return True
+   * @param  RoutesCreateRequest $request
+   * @return Response
    */
   public function store(RoutesCreateRequest $request)
   {
@@ -101,7 +100,7 @@ class RoutesController extends Controller
     // Update availability of Driver
     User::where('id', $request->user_id)->update(['availability' => false]);
 
-    // Send Push Notification to user
+    // Send Push Notification to user via pusher
     event(new NewRoute($request->user_id));
 
     return response()->json(true, 200);
@@ -110,10 +109,8 @@ class RoutesController extends Controller
 
   /**
    * Display the specified resource.
-   *
    * @param  int  $id
-   *
-   * @return JSON
+   * @return Response
    */
   public function show($id)
   {
@@ -128,12 +125,9 @@ class RoutesController extends Controller
       ]);
   }
 
-
   /**
    * Get the form for editing the specified resource.
-   *
    * @param  int  $id
-   *
    * @return Response
    */
   public function edit($id)
@@ -161,17 +155,13 @@ class RoutesController extends Controller
     $route['points'] = $points;
     $route['stores'] = $stores;
 
-
     return response()->json($route, 200, [], JSON_NUMERIC_CHECK);
   }
 
-
   /**
    * Update the specified resource in storage.
-   *
    * @param  int  $id
-   *
-   * @return True
+   * @return Response
    */
   public function update($id, Request $request)
   {
@@ -188,7 +178,6 @@ class RoutesController extends Controller
     // Get all points by route_id
     $points = Point::where('route_id', $id)->get();
 
-
     foreach ($points as $point) {
       // If backend point exist in frontend point
       if(in_array($point['id'], $pointArrIds)) {
@@ -202,13 +191,14 @@ class RoutesController extends Controller
         foreach ($pointArr as $key => $value) {
           if ($point['id'] == $value['id']) {
             $updatedPoint = [
-                'user_id'       => $request->user_id,
-                'store_id'      => $value['store_id'],
-                'deadline_time' => $value['deadline_time'],
-                'products'      => $value['products'],
+              'user_id'       => $request->user_id,
+              'store_id'      => $value['store_id'],
+              'deadline_time' => $value['deadline_time'],
+              'products'      => $value['products'],
             ];
 
-            Point::where(['route_id' => $id, 'id' => $point['id']])->update($updatedPoint);
+            Point::where(['route_id' => $id, 'id' => $point['id']])
+                 ->update($updatedPoint);
             continue 2;
           }
         }
@@ -217,10 +207,10 @@ class RoutesController extends Controller
       }
     }
 
-
     // If have new routes, create them
     if(!empty($pointArrIds)) {
       $n = 1;
+
       foreach($pointArr as $key => $value) {
         if($value['id'] == $n.'_new') {
           $newPointArr = [
@@ -228,10 +218,14 @@ class RoutesController extends Controller
             'user_id'       => $request->user_id,
             'store_id'      => $value['store_id'],
             'products'      => $value['products'],
-                        // 'deadline_time' => $value['deadline_time'],
           ];
-          if(isset($value['deadline_time'])) $newPointArr["deadline_time"] = $value['deadline_time'];
+
+          if(isset($value['deadline_time'])) {
+            $newPointArr["deadline_time"] = $value['deadline_time'];
+          }
+
           Point::create($newPointArr);
+
           $n++;
         }
       }
@@ -240,24 +234,24 @@ class RoutesController extends Controller
     // Update Route
     $route = Route::findOrFail($id);
     $old_user_id = $route->user_id;
+
     $route->update(["user_id" => $request->user_id, "date" => $request->date]);
 
     // Update current and new User availability if user was changed
     if($old_user_id !== $request->user_id) {
-        User::where('id', $old_user_id)->update(['availability' => true]); // update old user
-        User::where('id', $request->user_id)->update(['availability' => false]);//update news user
+      // update old user
+      User::where('id', $old_user_id)->update(['availability' => true]);
+      //update news user
+      User::where('id', $request->user_id)->update(['availability' => false]);
     }
 
     return response()->json(true, 200);
   }
 
-
   /**
    * Remove the specified resource from storage.
-   *
    * @param  int  $id
-   *
-   * @return True
+   * @return Response
    */
   public function destroy($id)
   {
@@ -265,16 +259,15 @@ class RoutesController extends Controller
 
     Route::destroy($id);
     Point::where('route_id', $id)->delete();
-    User::where('id', $route->user_id)->update(['availability' => true]); // update availabillity
+    // update availabillity
+    User::where('id', $route->user_id)->update(['availability' => true]);
 
     return response()->json(true, 200);
   }
 
-
   /**
    * Return users and stores
-   *
-   * @return JSON
+   * @return Response
    */
   public function getUsersAndStores()
   {

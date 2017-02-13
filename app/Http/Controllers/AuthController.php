@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Http\Requests;
-use JWTAuth;
-use Tymon\JWTAuth\Exceptions\JWTException;
 use App\User;
 use Auth;
-use Mail;
 use Hash;
+use Illuminate\Http\Request;
+use JWTAuth;
+use Mail;
+use Tymon\JWTAuth\Exceptions\JWTException;
 
 class AuthController extends Controller
 {
@@ -18,12 +18,18 @@ class AuthController extends Controller
     $this->user = $user;
     $this->jwtauth = $jwtauth;
 
-    $this->middleware('jwt.auth', ['except' => ['authenticate', 'register', 'confirm', 'sendResetCode', 'resetPassword']]);
+    $this->middleware('jwt.auth',
+      ['except' => [
+        'authenticate',
+        'register',
+        'confirm',
+        'sendResetCode',
+        'resetPassword'
+      ]]);
   }
 
   /**
    * Return the user
-   *
    * @return Object
    */
   public function index()
@@ -34,10 +40,10 @@ class AuthController extends Controller
     return $users;
   }
 
-
   /**
    * Sign in
-   * @return JSON
+   * @param  Request $request
+   * @return Response
    */
   public function authenticate(Request $request)
   {
@@ -49,10 +55,11 @@ class AuthController extends Controller
 
     // grab credentials from the request
     $credentials = $request->only('email', 'password');
+
     try {
       // attempt to verify the credentials and create a token for the user
       if (! $token = JWTAuth::attempt($credentials)) {
-          return response()->json(['error' => 'Invalid login or password'], 401);
+        return response()->json(['error' => 'Invalid login or password'], 401);
       }
     } catch (JWTException $e) {
       return response()->json(['error' => 'could_not_create_token'], 500);
@@ -61,7 +68,6 @@ class AuthController extends Controller
     // all good so return the token
     return response()->json(compact('token'));
   }
-
 
   /**
    * Sign up
@@ -80,10 +86,10 @@ class AuthController extends Controller
     $confirmation_code = str_random(30);
 
     $newUser = USER::create([
-        'name' => $request->get('name'),
-        'email' => $request->get('email'),
-        'password' => bcrypt($request->get('password')),
-        'confirmation_code' => $confirmation_code
+      'name' => $request->get('name'),
+      'email' => $request->get('email'),
+      'password' => bcrypt($request->get('password')),
+      'confirmation_code' => $confirmation_code
     ]);
 
     if($newUser) {
@@ -93,7 +99,9 @@ class AuthController extends Controller
         "password" => $request->get('password'),
         "confirmation_code" => $confirmation_code
       );
-      $email = Mail::send('email.verify', $emailUser, function($message) use($emailUser) {
+
+      $email = Mail::send('email.verify', $emailUser,
+        function($message) use($emailUser) {
           $message->to($emailUser['email'], $emailUser['name'])
                   ->subject('Verify your email address');
       });
@@ -104,11 +112,9 @@ class AuthController extends Controller
     return response()->json(['error' => 'User not added!'], 500);
   }
 
-
   /**
    * Get user when user is login
-   *
-   * @return JSON
+   * @return Response
    */
   public function getAuthenticatedUser()
   {
@@ -133,19 +139,21 @@ class AuthController extends Controller
     return response()->json(compact('user'));
   }
 
-
   /**
    * Confirm password
-   * @param Object $request
-   * @return Object
+   * @param Request $request
+   * @return Array
    */
   public function confirm(Request $request)
   {
     if (!$request->confirmation_code) {
-      return response()->json(['error' => 'Url do not has confirmation code!'], 500);
+      return response()->json([
+        'error' => 'Url do not has confirmation code!'
+      ], 500);
     }
 
-    $user = User::where('confirmation_code', $request->confirmation_code)->first();
+    $user = User::where('confirmation_code', $request->confirmation_code)
+                ->first();
 
     if (!$user) {
       return response()->json(['error' => 'Do not find User'], 500);
@@ -160,7 +168,10 @@ class AuthController extends Controller
       return response()->json(['error' => 'invalid_credentials'], 401);
     }
 
-    $user = collect($user)->except(['confirmed', 'confirmation_code', 'reset_password_code']);
+    $user = collect($user)->except([
+      'confirmed',
+      'confirmation_code',
+      'reset_password_code']);
     $user['token'] = $token;
 
     return $user;
@@ -169,7 +180,7 @@ class AuthController extends Controller
 
   /**
    * Send reset password code to Email
-   * @param Object $request
+   * @param Request $request
    * @return Response
    */
   public function sendResetCode(Request $request)
@@ -188,15 +199,18 @@ class AuthController extends Controller
         "name" => $user->name,
          "email" => $user->email,
          "reset_password_code" => $reset_password_code
-       );
+      );
 
-      $email = Mail::send('email.reset_password', $emailUser, function($message) use($emailUser) {
+      $email = Mail::send('email.reset_password', $emailUser,
+        function($message) use($emailUser) {
           $message->to($emailUser['email'], $emailUser['name'])
                   ->subject('Verify your email address');
       });
 
       if($email) {
-        User::where('email', $user->email)->update(['reset_password_code' => $reset_password_code]);
+        User::where('email', $user->email)
+            ->update(['reset_password_code' => $reset_password_code]);
+
         return response()->json(true, 200);
       }
     }
@@ -204,10 +218,9 @@ class AuthController extends Controller
     return response()->json(['error' => 'Do not find User'], 500);
   }
 
-
   /**
    * Reset password
-   * @param Object $request
+   * @param Request $request
    * @return Response
    */
   public function resetPassword(Request $request)
@@ -217,13 +230,16 @@ class AuthController extends Controller
       'password' => 'required|min:8|confirmed',
     ]);
 
-    $user = User::where('reset_password_code', $request->reset_password_code)->first();
+    // Get user
+    $user = User::where('reset_password_code', $request->reset_password_code)
+                ->first();
 
     if($user) {
+      // Make hash
       $hashad_password = Hash::make($request->password);
 
       if (Hash::needsRehash($hashad_password)) {
-          $hashad_password = Hash::make($request->password);
+        $hashad_password = Hash::make($request->password);
       }
 
       $user->password = $hashad_password;

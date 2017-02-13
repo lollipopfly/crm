@@ -27,7 +27,7 @@ EditRouteCtrl = ($http, $state, $stateParams) ->
 
   vm.addPoint = () ->
     vm.obj.points.push({
-      id: vm.count + '_new'
+      id: vm.count + '_new',
     })
 
     vm.count++

@@ -15,18 +15,20 @@ IndexUserCtrl = ($http, $filter, $rootScope, $stateParams) ->
     return
   , (error) ->
     vm.error = error.data
+
     return
   )
 
   vm.sortBy = (predicate) ->
     vm.sortReverse = !vm.sortReverse
+
     $('.sort-link').each () ->
       $(this).removeClass().addClass('sort-link c-p')
 
     if vm.sortReverse
       $('#'+predicate).removeClass('active-asc').addClass('active-desc')
     else
-      $('#'+predicate).removeClass('active-desc').addClass('active-asc');
+      $('#'+predicate).removeClass('active-desc').addClass('active-asc')
 
     vm.predicate = predicate
     vm.reverse = if (vm.predicate == predicate) then !vm.reverse else false
@@ -51,6 +53,7 @@ IndexUserCtrl = ($http, $filter, $rootScope, $stateParams) ->
   return
 
 'use strict'
+
 angular
   .module('app')
   .controller('IndexUserCtrl', IndexUserCtrl)

@@ -13,7 +13,6 @@ class HomeController extends Controller
 {
   /**
    * Create a new controller instance.
-   *
    * @return void
    */
   public function __construct()
@@ -26,8 +25,7 @@ class HomeController extends Controller
 
   /**
    * Get Routes
-   *
-   * @return JSON
+   * @return Response
    */
   public function index()
   {
@@ -37,7 +35,7 @@ class HomeController extends Controller
     // GET PROGRESS OF ROUTE
     foreach ($routes as &$route) {
       // Filter points by route id
-      $filteredPoints = $points->filter(function ($value, $key) use ($route){
+      $filteredPoints = $points->filter(function ($value, $key) use ($route) {
           return $value->route_id == $route->id;
       });
 
@@ -47,13 +45,14 @@ class HomeController extends Controller
       $percentCount = 0;
 
       // Get count of completed routes
-      foreach ($filteredPoints as $point) {
-          $statusArr[] = $point->status;
+      foreach($filteredPoints as $point) {
+        $statusArr[] = $point->status;
 
-          if($point->status == 1) {
-              $percentCount++;
-          }
+        if($point->status == 1) {
+          $percentCount++;
+        }
       }
+
       $statusArrCount = count($statusArr);
 
       // Calculate percentage & Add progress to Route
@@ -68,11 +67,9 @@ class HomeController extends Controller
     return response()->json($routes, 200);
   }
 
-
   /**
    * Get all points of route in JSON Format
-   *
-   * @return JSON
+   * @return Response
    */
   public function getPoints() {
     $user = $this->user;
@@ -82,7 +79,8 @@ class HomeController extends Controller
       $where = ['user_id' => $user->id];
     }
 
-    $points = Point::select('id', 'status', 'store_id')->with(['store' => function($query) {
+    $points = Point::select('id', 'status', 'store_id')
+                   ->with(['store' => function($query) {
        $query->select('id', 'address', 'phone');
     }])->where($where)->get();
 
