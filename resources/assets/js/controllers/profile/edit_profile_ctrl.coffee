@@ -18,7 +18,7 @@ EditProfileCtrl = ($http, $state, Upload, $rootScope) ->
       vm.user.avatar = 'default_avatar.jpg' # todo hz may be for delete
       avatar = 'default_avatar.jpg'
 
-    vm.data {
+    vm.data = {
       avatar: avatar,
       remove_avatar: vm.user.remove_avatar,
       name: vm.user.name,

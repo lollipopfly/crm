@@ -1,4 +1,4 @@
-EditRouteCtrl = ($scope, $http, $state, $stateParams) ->
+EditRouteCtrl = ($http, $state, $stateParams) ->
   vm = this
   vm.id = $stateParams.id
   vm.count = 1
