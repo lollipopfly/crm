@@ -1,27 +1,58 @@
-# Laravel PHP Framework
+# CRM system for delivery company
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+CRM system for delivery company, written in Laravel and AngularJS. There I used Google maps Api, Pusher Api for realtime notifications and JSON Web token authentication.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## Getting Started
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+Clone Repo
 
-## Official Documentation
+````
+git clone https://github.com/lollipopfly/crm.git
+````
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+Create Database
 
-## Contributing
+Cd project and run composer install and npm install
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+````
+cd crm
+composer install
+npm install
+````
 
-## Security Vulnerabilities
+Add .env file to root directory.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
+Migrate tables
 
-## License
+````
+php artisan migrate
+````
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).
+## Work Flow
+
+Open new terminal
+
+````
+gulp
+````
+
+## Features
+
+* [JWT-Auth] (https://github.com/tymondesigns/jwt-auth)
+* [Satellizer] (https://github.com/sahat/satellizer)
+* [UI-Router] (https://github.com/angular-ui/ui-router/)
+* [CoffeeScript] (coffeescript.org)
+* [Slim] (http://slim-lang.com/)
+* [PostCss] (http://postcss.org/)
+* [Pusher-js] (https://github.com/pusher/pusher-js)
+* [Angular-notification] (https://github.com/neoziro/angular-notification)
+
+
+## Built With
+* [Laravel] (http://laravel.com)
+* [Angularjs] (https://angularjs.org)
+* [Google maps] (https://developers.google.com/maps/?hl=ru)
+* [Twitter Bootstrap] (https://getbootstrap.com)
+* [Composer] (https://getcomposer.org/)
+* [Gulp.JS] (http://gulpjs.com/)
+* [NPM] (https://www.npmjs.com/)
